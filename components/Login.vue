@@ -1,0 +1,53 @@
+<template>
+  <div class="grid justify-items-center">
+        <h1 class="text-fourth header-text font-bold text-center">MRT</h1>
+        <p v-if="error.length">
+          <b>please correct the following errors</b>
+          <ul>
+            <li v-for="e in error" v-bind:key="e.id">
+              {{e}}
+            </li>
+          </ul>
+        </p>
+        <form @submit="login" class="grid m-1">
+          <label for="text">Email</label>
+          <input class="my-1 border-solid border p-1 border-black" id="email" type="email" v-model="email" placeholder="Please enter your email" required></input>
+          <label for="password">Password:</label>
+          <input class=" my-1 border-solid border p-1 border-black" id="password" type="text" v-model="password" placeholder="Please enter your password" required></input>
+          <button type="submit" class="primary-button p-2">login</button>
+        </form>
+      </div>
+</template>
+
+<script>
+export default {
+  name: "Login",
+  data(){
+    return {
+			error:[],
+      email: null,
+      password: null, 
+    }
+  },
+  created: {
+    login(e) 
+    { 
+      if(this.email && this.password) 
+      {
+        console.log("login called")
+        } 
+        this.error=[]; 
+        if(!this.email)
+        {
+          this.error.push("email is required")
+        }
+        if(!this.password)
+        {
+          this.error.push("password is required")
+        }
+        console.warn("errors", this.error)e.preventDefault()
+      }
+    }
+}
+
+</script>

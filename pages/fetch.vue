@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <article><h1>Fetching situation</h1></article>
 </template>
 
@@ -6,8 +6,8 @@
 import astronauts from '/assets/astronauts.json'
 
 export default {
-  asyncData({ params }) {
+  asyncData({}) {
     console.log('astronauts onboard', astronauts)
   },
 }
-</script>
+</script> -->
