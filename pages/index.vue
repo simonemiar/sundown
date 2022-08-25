@@ -3,7 +3,7 @@
     <div class="grid justify-items-center">
       <Login />
       <div class="astronauts">
-        <p>hello</p>
+        <h1>Hi, {{ user.name }}</h1>
       </div>
     </div>
   </body>

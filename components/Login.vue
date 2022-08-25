@@ -4,16 +4,16 @@
         <p v-if="error.length">
           <b>please correct the following errors</b>
           <ul>
-            <li v-for="e in error" v-bind:key="e.id">
+            <li v-for="e in error" v-bind:key="e">
               {{e}}
             </li>
           </ul>
         </p>
         <form @submit="login" class="grid m-1">
           <label for="text">Email</label>
-          <input class="my-1 border-solid border p-1 border-black" id="email" type="email" v-model="email" placeholder="Please enter your email" required></input>
+          <input class="my-1 border-solid border p-1 border-black" id="email" type="email" v-model="email" placeholder="Please enter your email"></input>
           <label for="password">Password:</label>
-          <input class=" my-1 border-solid border p-1 border-black" id="password" type="text" v-model="password" placeholder="Please enter your password" required></input>
+          <input class=" my-1 border-solid border p-1 border-black" id="password" type="text" v-model="password" placeholder="Please enter your password"></input>
           <button type="submit" class="primary-button p-2">login</button>
         </form>
       </div>
@@ -29,7 +29,7 @@ export default {
       password: null, 
     }
   },
-  created: {
+  methods: {
     login(e) 
     { 
       if(this.email && this.password) 
@@ -39,15 +39,20 @@ export default {
         this.error=[]; 
         if(!this.email)
         {
-          this.error.push("email is required")
+          this.error = ["email is required"]
         }
         if(!this.password)
         {
-          this.error.push("password is required")
+          this.error = ["password is required"]
         }
-        console.warn("errors", this.error)e.preventDefault()
+        console.log("errors", this.error);
+        e.preventDefault()
       }
     }
 }
 
 </script>
+
+// for loop submitted through json
+// store login in local storage 
+// 
