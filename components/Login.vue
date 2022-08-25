@@ -14,12 +14,15 @@
           <input class="my-1 border-solid border p-1 border-black" id="email" type="email" v-model="email" placeholder="Please enter your email"></input>
           <label for="password">Password:</label>
           <input class=" my-1 border-solid border p-1 border-black" id="password" type="text" v-model="password" placeholder="Please enter your password"></input>
-          <button type="submit" class="primary-button p-2">login</button>
+          <button type="submit" class="primary-button ">login</button>
         </form>
       </div>
 </template>
 
 <script>
+const users = require('../assets/users.json')
+console.log(users[0])
+
 export default {
   name: "Login",
   data(){

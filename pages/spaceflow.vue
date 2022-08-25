@@ -1,12 +1,16 @@
 <template>
-  <div></div>
+  <div>
+    <Header />
+    <div><Images /></div>
+  </div>
 </template>
 
 <script>
+import Header from '../components/Header.vue'
+import Images from '../components/Images.vue'
 export default {
-  async asyncData({ $axios }) {
-    const ip = await $axios.$get('http://icanhazip.com')
-    return { ip }
-  },
+  name: 'Spaceflow',
+  components: Header,
+  Images,
 }
 </script>
