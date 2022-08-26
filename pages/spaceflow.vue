@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <div><Images /></div>
+    <section class="max-w-screen-lg"><Images /></section>
   </div>
 </template>
 
