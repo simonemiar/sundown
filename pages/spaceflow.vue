@@ -1,30 +1,30 @@
 <template>
   <div>
-    <Header />
+    <div>
+      <Header />
+    </div>
     <section class="max-w-screen-lg">
-      <div><FlowDetails @toggle-flow-images="toggleflowimages" /></div>
-      <div><FlowImages v-if="showFlowImages" /></div>
-      <div><FlowMap v-if="showFlowMap" /></div>
-      <div><FlowOverview v-if="showFlowOverview" /></div>
+      <div v-if="showFlowDetails">
+        <FlowDetails @toggle-flow-images="toggleflowimages" />
+      </div>
+      <div v-if="showFlowImages">
+        <FlowImages @toggle-flow-map="toggleflowmap" />
+      </div>
+      <div v-if="showFlowMap">
+        <FlowMap @toggle-flow-overview="toggleflowoverview" />
+      </div>
+      <div v-if="showFlowOverview"><FlowOverview /></div>
     </section>
   </div>
 </template>
 
 <script>
-import Header from '../components/Header.vue'
-import FlowDetails from '../components/FlowDetails.vue'
-import FlowImages from '../components/FlowImages.vue'
-import FlowMap from '../components/FlowMap.vue'
-import FlowOverview from '../components/FlowOverview.vue'
 export default {
   name: 'Spaceflow',
-  components: Header,
-  FlowDetails,
-  FlowImages,
-  FlowMap,
-  FlowOverview,
+
   data() {
     return {
+      showFlowDetails: true,
       showFlowImages: false,
       showFlowMap: false,
       showFlowOverview: false,
@@ -32,7 +32,16 @@ export default {
   },
   methods: {
     toggleflowimages() {
-      this.toggleflowimages = !this.toggleflowimages
+      this.showFlowImages = !this.showFlowImages
+      this.showFlowDetails = !this.showFlowDetails
+    },
+    toggleflowmap() {
+      this.showFlowMap = !this.showFlowMap
+      this.showFlowImages = !this.showFlowImages
+    },
+    toggleflowoverview() {
+      this.showFlowOverview = !this.showFlowOverview
+      this.showFlowMap = !this.showFlowMap
     },
   },
 }

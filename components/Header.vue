@@ -5,6 +5,7 @@
         MRT
       </h1>
     </nuxt-link>
+    <div class="tabs"></div>
   </div>
 </template>
 

@@ -34,10 +34,7 @@
     </section>
     <div class="flex place-content-between">
       <nuxt-link to="/"><Button text="back" /></nuxt-link>
-      <Button
-        @toggle-flow-images="$emit('toggle-flow-images')"
-        text="forward"
-      />
+      <Button v-on:click.native="clickHandle" text="forward" />
     </div>
   </div>
 </template>
@@ -52,6 +49,12 @@ export default {
       missionname: '',
       missiondesc: '',
     }
+  },
+  methods: {
+    clickHandle() {
+      console.log('click, this i click?')
+      this.$emit('toggle-flow-images')
+    },
   },
 }
 </script>

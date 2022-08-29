@@ -30,7 +30,10 @@
     </section>
     <div class="flex place-content-between">
       <Button text="back" />
-      <Button text="forward" />
+      <Button
+        @toggle-flow-images="$emit('toggle-flow-overview')"
+        text="forward"
+      />
     </div>
   </div>
 </template>

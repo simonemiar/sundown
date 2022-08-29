@@ -11,8 +11,14 @@ export default {
     text: String,
   },
   methods: {
-    onClick() {
+    onClickImages() {
       this.$emit('toggle-flow-images')
+    },
+    onClickMap() {
+      this.$emit('toggle-flow-map')
+    },
+    onClickOverview() {
+      this.$emit('toggle-flow-overview')
     },
   },
 }
