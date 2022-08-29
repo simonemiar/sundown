@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     clickHandle() {
-      console.log('click, this i click?')
       this.$emit('toggle-flow-images')
     },
   },

@@ -29,7 +29,7 @@
     </section>
     <div class="flex place-content-between">
       <Button text="back" />
-      <Button @toggle-flow-images="$emit('toggle-flow-map')" text="forward" />
+      <Button v-on:click.native="clickHandle" text="forward" />
     </div>
   </div>
 </template>
@@ -48,6 +48,11 @@ export default {
     this.spaceimages = await fetch(
       'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15'
     ).then((res) => res.json())
+  },
+  methods: {
+    clickHandle() {
+      this.$emit('toggle-flow-map')
+    },
   },
 }
 </script>

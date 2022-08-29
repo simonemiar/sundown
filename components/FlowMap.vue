@@ -30,10 +30,7 @@
     </section>
     <div class="flex place-content-between">
       <Button text="back" />
-      <Button
-        @toggle-flow-images="$emit('toggle-flow-overview')"
-        text="forward"
-      />
+      <Button v-on:click.native="clickHandle" text="forward" />
     </div>
   </div>
 </template>
@@ -43,5 +40,10 @@ import Button from './Button.vue'
 export default {
   name: 'FlowDetails',
   components: { 'v-button': Button },
+  methods: {
+    clickHandle() {
+      this.$emit('toggle-flow-overview')
+    },
+  },
 }
 </script>
