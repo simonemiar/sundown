@@ -1,15 +1,18 @@
 <template>
   <button class="primary-button" id="Button">
-    <slot>Button</slot>
+    {{ text }}
   </button>
 </template>
 ​
 <script>
 export default {
+  name: 'Button',
   props: {
-    onClick: {
-      type: Function,
-      required: true,
+    text: String,
+  },
+  methods: {
+    onClick() {
+      this.$emit('toggle-flow-images')
     },
   },
 }

@@ -38,6 +38,7 @@ export default {
       if(this.email && this.password) 
       {
         console.log("login called")
+        // loop here
         } 
         this.error=[]; 
         if(!this.email)

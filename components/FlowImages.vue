@@ -28,14 +28,14 @@
       </div>
     </section>
     <div class="flex place-content-between">
-      <nuxt-link to="/"> <v-button>back</v-button></nuxt-link>
-      <v-button>forward</v-button>
+      <Button text="back" />
+      <Button text="forward" />
     </div>
   </div>
 </template>
 
 <script>
-import Button from '../components/Button.vue'
+import Button from './Button.vue'
 export default {
   data() {
     return {
