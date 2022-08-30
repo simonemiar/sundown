@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-between p-2 m-1 bg-blue-300 rounded">
+    <div class="secondary-button flex justify-between mx-3 bg-blue-300 rounded">
       <h3>{{ spacereport.id }}</h3>
       <p>{{ spacereport.missionname }}</p>
       <button class="text-white bg-black px-2">x</button>

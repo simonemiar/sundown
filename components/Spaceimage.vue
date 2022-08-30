@@ -1,13 +1,13 @@
 <template>
   <div>
-    <img class="w-56" :src="product.image" alt="space image" />
+    <img class="w-full" :src="image.img_src" alt="space image" />
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    product: {
+    image: {
       type: Object,
       default: () => {},
     },

@@ -30,16 +30,14 @@
     </section>
     <div class="flex place-content-between">
       <Button text="back" />
-      <Button v-on:click.native="clickHandle" text="forward" />
+      <Button @click.native="clickHandle" text="forward" />
     </div>
   </div>
 </template>
 
 <script>
-import Button from './Button.vue'
 export default {
   name: 'FlowDetails',
-  components: { 'v-button': Button },
   methods: {
     clickHandle() {
       this.$emit('toggle-flow-overview')

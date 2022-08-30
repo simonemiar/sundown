@@ -10,13 +10,11 @@
           id="report_container"
           class="border border-gray-900 overflow-scroll h-full"
         >
-          <!-- https://www.youtube.com/watch?v=KOAJPmnMTEY&ab_channel=DebbieO%27Brien -->
-          <!-- <div v-if="!$fetchState.pending">{{ images }}</div> -->
           <div v-if="!$fetchState.pending">
-            <Spaceimages
+            <Spaceimage
               v-for="spaceimage in spaceimages"
               :key="spaceimage.img_src"
-              :product="spaceimages"
+              :image="spaceimage"
             />
           </div>
           <div v-else>Loading...</div>
@@ -29,13 +27,12 @@
     </section>
     <div class="flex place-content-between">
       <Button text="back" />
-      <Button v-on:click.native="clickHandle" text="forward" />
+      <Button @click.native="clickHandle" text="forward" />
     </div>
   </div>
 </template>
 
 <script>
-import Button from './Button.vue'
 export default {
   data() {
     return {
@@ -43,11 +40,12 @@ export default {
     }
   },
   // needs to loop though array to get to img
-  components: { 'v-button': Button },
   async fetch() {
-    this.spaceimages = await fetch(
+    const data = await fetch(
       'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15'
     ).then((res) => res.json())
+    console.log(data)
+    this.spaceimages = data.photos
   },
   methods: {
     clickHandle() {

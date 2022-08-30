@@ -4,14 +4,14 @@
     <section id="section_layout" class="grid grid-cols-2">
       <div class="m-2">
         <p class="font-bold">Mission name:</p>
-        <p>{{ missionname }}</p>
+        <p>fake mission name</p>
         <div>
           <p class="font-bold">Mission Descripton</p>
           <p>{{ missiondesc }}</p>
         </div>
         <div>
           <p class="font-bold">Mission start date</p>
-          <p>{{ missiondesc }}</p>
+          <p>fake mission date</p>
         </div>
         <div>
           <p class="font-bold">Lat:</p>
@@ -37,9 +37,12 @@
 </template>
 
 <script>
-import Button from './Button.vue'
 export default {
   name: 'FlowDetails',
-  components: { 'v-button': Button },
+  computed: {
+    missiondesc() {
+      return this.$store.state.count
+    },
+  },
 }
 </script>

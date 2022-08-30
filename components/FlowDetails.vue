@@ -16,7 +16,8 @@
         <div class="h-full">
           <label class="font-bold">Mission description</label>
           <textarea
-            v-model="missiondesc"
+            :value="missiondesc"
+            @input="updateMissiondesc"
             id="missiondescription"
             name="missiondesc"
             class="border border-gray-900 overflow-scroll h-5/6 w-full"
@@ -34,25 +35,29 @@
     </section>
     <div class="flex place-content-between">
       <nuxt-link to="/"><Button text="back" /></nuxt-link>
-      <Button v-on:click.native="clickHandle" text="forward" />
+      <Button @click.native="clickHandle()" text="forward" />
     </div>
   </div>
 </template>
 
 <script>
-import Button from './Button.vue'
 export default {
   name: 'FlowDetails',
-  components: Button,
   data() {
-    return {
-      missionname: '',
-      missiondesc: '',
-    }
+    return {}
+  },
+  computed: {
+    missiondesc() {
+      return this.$store.state.missiondesc
+    },
   },
   methods: {
     clickHandle() {
       this.$emit('toggle-flow-images')
+    },
+
+    updateMissiondesc(e) {
+      this.$store.commit('updateMissiondesc', e.target.value)
     },
   },
 }
