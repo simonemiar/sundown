@@ -4,14 +4,14 @@
     <section id="section_layout" class="grid grid-cols-2">
       <div class="m-2">
         <p class="font-bold">Mission name:</p>
-        <div>display mission name</div>
+        <p>{{ missionname }}</p>
         <div>
           <p class="font-bold">Mission Descripton</p>
-          <p>display description</p>
+          <p>{{ missiondesc }}</p>
         </div>
         <div>
           <p class="font-bold">Mission start date</p>
-          <p>display start date</p>
+          <p>{{ missiondesc }}</p>
         </div>
         <div>
           <p class="font-bold">Lat:</p>

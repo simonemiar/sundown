@@ -1,5 +1,3 @@
-import axios from 'axios'
-
 //state
 export const state = () => {
   return { test: 1 }

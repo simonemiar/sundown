@@ -8,10 +8,13 @@
         <section id="section_layout" class="grid grid-cols-2">
           <div class="m-2">
             <p>space reports created by [user.name]</p>
-            <div
-              id="report_container"
-              class="border border-gray-900 h-20"
-            ></div>
+            <div id="report_container" class="border border-gray-900 h-60">
+              <Spacereports
+                @delete-spacereport="deleteSpacereport"
+                :spacereports="spacereports"
+              />
+              <!-- v bind for at det opdatere dynamisk  -->
+            </div>
           </div>
           <div class="m-2">
             <button @click="gotoSpaceFlow" class="secondary-button">
@@ -34,13 +37,42 @@
 </template>
 
 <script>
-import Login from '/components/Login.vue'
-import Header from '../components/Header.vue'
-
 export default {
   name: 'App',
-  components: Login,
-  Header,
+
+  data() {
+    return {
+      spacereports: [],
+    }
+  },
+  methods: {
+    deleteSpacereport(id) {
+      consol.log('spacereport', id)
+    },
+  },
+  created() {
+    this.spacereports = [
+      {
+        // fake space reports
+        id: 1,
+        missionname: 'first launch',
+        missiondesc: 'it went bad',
+        missiondate: '11-11-11',
+        selectedimages: 'pictures',
+        lat: '1234',
+        long: '1234',
+      },
+      {
+        id: 2,
+        missionname: 'second launch',
+        missiondesc: 'it went bad',
+        missiondate: '11-11-11',
+        selectedimages: 'pictures',
+        lat: '1234',
+        long: '1234',
+      },
+    ]
+  },
 
   methods: {
     gotoSpaceFlow() {
