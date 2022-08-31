@@ -1,21 +1,12 @@
-//v-calender import
-
-// import Vue from 'vue'
-// import VCalendar from 'v-calendar'
-
-// Vue.use(VCalendar, {
-//   componentPrefix: 'vc', // Use <vc-calendar /> instead of <v-calendar />
-// })
-
 //state
 export const state = () => {
   return {
     test: 1,
-    spacereport: {
+    spacereports: {
       missionname: '',
       missiondesc: '',
       missiondate: '',
-      missionimages: '',
+      missionimages: [],
     },
   }
 }
@@ -27,7 +18,7 @@ export const mutations = {
   },
 
   setSpacereport(state, { key, value }) {
-    state.spacereport[key] = value
+    state.spacereports[key] = value
   },
 }
 
@@ -36,7 +27,7 @@ export const actions = {}
 
 //getters
 export const getters = {
-  spacereport(state) {
-    return state.spacereport
+  spacereports(state) {
+    return state.spacereports
   },
 }

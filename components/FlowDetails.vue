@@ -26,10 +26,16 @@
       </div>
       <div class="m-2">
         <p class="font-bold">Mission start date (calender)</p>
-        <div
-          id="calender_container"
-          class="border border-gray-900 h-full"
-        ></div>
+        <div id="calender_container" class="border border-gray-900 h-full">
+          <div>
+            <v-date-picker
+              mode="range"
+              v-model="selectedDate"
+              :min-date="new Date()"
+              show-caps
+            />
+          </div>
+        </div>
       </div>
     </section>
     <div class="flex place-content-between">
@@ -52,9 +58,13 @@ export default {
     return {
       missionname: '',
       missiondesc: '',
+      missiondate: '',
+      selectedDate: {
+        start: new Date(2018, 10, 9),
+        end: new Date(2018, 10, 10),
+      },
     }
   },
-
   methods: {
     clickHandle() {
       this.$emit('toggle-flow-images')

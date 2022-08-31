@@ -4,10 +4,10 @@
     <section id="section_layout" class="grid grid-cols-2">
       <div class="m-2">
         <p class="font-bold">Mission name:</p>
-        <p>{{ spacereport.missionname }}</p>
+        <p>{{ spacereports.missionname }}</p>
         <div>
           <p class="font-bold">Mission Descripton</p>
-          <p>{{ spacereport.missiondesc }}</p>
+          <p>{{ spacereports.missiondesc }}</p>
         </div>
         <div>
           <p class="font-bold">Mission start date</p>
@@ -40,8 +40,8 @@
 export default {
   name: 'FlowDetails',
   computed: {
-    spacereport() {
-      return this.$store.getters.spacereport
+    spacereports() {
+      return this.$store.getters.spacereports
     },
   },
 }
