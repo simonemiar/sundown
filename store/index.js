@@ -1,3 +1,12 @@
+//v-calender import
+
+// import Vue from 'vue'
+// import VCalendar from 'v-calendar'
+
+// Vue.use(VCalendar, {
+//   componentPrefix: 'vc', // Use <vc-calendar /> instead of <v-calendar />
+// })
+
 //state
 export const state = () => {
   return {
@@ -8,7 +17,6 @@ export const state = () => {
       missiondate: '',
       missionimages: '',
     },
-    missiondesc: 'test hallo',
   }
 }
 
@@ -17,15 +25,10 @@ export const mutations = {
   setTest(state, newState) {
     state.test = newState
   },
-  setReport(state, { key, value }) {
-    state.report[key] = value
+
+  setSpacereport(state, { key, value }) {
+    state.spacereport[key] = value
   },
-  // updateMissionname(state, newState) {
-  //   state.missionname = newState
-  // },
-  // updateMissiondesc(state, newState) {
-  //   state.missiondesc = newState
-  // },
 }
 
 //actions - is async they go out as third party api
@@ -33,7 +36,7 @@ export const actions = {}
 
 //getters
 export const getters = {
-  report(state) {
-    return state.report
+  spacereport(state) {
+    return state.spacereport
   },
 }

@@ -9,10 +9,7 @@
           <div class="m-2">
             <p>space reports created by [user.name]</p>
             <div id="report_container" class="border border-gray-900 h-60">
-              <Spacereports
-                @delete-spacereport="deleteSpacereport"
-                :spacereports="spacereports"
-              />
+              <Spacereports :spacereports="spacereports" />
               <!-- v bind for at det opdatere dynamisk  -->
             </div>
           </div>
@@ -45,11 +42,7 @@ export default {
       spacereports: [],
     }
   },
-  methods: {
-    deleteSpacereport(id) {
-      consol.log('spacereport', id)
-    },
-  },
+
   created() {
     this.spacereports = [
       {

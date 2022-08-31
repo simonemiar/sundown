@@ -16,9 +16,8 @@
         <div class="h-full">
           <label class="font-bold">Mission description</label>
           <textarea
-            :value="missiondesc"
-            @input="updateMissiondesc"
-            id="missiondescription"
+            v-model="missiondesc"
+            id="missiondesc"
             name="missiondesc"
             class="border border-gray-900 overflow-scroll h-5/6 w-full"
             required
@@ -35,7 +34,13 @@
     </section>
     <div class="flex place-content-between">
       <nuxt-link to="/"><Button text="back" /></nuxt-link>
-      <Button @click.native="clickHandle()" text="forward" />
+      <Button
+        @click.native="
+          clickHandle()
+          updateInput()
+        "
+        text="forward"
+      />
     </div>
   </div>
 </template>
@@ -44,20 +49,26 @@
 export default {
   name: 'FlowDetails',
   data() {
-    return {}
+    return {
+      missionname: '',
+      missiondesc: '',
+    }
   },
-  computed: {
-    missiondesc() {
-      return this.$store.state.missiondesc
-    },
-  },
+
   methods: {
     clickHandle() {
       this.$emit('toggle-flow-images')
     },
-
-    updateMissiondesc(e) {
-      this.$store.commit('updateMissiondesc', e.target.value)
+    updateInput() {
+      console.log('test input')
+      this.$store.commit('setSpacereport', {
+        key: 'missionname',
+        value: this.missionname,
+      })
+      this.$store.commit('setSpacereport', {
+        key: 'missiondesc',
+        value: this.missiondesc,
+      })
     },
   },
 }

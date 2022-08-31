@@ -9,12 +9,17 @@
             </li>
           </ul>
         </p>
-        <form @submit="login" class="grid m-1">
+        <!-- <form @submit.prevent="handleSubmit" class="grid m-1"> -->
+        <form class="grid m-1">
+          <div class="form-group">
           <label for="text">Email</label>
-          <input class="my-1 border-solid border p-1 border-black" id="email" type="email" v-model="email" placeholder="Please enter your email"></input>
+          <input class="my-1 border-solid border p-1 border-black" id="email" name="email" type="email" v-model="email" placeholder="Please enter your email"/>
+          </div>
+          <div>
           <label for="password">Password:</label>
-          <input class=" my-1 border-solid border p-1 border-black" id="password" type="text" v-model="password" placeholder="Please enter your password"></input>
-          <button type="submit" class="primary-button ">login</button>
+          <input class=" my-1 border-solid border p-1 border-black" id="password" name="password" type="text" v-model="password" placeholder="Please enter your password"/>
+          </div>
+          <button @click="submitLogin" type="submit" class="primary-button ">login</button>
         </form>
       </div>
 </template>
@@ -28,11 +33,22 @@ export default {
   data(){
     return {
 			error:[],
-      email: null,
-      password: null, 
+      email: '',
+      password: '', 
     }
   },
   methods: {
+    submitLogin(){
+      console.warn(this.email,this.password)
+    },
+    // async handleSubmit(){
+    //   const response = await axios.post(users, {
+    //     email: this.email,
+    //     password: this.password,
+    //   })
+    //   console.log(response)
+
+    // },
     login(e) 
     { 
       if(this.email && this.password) 

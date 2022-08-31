@@ -27,7 +27,7 @@ export default {
       showFlowDetails: true,
       showFlowImages: false,
       showFlowMap: false,
-      showFlowOverview: false,
+      showFlowOverview: true,
     }
   },
   methods: {

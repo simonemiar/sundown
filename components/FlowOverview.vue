@@ -4,10 +4,10 @@
     <section id="section_layout" class="grid grid-cols-2">
       <div class="m-2">
         <p class="font-bold">Mission name:</p>
-        <p>fake mission name</p>
+        <p>{{ spacereport.missionname }}</p>
         <div>
           <p class="font-bold">Mission Descripton</p>
-          <p>{{ missiondesc }}</p>
+          <p>{{ spacereport.missiondesc }}</p>
         </div>
         <div>
           <p class="font-bold">Mission start date</p>
@@ -40,8 +40,8 @@
 export default {
   name: 'FlowDetails',
   computed: {
-    missiondesc() {
-      return this.$store.state.count
+    spacereport() {
+      return this.$store.getters.spacereport
     },
   },
 }
