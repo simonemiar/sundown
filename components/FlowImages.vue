@@ -11,10 +11,10 @@
           class="border border-gray-900 overflow-scroll h-full"
         >
           <div v-if="!$fetchState.pending">
-            <Spaceimage
-              v-for="spaceimage in spaceimages"
-              :key="spaceimage.img_src"
-              :image="spaceimage"
+            <Missionimage
+              v-for="missionimage in missionimages"
+              :key="missionimage.img_src"
+              :image="missionimage"
             />
           </div>
           <div v-else>Loading...</div>
@@ -23,6 +23,7 @@
       <div class="m-2">
         <p class="font-bold">Selected images to report</p>
         <div id="select_container" class="border border-gray-900 h-full">
+          <img :src="missionimages" alt="john" />
           {{ spacereports.missionimages }}
         </div>
       </div>
@@ -38,7 +39,7 @@
 export default {
   data() {
     return {
-      spaceimages: [],
+      missionimages: '',
     }
   },
   // needs to loop though array to get to img
@@ -47,7 +48,7 @@ export default {
       'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15'
     ).then((res) => res.json())
     console.log(data)
-    this.spaceimages = data.photos
+    this.missionimages = data.photos
   },
   methods: {
     clickHandle() {

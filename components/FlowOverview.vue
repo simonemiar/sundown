@@ -15,11 +15,11 @@
         </div>
         <div>
           <p class="font-bold">Lat:</p>
-          <p>display lat</p>
+          <p>{{ spacereports.missionlatitude }}</p>
         </div>
         <div>
           <p class="font-bold">Long:</p>
-          <p>display long</p>
+          <p>{{ spacereports.missionlongitude }}</p>
         </div>
       </div>
       <div class="m-2 h-80">

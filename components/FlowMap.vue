@@ -14,6 +14,7 @@
             class="border border-gray-900 overflow-scroll w-full"
             required
           />
+          <p>{{ spacereports.missionlongitude }}</p>
         </div>
         <div class="h-full">
           <p class="font-bold">Long:</p>
@@ -22,7 +23,9 @@
             class="border border-gray-900 overflow-scroll w-full"
             required
           />
+          <p>{{ spacereports.missionlatitude }}</p>
           <button @click="findISS">find iss</button>
+          <button @click="updateInput">find update</button>
         </div>
       </div>
     </section>
@@ -38,7 +41,8 @@ export default {
   name: 'FlowDetails',
   data() {
     return {
-      spaceimages: [],
+      missionlongitude: '',
+      missionlatitude: '',
     }
   },
   // needs to loop though array to get to img
@@ -50,9 +54,28 @@ export default {
       fetch('https://api.wheretheiss.at/v1/satellites/25544')
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
+          console.log(data.longitude)
+          this.missionlongitude = data.longitude
+          console.log(data.latitude)
+          this.missionlatitude = data.latitude
         })
         .catch((e) => console.log(e))
+    },
+    updateInput() {
+      console.log('test input')
+      this.$store.commit('setSpacereport', {
+        key: 'missionlongitude',
+        value: this.missionlongitude,
+      })
+      this.$store.commit('setSpacereport', {
+        key: 'missionlatitude',
+        value: this.missionlatitude,
+      })
+    },
+  },
+  computed: {
+    spacereports() {
+      return this.$store.getters.spacereports
     },
   },
 }

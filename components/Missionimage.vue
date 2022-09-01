@@ -2,8 +2,11 @@
   <div class="flex">
     <img
       class="w-40 h-40 m-2"
-      @click="updateMissionimages"
       :src="image.img_src"
+      @click="
+        updateMissionimage(image)
+        updateInput()
+      "
       alt="space image"
     />
   </div>
@@ -23,9 +26,10 @@ export default {
     },
   },
   methods: {
-    updateMissionimages(e) {
-      console.log(this.missionimages)
-      this.missionimages = e.target.value
+    updateMissionimage(image) {
+      console.log('test input')
+      this.missionimages = image.img_src
+      console.log(image.img_src)
     },
     updateInput() {
       console.log('test input')
