@@ -26,11 +26,11 @@
       </div>
       <div class="m-2">
         <p class="font-bold">Mission start date (calender)</p>
-        <div id="calender_container" class="border border-gray-900 h-full">
+        <div id="calender_container" class="h-full">
           <div>
             <v-date-picker
-              mode="range"
-              v-model="selectedDate"
+              mode="date"
+              v-model="missiondate"
               :min-date="new Date()"
               show-caps
             />
@@ -59,10 +59,7 @@ export default {
       missionname: '',
       missiondesc: '',
       missiondate: '',
-      selectedDate: {
-        start: new Date(2018, 10, 9),
-        end: new Date(2018, 10, 10),
-      },
+      missiondate: new Date(),
     }
   },
   methods: {
@@ -78,6 +75,10 @@ export default {
       this.$store.commit('setSpacereport', {
         key: 'missiondesc',
         value: this.missiondesc,
+      })
+      this.$store.commit('setSpacereport', {
+        key: 'missiondate',
+        value: this.missiondate,
       })
     },
   },

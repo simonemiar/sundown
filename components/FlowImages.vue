@@ -22,7 +22,9 @@
       </div>
       <div class="m-2">
         <p class="font-bold">Selected images to report</p>
-        <div id="select_container" class="border border-gray-900 h-full"></div>
+        <div id="select_container" class="border border-gray-900 h-full">
+          {{ spacereports.missionimages }}
+        </div>
       </div>
     </section>
     <div class="flex place-content-between">
@@ -50,6 +52,11 @@ export default {
   methods: {
     clickHandle() {
       this.$emit('toggle-flow-map')
+    },
+  },
+  computed: {
+    spacereports() {
+      return this.$store.getters.spacereports
     },
   },
 }

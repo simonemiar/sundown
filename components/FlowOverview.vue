@@ -11,7 +11,7 @@
         </div>
         <div>
           <p class="font-bold">Mission start date</p>
-          <p>fake mission date</p>
+          <p>{{ spacereports.missiondate }}</p>
         </div>
         <div>
           <p class="font-bold">Lat:</p>
@@ -25,7 +25,7 @@
       <div class="m-2 h-80">
         <div>
           <p class="font-bold">Images</p>
-          <p>display images</p>
+          <p>{{ spacereports.missionimages }}</p>
         </div>
       </div>
     </section>

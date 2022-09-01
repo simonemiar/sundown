@@ -6,7 +6,7 @@ export const state = () => {
       missionname: '',
       missiondesc: '',
       missiondate: '',
-      missionimages: [],
+      missionimages: '',
     },
   }
 }
