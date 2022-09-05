@@ -7,7 +7,7 @@
         <h1 class="text-center">Hi, [user.name]</h1>
         <section id="section_layout" class="grid grid-cols-2">
           <div class="m-2">
-            <p>space reports created by [user.name]</p>
+            <p>space reports created by {{ spacereports.missionuser }}</p>
             <div id="report_container" class="border border-gray-900 h-60">
               <Spacereports :spacereports="spacereports" />
               <!-- v bind for at det opdatere dynamisk  -->
@@ -58,7 +58,7 @@ export default {
       {
         id: 2,
         missionname: 'second launch',
-        missiondesc: 'it went bad',
+        missiondesc: 'it went really bad bad',
         missiondate: '11-11-11',
         selectedimages: 'pictures',
         lat: '1234',
@@ -72,17 +72,10 @@ export default {
       this.$router.push('/spaceflow')
     },
   },
-
-  // data () {
-  //   return {
-  //     users: null,
-  //   }
-  // },
-  // async mounted () {
-  //   const response = await fetch(astronautData)
-  //   const { data: users } = await response.json()
-  //   this.users = users
-  //   console.log(users)
-  // },
+  computed: {
+    spacereports() {
+      return this.$store.getters.spacereports
+    },
+  },
 }
 </script>

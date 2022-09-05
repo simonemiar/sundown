@@ -58,5 +58,15 @@
     "email": "yiso@mtr.moon",
     "password": "K2t@dACRkGCd3-UQQmCZJbTj",
     "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Yi_So-yeon_%28NASA_-_JSC2008-E-004174%29.jpg/640px-Yi_So-yeon_%28NASA_-JSC2008-E-004174%29.jpg"
+  },
+  {
+    "id": "7",
+    "first_name": "Yury",
+    "last_name": "Gagarin",
+    "code_name": "First Man",
+    "username": "yuga",
+    "email": "a@a.dk",
+    "password": "1234",
+    "avatar": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Yuri_Gagarin_in_1963.jpg/640px-Yuri_Gagarin_in_1963.jpg"
   }
 ]
