@@ -62,9 +62,7 @@ export default {
     fetch('https://api.wheretheiss.at/v1/satellites/25544')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.longitude)
         this.missionlongitude = data.longitude
-        console.log(data.latitude)
         this.missionlatitude = data.latitude
       })
       .catch((e) => console.log(e))
