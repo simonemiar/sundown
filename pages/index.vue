@@ -1,7 +1,8 @@
 <template>
-  <body class="w-screen h-screen bg-graycolor">
+  <div class="w-screen h-screen bg-graycolor">
+    <h1>Home</h1>
     <div class="grid justify-items-center">
-      <Login />
+      <!-- <Login /> -->
       <Header />
       <div>
         <h1 class="text-center">Hi, [user.name]</h1>
@@ -10,7 +11,6 @@
             <p>space reports created by {{ spacereports.missionuser }}</p>
             <div id="report_container" class="border border-gray-900 h-60">
               <Spacereports :spacereports="spacereports" />
-              <!-- v bind for at det opdatere dynamisk  -->
             </div>
           </div>
           <div class="m-2">
@@ -30,7 +30,7 @@
         </section>
       </div>
     </div>
-  </body>
+  </div>
 </template>
 
 <script>
@@ -73,9 +73,9 @@ export default {
     },
   },
   computed: {
-    spacereports() {
-      return this.$store.getters.spacereports
-    },
+    // spacereports() {
+    //   return this.$store.getters.spacereports
+    // },
   },
 }
 </script>
