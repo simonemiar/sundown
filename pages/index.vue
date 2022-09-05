@@ -1,14 +1,12 @@
 <template>
   <div class="w-screen h-screen bg-graycolor">
-    <h1>Home</h1>
     <div class="grid justify-items-center">
-      <!-- <Login /> -->
       <Header />
       <div>
         <h1 class="text-center">Hi, [user.name]</h1>
         <section id="section_layout" class="grid grid-cols-2">
           <div class="m-2">
-            <p>space reports created by {{ spacereports.missionuser }}</p>
+            <p>space reports created by {{ spacereports.first_name }}</p>
             <div id="report_container" class="border border-gray-900 h-60">
               <Spacereports :spacereports="spacereports" />
             </div>

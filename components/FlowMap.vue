@@ -9,23 +9,16 @@
       <div class="m-2 h-80">
         <div>
           <p class="font-bold">Lat:</p>
-          <input
-            id="lat"
-            class="border border-gray-900 overflow-scroll w-full"
-            required
-          />
-          <p>{{ spacereports.missionlongitude }}</p>
+
+          <p class="border border-gray-900 w-full h-full">
+            {{ spacereports.missionlongitude }}
+          </p>
         </div>
         <div class="h-full">
           <p class="font-bold">Long:</p>
-          <input
-            id="long"
-            class="border border-gray-900 overflow-scroll w-full"
-            required
-          />
-          <p>{{ spacereports.missionlatitude }}</p>
-          <button @click="findISS">find iss</button>
-          <button @click="updateInput">find update</button>
+          <p class="border border-gray-900 w-full">
+            {{ spacereports.missionlatitude }}
+          </p>
         </div>
       </div>
     </section>
@@ -40,37 +33,11 @@
 export default {
   name: 'FlowDetails',
   data() {
-    return {
-      missionlongitude: '',
-      missionlatitude: '',
-    }
+    return {}
   },
-  // needs to loop though array to get to img
   methods: {
     clickHandle() {
       this.$emit('toggle-flow-overview')
-    },
-    findISS() {
-      fetch('https://api.wheretheiss.at/v1/satellites/25544')
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data.longitude)
-          this.missionlongitude = data.longitude
-          console.log(data.latitude)
-          this.missionlatitude = data.latitude
-        })
-        .catch((e) => console.log(e))
-    },
-    updateInput() {
-      console.log('test input')
-      this.$store.commit('setSpacereport', {
-        key: 'missionlongitude',
-        value: this.missionlongitude,
-      })
-      this.$store.commit('setSpacereport', {
-        key: 'missionlatitude',
-        value: this.missionlatitude,
-      })
     },
   },
   computed: {

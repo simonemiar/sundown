@@ -30,7 +30,13 @@
     </section>
     <div class="flex place-content-between">
       <Button text="back" />
-      <Button @click.native="clickHandle" text="forward" />
+      <Button
+        @click.native="
+          clickHandle()
+          updateInput()
+        "
+        text="forward"
+      />
     </div>
   </div>
 </template>
@@ -40,6 +46,8 @@ export default {
   data() {
     return {
       missionimages: '',
+      missionlongitude: '',
+      missionlatitude: '',
     }
   },
   // needs to loop though array to get to img
@@ -50,9 +58,31 @@ export default {
     console.log(data)
     this.missionimages = data.photos
   },
+  created() {
+    fetch('https://api.wheretheiss.at/v1/satellites/25544')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.longitude)
+        this.missionlongitude = data.longitude
+        console.log(data.latitude)
+        this.missionlatitude = data.latitude
+      })
+      .catch((e) => console.log(e))
+  },
   methods: {
     clickHandle() {
       this.$emit('toggle-flow-map')
+    },
+    updateInput() {
+      console.log('test input')
+      this.$store.commit('setSpacereport', {
+        key: 'missionlongitude',
+        value: this.missionlongitude,
+      })
+      this.$store.commit('setSpacereport', {
+        key: 'missionlatitude',
+        value: this.missionlatitude,
+      })
     },
   },
   computed: {

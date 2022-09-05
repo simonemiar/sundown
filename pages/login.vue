@@ -36,9 +36,9 @@ export default {
   name: 'Login',
   data() {
     return {
-      error: [],
       email: '',
       password: '',
+      user: [],
     }
   },
   methods: {
@@ -56,6 +56,8 @@ export default {
 
       if (currentUser) {
         this.$router.push({ path: '/' })
+
+        console.log(currentUser)
       } else {
         alert('We could not find the user')
       }
