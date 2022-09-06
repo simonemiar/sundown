@@ -73,7 +73,7 @@ export default {
     markers() {
       return [
         {
-          position: { lat: 1.38, lng: 103.8 },
+          position: { lat: 1.58, lng: -28.7 },
         },
       ]
     },

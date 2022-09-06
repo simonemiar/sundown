@@ -12,6 +12,7 @@
         >
           <div v-if="!$fetchState.pending">
             <Missionimage
+              @push-image="pushImage"
               v-for="missionimage in missionimages"
               :key="missionimage.img_src"
               :image="missionimage"
@@ -23,8 +24,11 @@
       <div class="m-2">
         <p class="font-bold">Selected images to report</p>
         <div id="select_container" class="border border-gray-900 h-full">
-          <img :src="missionimages" alt="john" />
-          {{ spacereports.missionimages }}
+          <Missionimage
+            v-for="newmissionimage in newmissionimages"
+            :key="newmissionimage.img_src"
+            :image="newmissionimage"
+          />
         </div>
       </div>
     </section>
@@ -32,7 +36,7 @@
       <Button text="back" />
       <Button
         @click.native="
-          clickHandle()
+          clickHandle(newmissionimages)
           updateInput()
         "
         text="forward"
@@ -51,12 +55,19 @@ export default {
     }
   },
   // needs to loop though array to get to img
+  // async fetch() {
+  //   const data = await fetch(
+  //     'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15'
+  //   ).then((res) => res.json())
+  //   console.log(data)
+  //   this.missionimages = data.photos
+  // },
   async fetch() {
-    const data = await fetch(
-      'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15'
-    ).then((res) => res.json())
+    const data = await fetch('https://api.nuxtjs.dev/mountains').then((res) =>
+      res.json()
+    )
     console.log(data)
-    this.missionimages = data.photos
+    this.missionimages = data
   },
   created() {
     fetch('https://api.wheretheiss.at/v1/satellites/25544')
@@ -69,7 +80,13 @@ export default {
   },
   methods: {
     clickHandle() {
-      this.$emit('toggle-flow-map')
+      if (this.newmissionimages.length > 0) {
+        this.$emit('toggle-flow-map')
+        // } else if (this.newmissionimages.length < 7) {
+        //   this.$emit('toggle-flow-map')
+      } else {
+        alert('double wrong number to many')
+      }
     },
     updateInput() {
       console.log('test input')
@@ -82,10 +99,26 @@ export default {
         value: this.missionlatitude,
       })
     },
+    pushImage(newimage) {
+      console.log(newimage)
+      this.newmissionimages = [...this.newmissionimages, newimage]
+    },
   },
   computed: {
     spacereports() {
       return this.$store.getters.spacereports
+    },
+    newmissionimages: {
+      get() {
+        return this.$store.getters.spacereports.newmissionimages
+      },
+      set(newValue) {
+        console.log('set test', newValue)
+        return this.$store.commit('setSpacereport', {
+          key: 'newmissionimages',
+          value: newValue,
+        })
+      },
     },
   },
 }

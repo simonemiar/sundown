@@ -25,7 +25,7 @@
       <div class="m-2 h-80">
         <div>
           <p class="font-bold">Images</p>
-          <p>{{ spacereports.missionimages }}</p>
+          <p>{{ spacereports.newmissionimages }}</p>
         </div>
       </div>
     </section>
