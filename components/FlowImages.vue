@@ -2,7 +2,14 @@
   <div>
     <h3 class="text-center">space images</h3>
     <!-- creating a loading... with fetch hook -->
-
+    <p v-if="error.length">
+           <b>please correct the following errors</b>
+           <ul>
+             <li v-for="e in error" v-bind:key="e">
+               {{e}}
+             </li>
+           </ul>
+         </p>
     <section id="section_layout" class="grid grid-cols-2">
       <div class="m-2 h-80">
         <p class="font-bold">space mission images</p>
@@ -23,7 +30,7 @@
       </div>
       <div class="m-2">
         <p class="font-bold">Selected images to report</p>
-        <div id="select_container" class="border border-gray-900 h-full">
+        <div id="select_container" class="border border-gray-900 overflow-scroll h-full">
           <Missionimage
             v-for="newmissionimage in newmissionimages"
             :key="newmissionimage.img_src"
@@ -50,8 +57,11 @@ export default {
   data() {
     return {
       missionimages: '',
-      missionlongitude: '',
-      missionlatitude: '',
+      coordinates: {
+        missionlongitude: '',
+        missionlatitude: '',
+      },
+      error:[],
     }
   },
   // needs to loop though array to get to img
@@ -66,37 +76,53 @@ export default {
     const data = await fetch('https://api.nuxtjs.dev/mountains').then((res) =>
       res.json()
     )
-    console.log(data)
+    // console.log(data)
     this.missionimages = data
   },
   created() {
     fetch('https://api.wheretheiss.at/v1/satellites/25544')
       .then((response) => response.json())
       .then((data) => {
-        this.missionlongitude = data.longitude
-        this.missionlatitude = data.latitude
+        this.coordinates.missionlongitude = data.longitude
+        this.coordinates.missionlatitude = data.latitude
       })
       .catch((e) => console.log(e))
   },
   methods: {
-    clickHandle() {
-      if (this.newmissionimages.length > 0) {
+    clickHandle(e) {
+      if (this.newmissionimages.length) {
         this.$emit('toggle-flow-map')
         // } else if (this.newmissionimages.length < 7) {
         //   this.$emit('toggle-flow-map')
       } else {
-        alert('double wrong number to many')
+        this.error=[]; 
+        if(this.newmissionimages.length < 1)
+        {
+          this.error = ["Please select minimum one image to proceed"]
+        } else {
+        console.log("errors", this.error);
+        e.preventDefault
+        // alert('double wrong number to many')
+        }
+        if(this.newmissionimages.length > 7)
+        {
+          this.error = ["Please select maximum seven image to proceed"]
+        } else {
+        console.log("errors", this.error);
+        e.preventDefault
+        // alert('double wrong number to many')
+        }
       }
     },
     updateInput() {
       console.log('test input')
       this.$store.commit('setSpacereport', {
         key: 'missionlongitude',
-        value: this.missionlongitude,
+        value: this.coordinates.missionlongitude,
       })
       this.$store.commit('setSpacereport', {
         key: 'missionlatitude',
-        value: this.missionlatitude,
+        value: this.coordinates.missionlatitude,
       })
     },
     pushImage(newimage) {

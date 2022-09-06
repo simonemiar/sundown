@@ -6,7 +6,7 @@
         <p class="font-bold">Current position over earth:</p>
         <div id="map_container" class="border border-gray-900 h-full">
           <GmapMap
-            :center="center"
+            :center="{ lat: missionlatitude, lng: missionlongitude }"
             :zoom="7"
             map-type-id="terrain"
             class="w-full h-full"
@@ -19,6 +19,7 @@
               fullscreenControl: false,
               disableDefaultUi: false,
             }"
+            ref="mapRef"
           >
             <GmapMarker
               v-for="(marker, index) in markers"
@@ -78,5 +79,6 @@ export default {
       ]
     },
   },
+  mounted() {},
 }
 </script>

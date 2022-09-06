@@ -25,7 +25,11 @@
       <div class="m-2 h-80">
         <div>
           <p class="font-bold">Images</p>
-          <p>{{ spacereports.newmissionimages }}</p>
+          <Missionimage
+            v-for="image in spacereports.newmissionimages"
+            :key="image.id"
+            :image="image"
+          />
         </div>
       </div>
     </section>

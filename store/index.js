@@ -8,8 +8,10 @@ export const state = () => {
       missiondate: '',
       missionimages: [],
       newmissionimages: [],
-      missionlongitude: '',
-      missionlatitude: '',
+      coordinates: {
+        missionlongitude: '',
+        missionlatitude: '',
+      },
       missionuser: '',
     },
   }
