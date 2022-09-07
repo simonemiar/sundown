@@ -67,7 +67,6 @@ export default {
       center: { lat: 10, lng: 10 },
     }
   },
-
   computed: {
     coordinates() {
       return this.$store.getters.spacereports.coordinates
@@ -80,6 +79,5 @@ export default {
       ]
     },
   },
-  mounted() {},
 }
 </script>
