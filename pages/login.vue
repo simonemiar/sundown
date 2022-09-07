@@ -38,7 +38,7 @@ export default {
     return {
       email: '',
       password: '',
-      user: [],
+      user: ['johnny'],
     }
   },
   methods: {
@@ -55,9 +55,11 @@ export default {
       })
 
       if (currentUser) {
+        localStorage.setItem('user', currentUser.first_name)
         this.$router.push({ path: '/' })
 
-        console.log(currentUser)
+        const outputuser = localStorage.getItem('user')
+        console.log(outputuser)
       } else {
         alert('We could not find the user')
       }

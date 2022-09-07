@@ -26,6 +26,9 @@ export const mutations = {
   setSpacereport(state, { key, value }) {
     state.spacereports[key] = value
   },
+  setCoordinates(state, { key, value }) {
+    state.spacereports.coordinates[key] = value
+  },
 }
 
 //actions - is async they go out as third party api

@@ -2,19 +2,20 @@
   <div class="w-screen h-screen bg-graycolor">
     <div class="grid justify-items-center">
       <Header />
+      <button @click="clearUser">logout</button>
       <div>
-        <h1 class="text-center">Hi, [user.name]</h1>
+        <h1 class="text-center">Hi, {{ user }}</h1>
         <section id="section_layout" class="grid grid-cols-2">
           <div class="m-2">
-            <p>space reports created by {{ spacereports.first_name }}</p>
+            <p>space reports created by {{ user }}</p>
             <div id="report_container" class="border border-gray-900 h-60">
               <Spacereports :spacereports="spacereports" />
             </div>
           </div>
           <div class="m-2">
-            <button @click="gotoSpaceFlow" class="secondary-button">
-              + create new space report
-            </button>
+            <NuxtLink to="/flow/details" class="secondary-button"
+              >+ create new space report</NuxtLink
+            >
             <p class="font-bold">fun space facts</p>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
@@ -38,9 +39,19 @@ export default {
   data() {
     return {
       spacereports: [],
+      user: '',
     }
   },
-
+  mounted() {
+    if (localStorage.user) {
+      this.user = localStorage.user
+    }
+  },
+  watch: {
+    user(newUser) {
+      localStorage.user = newUser
+    },
+  },
   created() {
     this.spacereports = [
       {
@@ -66,8 +77,8 @@ export default {
   },
 
   methods: {
-    gotoSpaceFlow() {
-      this.$router.push('/spaceflow')
+    clearUser() {
+      localStorage.clear()
     },
   },
   computed: {

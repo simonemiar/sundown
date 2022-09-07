@@ -1,5 +1,6 @@
 <template>
   <div>
+      <Header />
     <h3 class="text-center">space images</h3>
     <!-- creating a loading... with fetch hook -->
     <p v-if="error.length">
@@ -40,14 +41,15 @@
       </div>
     </section>
     <div class="flex place-content-between">
-      <Button text="back" />
-      <Button
-        @click.native="
-          clickHandle(newmissionimages)
+      
+    
+      <NuxtLink to="/flow/details" class="secondary-button"><button>back</button></NuxtLink>
+      <NuxtLink to="/flow/map" class="primary-button">
+        <button @click="
+          clickHandle()
           updateInput()
-        "
-        text="forward"
-      />
+        ">forward</button>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -116,11 +118,11 @@ export default {
     },
     updateInput() {
       console.log('test input')
-      this.$store.commit('setSpacereport', {
+      this.$store.commit('setCoordinates', {
         key: 'missionlongitude',
         value: this.coordinates.missionlongitude,
       })
-      this.$store.commit('setSpacereport', {
+      this.$store.commit('setCoordinates', {
         key: 'missionlatitude',
         value: this.coordinates.missionlatitude,
       })

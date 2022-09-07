@@ -1,12 +1,13 @@
 <template>
   <div>
+    <Header />
     <h3 class="text-center">space map</h3>
     <section id="section_layout" class="grid grid-cols-2">
       <div class="m-2">
         <p class="font-bold">Current position over earth:</p>
         <div id="map_container" class="border border-gray-900 h-full">
           <GmapMap
-            :center="{ lat: missionlatitude, lng: missionlongitude }"
+            :center="center"
             :zoom="7"
             map-type-id="terrain"
             class="w-full h-full"
@@ -36,20 +37,24 @@
           <p class="font-bold">Lat:</p>
 
           <p class="border border-gray-900 w-full h-full">
-            {{ spacereports.missionlongitude }}
+            {{ coordinates.missionlongitude }}
           </p>
         </div>
         <div class="h-full">
           <p class="font-bold">Long:</p>
           <p class="border border-gray-900 w-full">
-            {{ spacereports.missionlatitude }}
+            {{ coordinates.missionlatitude }}
           </p>
         </div>
       </div>
     </section>
     <div class="flex place-content-between">
-      <Button text="back" />
-      <Button @click.native="clickHandle" text="forward" />
+      <NuxtLink to="/flow/images" class="secondary-button"
+        ><button>back</button></NuxtLink
+      >
+      <NuxtLink to="/flow/overview" class="primary-button">
+        <button>forward</button>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -62,14 +67,10 @@ export default {
       center: { lat: 10, lng: 10 },
     }
   },
-  methods: {
-    clickHandle() {
-      this.$emit('toggle-flow-overview')
-    },
-  },
+
   computed: {
-    spacereports() {
-      return this.$store.getters.spacereports
+    coordinates() {
+      return this.$store.getters.spacereports.coordinates
     },
     markers() {
       return [

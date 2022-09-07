@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header />
     <h3 class="text-center">space overview</h3>
     <section id="section_layout" class="grid grid-cols-2">
       <div class="m-2">
@@ -15,11 +16,11 @@
         </div>
         <div>
           <p class="font-bold">Lat:</p>
-          <p>{{ spacereports.missionlatitude }}</p>
+          <p>{{ coordinates.missionlatitude }}</p>
         </div>
         <div>
           <p class="font-bold">Long:</p>
-          <p>{{ spacereports.missionlongitude }}</p>
+          <p>{{ coordinates.missionlongitude }}</p>
         </div>
       </div>
       <div class="m-2 h-80">
@@ -34,8 +35,12 @@
       </div>
     </section>
     <div class="flex place-content-between">
-      <Button text="back" />
-      <Button text="forward" />
+      <NuxtLink to="/flow/map" class="secondary-button"
+        ><button>back</button></NuxtLink
+      >
+      <NuxtLink to="/" class="primary-button">
+        <button>finish report</button>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -46,6 +51,9 @@ export default {
   computed: {
     spacereports() {
       return this.$store.getters.spacereports
+    },
+    coordinates() {
+      return this.$store.getters.spacereports.coordinates
     },
   },
 }

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header />
     <h3 class="text-center">space details</h3>
     <section id="section_layout" class="grid grid-cols-2">
       <div class="m-2 h-80">
@@ -39,14 +40,10 @@
       </div>
     </section>
     <div class="flex place-content-between">
-      <nuxt-link to="/"><Button text="back" /></nuxt-link>
-      <Button
-        @click.native="
-          clickHandle()
-          updateInput()
-        "
-        text="forward"
-      />
+      <NuxtLink to="/" class="secondary-button"><button>back</button></NuxtLink>
+      <NuxtLink to="/flow/images" class="primary-button">
+        <button @click="updateInput">forward</button>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -63,11 +60,8 @@ export default {
     }
   },
   methods: {
-    clickHandle() {
-      this.$emit('toggle-flow-images')
-    },
     updateInput() {
-      console.log('test input')
+      console.log('test detazils')
       this.$store.commit('setSpacereport', {
         key: 'missionname',
         value: this.missionname,

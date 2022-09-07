@@ -1,21 +1,23 @@
 <template>
   <div>
-      <v-date-picker
-        mode="range"
-        v-model="selectedDate"
-        :min-date="new Date()"
-        show-caps
-      />
+    <input type="text" v-model="test" class="border" />
+    <h1>{{ test }}</h1>
   </div>
 </template>
+
 <script>
 export default {
   data() {
     return {
-      selectedDate: {
-        start: new Date(2018,10,9),
-        end: new Date(2018,10,10)
-      }
+      test: 'Test',
     }
-   }
+  },
+  watch: {
+    test() {
+      console.log(this.test)
+    },
+  },
 }
+</script>
+
+<style></style>
