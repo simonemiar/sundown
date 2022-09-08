@@ -2,7 +2,7 @@
   <div>
     <!-- <input type="text" v-model="test" class="border" />
     <h1>{{ test }}</h1> -->
-    <div id="map" class="h-80 w-80"></div>
+    <div id="map" class="h-[300px] w-[600px]"></div>
     <div class="m-2 h-80">
       <div>
         <p class="font-bold">Lat:</p>
@@ -27,7 +27,7 @@
           {{ missionlatitude }}
         </div>
       </div>
-      <button @click="updateFetch">test latitude</button>
+      <button @click="updateMapAndMarker">test latitude</button>
     </div>
   </div>
 </template>
@@ -41,10 +41,11 @@ export default {
   data() {
     return {
       test: 'Test',
-      map: '',
-      marker: '',
+      map: null,
+      marker: null,
       missionlongitude: '',
       missionlatitude: '',
+      mapCreated: false,
     }
   },
   head: {
@@ -55,45 +56,60 @@ export default {
       },
     ],
   },
-  mounted() {
-    this.fetchData()
-    // setInterval(this.updateFetch, 5000)
+  async mounted() {
+    await this.fetchData()
+    this.createMap()
+    setInterval(this.updateMapAndMarker, 5000)
     // first we call the function updateFetch which call and sets the data and ends with creating the map
     // then we call the interval, without the () from the function because if we use them, then it will run the function twice
+    console.log('mmounted', this.mapCreated)
+    this.mapCreated = true
+    // const executed = false;
+    // if (!executed) {
+    //   executed = true
+    //   console.log('create map function')
+    //   this.createMap()
+    // } else {
+    //   console.log('update marker function')
+    //   this.updateMarker()
+    // })
   },
   methods: {
-    fetchData() {
+    async fetchData() {
       let currentTimestamp = Math.floor(Date.now() / 1000)
-      console.log(currentTimestamp)
-      //https://www.youtube.com/watch?v=jKQUHGpOHqg&ab_channel=TheCodingTrain
-      fetch(
+      const response = await fetch(
         `https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=${currentTimestamp}`
       )
-        .then((response) => response.json())
-        .then((data) => {
-          this.missionlongitude = data[0].longitude
-          this.missionlatitude = data[0].latitude
-          this.createMap()
-        })
-        .catch((e) => console.log(e))
+      const data = await response.json()
+      this.missionlongitude = data[0].longitude
+      this.missionlatitude = data[0].latitude
     },
     createMap() {
       const mapboxgl = require('mapbox-gl')
-      const map = new mapboxgl.Map({
+      this.map = new mapboxgl.Map({
         accessToken:
           'pk.eyJ1Ijoic2ltb25lbWlhciIsImEiOiJjbDdybG5ndWowNWFoM3dxcmQwM2Fkd2p6In0.Sz0xWuvcc431FpZdXOwBsQ',
         container: 'map', // <div id="map"></div>
-        style: 'mapbox://styles/mapbox/streets-v9', // default style
+        style: 'mapbox://styles/mapbox/streets-v11', // default style
         center: [this.missionlongitude, this.missionlatitude], // starting position as [lng, lat]
-        zoom: 3,
+        zoom: 2,
       })
       // Create a default Marker and add it to the map.
-      const marker = new mapboxgl.Marker()
+      this.marker = new mapboxgl.Marker()
         .setLngLat([this.missionlongitude, this.missionlatitude])
-        .addTo(map)
+        .addTo(this.map)
     },
-    updateFetch() {
-      console.log('update fetch here')
+    updateMarker() {
+      this.marker.setLngLat([this.missionlongitude, this.missionlatitude])
+    },
+    updateMap() {
+      this.map.setCenter([this.missionlongitude, this.missionlatitude])
+    },
+    updateMapAndMarker() {
+      console.log(this.mapCreated)
+      this.fetchData()
+      this.updateMap()
+      this.updateMarker()
     },
   },
   computed: {
