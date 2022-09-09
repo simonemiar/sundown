@@ -55,7 +55,7 @@ export default {
       })
 
       if (currentUser) {
-        localStorage.setItem('user', currentUser.first_name)
+        localStorage.setItem('user', JSON.stringify(currentUser))
         this.$router.push({ path: '/' })
 
         const outputuser = localStorage.getItem('user')

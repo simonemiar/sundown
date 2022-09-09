@@ -4,10 +4,12 @@
       <Header />
       <button @click="clearUser">logout</button>
       <div>
-        <h1 class="text-center">Hi, {{ user }}</h1>
+        <h1 class="text-center">
+          Hi, {{ user.first_name }} {{ user.last_name }}
+        </h1>
         <section id="section_layout" class="grid grid-cols-2">
           <div class="m-2">
-            <p>space reports created by {{ user }}</p>
+            <p>space reports created by {{ user.first_name }}</p>
             <div id="report_container" class="border border-gray-900 h-60">
               <Spacereports :spacereports="spacereports" />
             </div>
@@ -42,18 +44,6 @@ export default {
       user: '',
     }
   },
-  mounted() {
-    if (localStorage.user) {
-      this.user = localStorage.user
-    } else {
-      this.$router.push({ path: '/login' })
-    }
-  },
-  watch: {
-    user(newUser) {
-      localStorage.user = newUser
-    },
-  },
   created() {
     this.spacereports = [
       {
@@ -76,9 +66,24 @@ export default {
         long: '1234',
       },
     ]
+    // this.storage()
+    // console.log(this.user)
+    // const retrievedUser = localStorage.getItem(this.user)
+    // console.log('retrievedUser: ', JSON.parse(retrievedUser))
   },
-
+  mounted() {
+    if (localStorage.user) {
+      this.user = JSON.parse(localStorage.user)
+    } else {
+      this.$router.push({ path: '/login' })
+    }
+  },
   methods: {
+    storage() {
+      if (process.browser) {
+        localStorage.getItem('authToken')
+      }
+    },
     clearUser() {
       localStorage.clear()
       this.$router.push({ path: '/login' })
@@ -88,6 +93,11 @@ export default {
     // spacereports() {
     //   return this.$store.getters.spacereports
     // },
+  },
+  watch: {
+    user(newUser) {
+      localStorage.user = JSON.stringify(newUser)
+    },
   },
 }
 </script>
