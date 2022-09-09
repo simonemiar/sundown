@@ -45,6 +45,8 @@ export default {
   mounted() {
     if (localStorage.user) {
       this.user = localStorage.user
+    } else {
+      this.$router.push({ path: '/login' })
     }
   },
   watch: {
@@ -79,6 +81,7 @@ export default {
   methods: {
     clearUser() {
       localStorage.clear()
+      this.$router.push({ path: '/login' })
     },
   },
   computed: {
