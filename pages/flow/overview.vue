@@ -39,7 +39,7 @@
         ><button>back</button></NuxtLink
       >
       <NuxtLink to="/" class="primary-button">
-        <button>finish report</button>
+        <button @click="finaliseReport">Finalise report</button>
       </NuxtLink>
     </div>
   </div>
@@ -47,7 +47,17 @@
 
 <script>
 export default {
-  name: 'FlowDetails',
+  name: 'Overview',
+  data() {
+    return {
+      reports: [],
+    }
+  },
+  methods: {
+    finaliseReport() {
+      console.log('test report')
+    },
+  },
   computed: {
     spacereports() {
       return this.$store.getters.spacereports

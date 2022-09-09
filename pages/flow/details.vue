@@ -50,7 +50,7 @@
 
 <script>
 export default {
-  name: 'FlowDetails',
+  name: 'Details',
   data() {
     return {
       missionname: '',

@@ -14,6 +14,7 @@ export const state = () => {
       },
       missionuser: '',
     },
+    reports: [],
   }
 }
 
@@ -22,7 +23,6 @@ export const mutations = {
   setTest(state, newState) {
     state.test = newState
   },
-
   setSpacereport(state, { key, value }) {
     state.spacereports[key] = value
   },

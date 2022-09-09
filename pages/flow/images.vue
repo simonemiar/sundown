@@ -56,6 +56,7 @@
 
 <script>
 export default {
+  name: "Images",
   data() {
     return {
       missionimages: '',

@@ -28,7 +28,7 @@
           <!-- <p class="border border-gray-900 w-full" v-model="missionlongitude"> -->
           <div
             class="border border-gray-900 w-full"
-            :missionlatitude="missionlongitude"
+            :missionlatitude="missionlatitude"
           >
             {{ missionlatitude }}
           </div>
@@ -40,7 +40,7 @@
         ><button>back</button></NuxtLink
       >
       <NuxtLink to="/flow/overview" class="primary-button">
-        <button>forward</button>
+        <button @click="updateInput">forward</button>
       </NuxtLink>
     </div>
   </div>
@@ -108,10 +108,16 @@ export default {
       this.map.setCenter([this.missionlongitude, this.missionlatitude])
     },
     updateMapAndMarker() {
-      console.log(this.mapCreated)
       this.fetchData()
       this.updateMap()
       this.updateMarker()
+    },
+    updateInput() {
+      console.log('test detazils')
+      this.$store.commit('reports', {
+        key: 'missionlongitude',
+        value: this.missionlongitude,
+      })
     },
   },
   computed: {
@@ -119,10 +125,5 @@ export default {
       return this.$store.getters.spacereports.coordinates
     },
   },
-  // watch: {
-  //   test() {
-  //     console.log(this.test)
-  //   },
-  // },
 }
 </script>

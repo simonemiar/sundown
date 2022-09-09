@@ -2,7 +2,7 @@
   <div class="w-screen h-screen bg-graycolor">
     <div class="grid justify-items-center">
       <Header />
-      <button @click="clearUser">logout</button>
+      <button class="bold" @click="clearUser">LOGOUT</button>
       <div>
         <h1 class="text-center">
           Hi, {{ user.first_name }} {{ user.last_name }}
@@ -12,6 +12,7 @@
             <p>space reports created by {{ user.first_name }}</p>
             <div id="report_container" class="border border-gray-900 h-60">
               <Spacereports :spacereports="spacereports" />
+              <div>{{ reports }}</div>
             </div>
           </div>
           <div class="m-2">
@@ -66,10 +67,6 @@ export default {
         long: '1234',
       },
     ]
-    // this.storage()
-    // console.log(this.user)
-    // const retrievedUser = localStorage.getItem(this.user)
-    // console.log('retrievedUser: ', JSON.parse(retrievedUser))
   },
   mounted() {
     if (localStorage.user) {
@@ -79,17 +76,20 @@ export default {
     }
   },
   methods: {
-    storage() {
-      if (process.browser) {
-        localStorage.getItem('authToken')
-      }
-    },
+    // storage() {
+    //   if (process.browser) {
+    //     localStorage.getItem('authToken')
+    //   }
+    // },
     clearUser() {
       localStorage.clear()
       this.$router.push({ path: '/login' })
     },
   },
   computed: {
+    reports() {
+      return this.$store.getters.reports
+    },
     // spacereports() {
     //   return this.$store.getters.spacereports
     // },
