@@ -35,14 +35,12 @@ export const mutations = {
   setSpacereports(state, newState) {
     state.spacereports = newState
   },
-  // resetReport(resetSpacereport) {
-  //   const s = resetReport()
-  //   Object.keys(s).forEach((key) => {
-  //     resetSpacereport[key] = s[key]
-  //   })
-  // },
   resetReport: (state) => {
     state.spacereport = defaultSpacereport
+  },
+  updateReport(state, spacereport) {
+    console.log('mutation user:', spacereport)
+    state.reportToSave = spacereport
   },
 }
 
@@ -50,6 +48,10 @@ export const mutations = {
 export const actions = {
   resetReport: ({ commit }) => {
     commit('resetReport') // calling the mutation here
+  },
+  updateReport({ commit }, spacereport) {
+    commit('updateReport', spacereport)
+    console.log('report action')
   },
 }
 

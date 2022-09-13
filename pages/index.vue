@@ -52,7 +52,6 @@
 <script>
 export default {
   name: 'App',
-
   data() {
     return {
       user: '',
@@ -68,7 +67,6 @@ export default {
     }
     if (localStorage.reports) {
       this.reports = JSON.parse(localStorage.reports)
-      console.log(this.reports[0])
     }
   },
   methods: {
@@ -77,18 +75,22 @@ export default {
       this.$router.push({ path: '/login' })
     },
     removeReport(index) {
-      console.log('delete test')
-      let response = confirm(
-        `Are you sure you want to delete ${this.reports[0]}`
-      )
+      let response = confirm(`Are you sure you want to delete ${this.report}`)
       if (response) {
         this.reports.splice(index, 1)
         localStorage.setItem('reports', JSON.stringify(this.reports))
       }
     },
-    updateReport(index) {
+    updateReport() {
       console.log('edit test')
     },
+    // updateReport(spacereport) {
+    //   console.log('edit test', spacereport)
+    //   this.$store.dispatch({
+    //     type: 'updateReport',
+    //     report: spacereport,
+    //   })
+    // },
   },
   computed: {
     spacereports() {

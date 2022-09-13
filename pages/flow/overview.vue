@@ -51,21 +51,21 @@ export default {
   name: 'Overview',
   data() {
     return {
-      spacereports: JSON.parse(localStorage.getItem('reports')),
+      reports: JSON.parse(localStorage.getItem('reports')),
     }
   },
   methods: {
     finaliseReport() {
-      if (this.spacereports === null) {
-        this.spacereports = []
+      if (this.reports === null) {
+        this.reports = []
       }
-      this.spacereports.push(this.spacereport)
+      this.reports.push(this.spacereport)
 
       this.updateLocalstorage()
       this.resetReport()
     },
     updateLocalstorage() {
-      localStorage.setItem('reports', JSON.stringify(this.spacereports))
+      localStorage.setItem('reports', JSON.stringify(this.reports))
     },
     resetReport() {
       console.log('test reset')
