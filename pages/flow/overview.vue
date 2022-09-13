@@ -51,33 +51,25 @@ export default {
   name: 'Overview',
   data() {
     return {
-      spacereports: [],
+      spacereports: JSON.parse(localStorage.getItem('reports')),
     }
   },
   methods: {
     finaliseReport() {
-      console.log('test push')
-      console.log(this.spacereport)
+      if (this.spacereports === null) {
+        this.spacereports = []
+      }
       this.spacereports.push(this.spacereport)
 
       this.updateLocalstorage()
-      this.updateStore()
       this.resetReport()
     },
     updateLocalstorage() {
       localStorage.setItem('reports', JSON.stringify(this.spacereports))
-      const outputreports = localStorage.getItem('reports')
-      console.log(outputreports)
-    },
-    updateStore() {
-      // this is actually not needed, when working with localstorage
-      this.$store.commit('setSpacereports', {
-        key: 'spacereports',
-        value: this.spacereports,
-      })
     },
     resetReport() {
-      console.log('reset test')
+      console.log('test reset')
+      this.$store.dispatch('resetReport') // calling my action in the store
     },
   },
   computed: {
