@@ -40,7 +40,7 @@
         ><button>back</button></NuxtLink
       >
       <NuxtLink to="/flow/overview" class="primary-button">
-        <button @click="updateInput">forward</button>
+        <button @click="updateStore">forward</button>
       </NuxtLink>
     </div>
   </div>
@@ -112,17 +112,21 @@ export default {
       this.updateMap()
       this.updateMarker()
     },
-    updateInput() {
-      console.log('test detazils')
-      this.$store.commit('reports', {
+    updateStore() {
+      console.log('test input')
+      this.$store.commit('setCoordinates', {
         key: 'missionlongitude',
         value: this.missionlongitude,
+      })
+      this.$store.commit('setCoordinates', {
+        key: 'missionlatitude',
+        value: this.missionlatitude,
       })
     },
   },
   computed: {
     coordinates() {
-      return this.$store.getters.spacereports.coordinates
+      return this.$store.getters.spacereport.coordinates
     },
   },
 }

@@ -47,7 +47,6 @@
       <NuxtLink to="/flow/map" class="primary-button">
         <button @click="
           clickHandle()
-          updateInput()
         ">forward</button>
       </NuxtLink>
     </div>
@@ -60,36 +59,20 @@ export default {
   data() {
     return {
       missionimages: '',
-      coordinates: {
-        missionlongitude: '',
-        missionlatitude: '',
-      },
+      // coordinates: {
+      //   missionlongitude: '',
+      //   missionlatitude: '',
+      // },
       error:[],
     }
   },
-  // needs to loop though array to get to img
-  // async fetch() {
-  //   const data = await fetch(
   //     'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15'
-  //   ).then((res) => res.json())
-  //   console.log(data)
-  //   this.missionimages = data.photos
-  // },
   async fetch() {
     const data = await fetch('https://api.nuxtjs.dev/mountains').then((res) =>
       res.json()
     )
     // console.log(data)
     this.missionimages = data
-  },
-  created() {
-    fetch('https://api.wheretheiss.at/v1/satellites/25544')
-      .then((response) => response.json())
-      .then((data) => {
-        this.coordinates.missionlongitude = data.longitude
-        this.coordinates.missionlatitude = data.latitude
-      })
-      .catch((e) => console.log(e))
   },
   methods: {
     clickHandle(e) {
@@ -117,29 +100,18 @@ export default {
         }
       }
     },
-    updateInput() {
-      console.log('test input')
-      this.$store.commit('setCoordinates', {
-        key: 'missionlongitude',
-        value: this.coordinates.missionlongitude,
-      })
-      this.$store.commit('setCoordinates', {
-        key: 'missionlatitude',
-        value: this.coordinates.missionlatitude,
-      })
-    },
     pushImage(newimage) {
       console.log(newimage)
       this.newmissionimages = [...this.newmissionimages, newimage]
     },
   },
   computed: {
-    spacereports() {
-      return this.$store.getters.spacereports
+    spacereport() {
+      return this.$store.getters.spacereport
     },
     newmissionimages: {
       get() {
-        return this.$store.getters.spacereports.newmissionimages
+        return this.$store.getters.spacereport.newmissionimages
       },
       set(newValue) {
         console.log('set test', newValue)

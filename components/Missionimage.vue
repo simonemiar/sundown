@@ -29,17 +29,10 @@ export default {
       // this.newmissionimages.push(image.image)
       // console.log(this.newmissionimages)
     },
-    // updateInput() {
-    //   console.log('test input')
-    //   this.$store.commit('setSpacereport', {
-    //     key: 'newmissionimages',
-    //     value: this.newmissionimages,
-    //   })
-    // },
   },
   computed: {
-    spacereports() {
-      return this.$store.getters.spacereports
+    spacereport() {
+      return this.$store.getters.spacereport
     },
   },
 }

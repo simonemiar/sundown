@@ -114,7 +114,7 @@ export default {
   },
   computed: {
     coordinates() {
-      return this.$store.getters.spacereports.coordinates
+      return this.$store.getters.spacereport.coordinates
     },
   },
   // watch: {

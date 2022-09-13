@@ -42,7 +42,7 @@
     <div class="flex place-content-between">
       <NuxtLink to="/" class="secondary-button"><button>back</button></NuxtLink>
       <NuxtLink to="/flow/images" class="primary-button">
-        <button @click="updateInput">forward</button>
+        <button @click="updateStore">forward</button>
       </NuxtLink>
     </div>
   </div>
@@ -60,7 +60,7 @@ export default {
     }
   },
   methods: {
-    updateInput() {
+    updateStore() {
       console.log('test detazils')
       this.$store.commit('setSpacereport', {
         key: 'missionname',

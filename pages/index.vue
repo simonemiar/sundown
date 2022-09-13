@@ -11,8 +11,25 @@
           <div class="m-2">
             <p>space reports created by {{ user.first_name }}</p>
             <div id="report_container" class="border border-gray-900 h-60">
-              <Spacereports :spacereports="spacereports" />
-              <div>{{ reports }}</div>
+              <div
+                v-for="(report, index) in reports"
+                :key="report"
+                class="secondary-button mx-3 bg-blue-300 rounded"
+              >
+                {{ reports.missionname }}
+                <button
+                  class="text-white bg-blue-800 px-2"
+                  @click="updateReport(index)"
+                >
+                  update
+                </button>
+                <button
+                  class="text-white bg-black px-2"
+                  @click="removeReport(index)"
+                >
+                  x
+                </button>
+              </div>
             </div>
           </div>
           <div class="m-2">
@@ -41,38 +58,43 @@ export default {
 
   data() {
     return {
-      spacereports: [],
+      // thespacereports: [],
       user: '',
+      reports: [],
     }
   },
-  created() {
-    this.spacereports = [
-      {
-        // fake space reports
-        id: 1,
-        missionname: 'first launch',
-        missiondesc: 'it went bad',
-        missiondate: '11-11-11',
-        selectedimages: 'pictures',
-        lat: '1234',
-        long: '1234',
-      },
-      {
-        id: 2,
-        missionname: 'second launch',
-        missiondesc: 'it went really bad bad',
-        missiondate: '11-11-11',
-        selectedimages: 'pictures',
-        lat: '1234',
-        long: '1234',
-      },
-    ]
-  },
+  // created() {
+  //   this.thespacereports = [
+  //     {
+  //       // fake space reports
+  //       id: 1,
+  //       missionname: 'first launch',
+  //       missiondesc: 'it went bad',
+  //       missiondate: '11-11-11',
+  //       selectedimages: 'pictures',
+  //       lat: '1234',
+  //       long: '1234',
+  //     },
+  //     {
+  //       id: 2,
+  //       missionname: 'second launch',
+  //       missiondesc: 'it went really bad bad',
+  //       missiondate: '11-11-11',
+  //       selectedimages: 'pictures',
+  //       lat: '1234',
+  //       long: '1234',
+  //     },
+  //   ]
+  // },
   mounted() {
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user)
     } else {
       this.$router.push({ path: '/login' })
+    }
+    if (localStorage.reports) {
+      this.reports = JSON.parse(localStorage.reports)
+      console.log(this.reports.value)
     }
   },
   methods: {
@@ -85,18 +107,30 @@ export default {
       localStorage.clear()
       this.$router.push({ path: '/login' })
     },
+    removeReport(index) {
+      console.log('delete test')
+      console.log(this.reports)
+      this.reports.splice(index, 1)
+      localStorage.setItem('reports', JSON.stringify(this.reports))
+
+      // use splice here
+      // this.spacereports.splice(this.spacereports.indexOf(this.spacereports), 1)
+    },
+    updateReport(index) {
+      console.log('edit test')
+    },
   },
   computed: {
-    reports() {
-      return this.$store.getters.reports
+    spacereports() {
+      return this.$store.getters.spacereports
     },
-    // spacereports() {
-    //   return this.$store.getters.spacereports
-    // },
   },
   watch: {
     user(newUser) {
       localStorage.user = JSON.stringify(newUser)
+    },
+    report(newReport) {
+      localStorage.report = JSON.stringify(newReport)
     },
   },
 }

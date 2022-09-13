@@ -2,7 +2,7 @@
 export const state = () => {
   return {
     test: 1,
-    spacereports: {
+    spacereport: {
       missionname: '',
       missiondesc: '',
       missiondate: '',
@@ -14,7 +14,7 @@ export const state = () => {
       },
       missionuser: '',
     },
-    reports: [],
+    spacereports: [],
   }
 }
 
@@ -24,10 +24,13 @@ export const mutations = {
     state.test = newState
   },
   setSpacereport(state, { key, value }) {
-    state.spacereports[key] = value
+    state.spacereport[key] = value
   },
   setCoordinates(state, { key, value }) {
-    state.spacereports.coordinates[key] = value
+    state.spacereport.coordinates[key] = value
+  },
+  setSpacereports(state, newState) {
+    state.spacereports = newState
   },
 }
 
@@ -36,6 +39,9 @@ export const actions = {}
 
 //getters
 export const getters = {
+  spacereport(state) {
+    return state.spacereport
+  },
   spacereports(state) {
     return state.spacereports
   },
