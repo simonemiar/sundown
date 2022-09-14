@@ -2,7 +2,7 @@
 let defaultSpacereport = {
   missionname: '',
   missiondesc: '',
-  missiondate: '',
+  missiondate: new Date(),
   missionimages: [],
   newmissionimages: [],
   coordinates: {
@@ -38,9 +38,10 @@ export const mutations = {
   resetReport: (state) => {
     state.spacereport = defaultSpacereport
   },
-  updateReport(state, spacereport) {
-    console.log('mutation user:', spacereport)
-    state.reportToSave = spacereport
+  editReport(state, payload) {
+    // setting the empty object = to the full report
+    state.spacereport = payload.report
+    console.log('spacereport test', state.spacereport)
   },
 }
 
@@ -48,10 +49,6 @@ export const mutations = {
 export const actions = {
   resetReport: ({ commit }) => {
     commit('resetReport') // calling the mutation here
-  },
-  updateReport({ commit }, spacereport) {
-    commit('updateReport', spacereport)
-    console.log('report action')
   },
 }
 

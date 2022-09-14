@@ -59,10 +59,6 @@ export default {
   data() {
     return {
       missionimages: '',
-      // coordinates: {
-      //   missionlongitude: '',
-      //   missionlatitude: '',
-      // },
       error:[],
     }
   },

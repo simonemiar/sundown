@@ -19,7 +19,7 @@
                   class="secondary-button mx-3 bg-blue-300 rounded"
                 >
                   {{ report.missionname }}
-                  <button class="primary-button" @click="updateReport(report)">
+                  <button class="primary-button" @click="editReport(report)">
                     edit
                   </button>
                   <button class="secondary-button" @click="removeReport(index)">
@@ -81,16 +81,12 @@ export default {
         localStorage.setItem('reports', JSON.stringify(this.reports))
       }
     },
-    updateReport() {
+    editReport(report) {
       console.log('edit test')
+      this.$router.push({ path: '/flow/details' })
+      // console.log(report)
+      this.$store.commit('editReport', { report: report })
     },
-    // updateReport(spacereport) {
-    //   console.log('edit test', spacereport)
-    //   this.$store.dispatch({
-    //     type: 'updateReport',
-    //     report: spacereport,
-    //   })
-    // },
   },
   computed: {
     spacereports() {
@@ -104,6 +100,9 @@ export default {
     report(newReport) {
       localStorage.report = JSON.stringify(newReport)
     },
+    // report(updateReport) {
+    //   localStorage.report = JSON.stringify(updateReport)
+    // },
   },
 }
 </script>
