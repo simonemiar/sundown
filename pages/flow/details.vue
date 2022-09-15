@@ -54,14 +54,18 @@ export default {
   name: 'Details',
   data() {
     return {
-      missionid: '',
+      missionid: this.$store.state.spacereport.missionid,
     }
+  },
+  mounted() {
+    // generate random ID up to 10 thousand unique
+    if (this.missionid == null) {
+      this.missionid = Math.random().toString(36).substr(2, 9)
+    }
+    console.log(this.missionid)
   },
   methods: {
     updateStore() {
-      // generate random ID up to 10 thousand unique
-      this.missionid = Math.random().toString(36).substr(2, 9)
-      console.log('test detazils', this.missionid)
       this.$store.commit('setSpacereport', {
         key: 'missionid',
         value: this.missionid,

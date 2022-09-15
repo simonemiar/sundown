@@ -1,7 +1,7 @@
 //state
 let defaultSpacereport = {
   missionuser: '',
-  missionid: '',
+  missionid: null,
   missionname: '',
   missiondesc: '',
   missiondate: new Date(),
