@@ -56,18 +56,34 @@ export default {
     return {
       user: '',
       reports: [],
+      // missionuser: '',
     }
   },
 
   mounted() {
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user)
+      console.log(this.user.id)
+      this.$store.commit('setSpacereport', {
+        key: 'missionuser',
+        value: this.user.id,
+      })
+
+      console.log(this.spacereport.missionuser)
+      // console.log('vuex connect', this.$store.getters.spacereport.missionuser)
+      // console.log('vuex connect', this.missionuser)
     } else {
       this.$router.push({ path: '/login' })
     }
     if (localStorage.reports) {
       this.reports = JSON.parse(localStorage.reports)
     }
+    // this.$store.commit('setSpacereport', {
+    //   key: 'this.user.id',
+    //   value: this.missionuser,
+    // })
+    // console.log('connected to vuex', this.missionuser)
+    // console.log('connected to vuex', this.spacereport.missionuser)
   },
   methods: {
     clearUser() {
@@ -89,6 +105,9 @@ export default {
     },
   },
   computed: {
+    spacereport() {
+      return this.$store.getters.spacereport
+    },
     spacereports() {
       return this.$store.getters.spacereports
     },
@@ -100,9 +119,6 @@ export default {
     report(newReport) {
       localStorage.report = JSON.stringify(newReport)
     },
-    // report(updateReport) {
-    //   localStorage.report = JSON.stringify(updateReport)
-    // },
   },
 }
 </script>

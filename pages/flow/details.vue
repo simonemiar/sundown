@@ -71,6 +71,11 @@ export default {
         value: this.missionid,
       })
     },
+    // resetReport() {
+    // can I call a action more times? only works once
+    //   console.log('test reset')
+    //   this.$store.dispatch('resetReport') // calling my action in the store
+    // },
   },
   computed: {
     spacereport() {
