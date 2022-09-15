@@ -43,7 +43,7 @@
       <NuxtLink to="/" class="secondary-button"><button>back</button></NuxtLink>
       <NuxtLink to="/flow/images" class="primary-button">
         <!-- <button @click="updateStore">forward</button> -->
-        <button>forward</button>
+        <button @click="updateStore">forward</button>
       </NuxtLink>
     </div>
   </div>
@@ -54,29 +54,19 @@ export default {
   name: 'Details',
   data() {
     return {
-      // missionname: JSON.parse(localStorage.getItem('reports')) || '',
-      // missionname: '',
-      // missiondesc: '',
-      // missiondate: '',
-      // missiondate: new Date(),
+      missionid: '',
     }
   },
   methods: {
-    // updateStore() {
-    //   // console.log('test detazils')
-    //   // this.$store.commit('setSpacereport', {
-    //   //   key: 'missionname',
-    //   //   value: this.missionname,
-    //   // })
-    //   // this.$store.commit('setSpacereport', {
-    //   //   key: 'missiondesc',
-    //   //   value: this.missiondesc,
-    //   // })
-    //   this.$store.commit('setSpacereport', {
-    //     key: 'missiondate',
-    //     value: this.missiondate,
-    //   })
-    // },
+    updateStore() {
+      // generate random ID up to 10 thousand unique
+      this.missionid = Math.random().toString(36).substr(2, 9)
+      console.log('test detazils', this.missionid)
+      this.$store.commit('setSpacereport', {
+        key: 'missionid',
+        value: this.missionid,
+      })
+    },
   },
   computed: {
     spacereport() {
@@ -99,7 +89,6 @@ export default {
         return this.$store.getters.spacereport.missiondesc
       },
       set(newValue) {
-        console.log('set test', newValue)
         return this.$store.commit('setSpacereport', {
           key: 'missiondesc',
           value: newValue,
@@ -111,7 +100,6 @@ export default {
         return this.$store.getters.spacereport.missiondate
       },
       set(newValue) {
-        console.log('set test', newValue)
         return this.$store.commit('setSpacereport', {
           key: 'missiondate',
           value: newValue,

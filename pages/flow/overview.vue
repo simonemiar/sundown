@@ -60,9 +60,9 @@ export default {
         this.reports = []
       }
       this.reports.push(this.spacereport)
-
       this.updateLocalstorage()
       this.resetReport()
+      // this.editReport()
     },
     updateLocalstorage() {
       localStorage.setItem('reports', JSON.stringify(this.reports))
@@ -71,6 +71,10 @@ export default {
       console.log('test reset')
       this.$store.dispatch('resetReport') // calling my action in the store
     },
+    // editReport() {
+    //   console.log('edit overview')
+    //   return Object.assign()
+    // },
   },
   computed: {
     spacereport() {

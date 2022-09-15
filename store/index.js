@@ -1,5 +1,7 @@
 //state
 let defaultSpacereport = {
+  missionuser: '',
+  missionid: '',
   missionname: '',
   missiondesc: '',
   missiondate: new Date(),
@@ -9,7 +11,6 @@ let defaultSpacereport = {
     missionlongitude: '',
     missionlatitude: '',
   },
-  missionuser: '',
 }
 
 export const state = () => {
@@ -41,8 +42,12 @@ export const mutations = {
   editReport(state, payload) {
     // setting the empty object = to the full report
     state.spacereport = payload.report
+    // Object.assign((state.spacereport, payload.report))
     console.log('spacereport test', state.spacereport)
   },
+  // editReport2(state, payload) {
+  //   state.spacereport = Object.assign(this.spacereport, payload)
+  // },
 }
 
 //actions - is async they go out as third party api
