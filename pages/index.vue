@@ -14,7 +14,9 @@
               <p v-if="!reports.length">no spacereports saved</p>
               <div v-if="reports.length">
                 <div
-                  v-for="(report, index) in reports"
+                  v-for="(report, index) in reports.filter(
+                    (word) => word.missionuser == this.spacereport.missionuser
+                  )"
                   :key="report.missionname"
                   class="secondary-button mx-3 bg-blue-300 rounded"
                 >
@@ -63,31 +65,22 @@ export default {
   mounted() {
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user)
-      console.log(this.user.id)
       this.$store.commit('setSpacereport', {
         key: 'missionuser',
         value: this.user.id,
       })
-
+      // test of the user in the vuex
       console.log(this.spacereport.missionuser)
-      // console.log('vuex connect', this.$store.getters.spacereport.missionuser)
-      // console.log('vuex connect', this.missionuser)
     } else {
       this.$router.push({ path: '/login' })
     }
     if (localStorage.reports) {
       this.reports = JSON.parse(localStorage.reports)
     }
-    // this.$store.commit('setSpacereport', {
-    //   key: 'this.user.id',
-    //   value: this.missionuser,
-    // })
-    // console.log('connected to vuex', this.missionuser)
-    // console.log('connected to vuex', this.spacereport.missionuser)
   },
   methods: {
     clearUser() {
-      localStorage.clear()
+      localStorage.removeItem('user')
       this.$router.push({ path: '/login' })
     },
     removeReport(index) {

@@ -12,9 +12,7 @@
 <script>
 export default {
   data() {
-    return {
-      // newmissionimages: ['fakenewjohn'],
-    }
+    return {}
   },
   props: {
     image: {
@@ -24,7 +22,7 @@ export default {
   },
   methods: {
     async updateMissionimage(image) {
-      console.log('test input')
+      console.log('test input remove')
       this.$emit('push-image', image)
       // this.newmissionimages.push(image.image)
       // console.log(this.newmissionimages)

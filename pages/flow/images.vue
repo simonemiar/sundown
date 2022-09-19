@@ -36,6 +36,7 @@
             v-for="newmissionimage in newmissionimages"
             :key="newmissionimage.img_src"
             :image="newmissionimage"
+            
           />
         </div>
       </div>
