@@ -1,6 +1,5 @@
 <template>
   <div>
-      <Header />
     <h3 class="text-center">space images</h3>
     <!-- creating a loading... with fetch hook -->
     <p v-if="error.length">
@@ -57,6 +56,7 @@
 <script>
 export default {
   name: "Images",
+  layout: "flow",
   data() {
     return {
       missionimages: '',

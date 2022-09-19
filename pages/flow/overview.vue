@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <h3 class="text-center">space overview</h3>
     <section id="section_layout" class="grid grid-cols-2">
       <div class="m-2">
@@ -48,17 +47,18 @@
 
 <script>
 export default {
-  name: 'Overview',
+  name: "Overview",
+  layout: "flow",
   data() {
     return {
-      reports: JSON.parse(localStorage.getItem('reports')),
-    }
+      reports: JSON.parse(localStorage.getItem("reports")),
+    };
   },
   methods: {
     test() {
       const findReport = this.reports.find(
         (report) => report.missionid === this.spacereport.missionid
-      )
+      );
       // console.log(findReport)
       // if (findReport) {
       //   console.log('working dog shit')
@@ -73,38 +73,38 @@ export default {
     },
     finaliseReport() {
       if (this.reports === null) {
-        this.reports = []
+        this.reports = [];
       }
       const findReport = this.reports.find(
         (report) => report.missionid === this.spacereport.missionid
-      )
-      console.log('find report', findReport)
+      );
+      console.log("find report", findReport);
       if (findReport) {
-        console.log('hahahahhah I got u')
-        this.reports.splice(this.reports.indexOf(findReport), 1)
-        this.reports.push(this.spacereport)
+        console.log("hahahahhah I got u");
+        this.reports.splice(this.reports.indexOf(findReport), 1);
+        this.reports.push(this.spacereport);
       } else {
-        console.log('not working dog shit')
-        this.reports.push(this.spacereport)
+        console.log("not working dog shit");
+        this.reports.push(this.spacereport);
       }
-      this.updateLocalstorage()
-      this.resetReport()
+      this.updateLocalstorage();
+      this.resetReport();
     },
     updateLocalstorage() {
-      localStorage.setItem('reports', JSON.stringify(this.reports))
+      localStorage.setItem("reports", JSON.stringify(this.reports));
     },
     resetReport() {
-      console.log('test reset')
-      this.$store.dispatch('resetReport') // calling my action in the store
+      console.log("test reset");
+      this.$store.dispatch("resetReport"); // calling my action in the store
     },
   },
   computed: {
     spacereport() {
-      return this.$store.getters.spacereport
+      return this.$store.getters.spacereport;
     },
     coordinates() {
-      return this.$store.getters.spacereport.coordinates
+      return this.$store.getters.spacereport.coordinates;
     },
   },
-}
+};
 </script>

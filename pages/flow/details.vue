@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <h3 class="text-center">space details</h3>
     <section id="section_layout" class="grid grid-cols-2">
       <div class="m-2 h-80">
@@ -40,7 +39,7 @@
       </div>
     </section>
     <div class="flex place-content-between">
-      <NuxtLink to="/" class="secondary-button"><button>back</button></NuxtLink>
+      <button class="secondary-button" @click="resetReport">back</button>
       <NuxtLink to="/flow/images" class="primary-button">
         <!-- <button @click="updateStore">forward</button> -->
         <button @click="updateStore">forward</button>
@@ -51,70 +50,71 @@
 
 <script>
 export default {
-  name: 'Details',
+  name: "Details",
+  layout: "flow",
   data() {
     return {
       missionid: this.$store.state.spacereport.missionid,
-    }
+    };
   },
   mounted() {
     // generate random ID up to 10 thousand unique
     if (this.missionid == null) {
-      this.missionid = Math.random().toString(36).substr(2, 9)
+      this.missionid = Math.random().toString(36).substr(2, 9);
     }
-    console.log(this.missionid)
+    console.log(this.missionid);
   },
   methods: {
     updateStore() {
-      this.$store.commit('setSpacereport', {
-        key: 'missionid',
+      this.$store.commit("setSpacereport", {
+        key: "missionid",
         value: this.missionid,
-      })
+      });
     },
-    // resetReport() {
-    // can I call a action more times? only works once
-    //   console.log('test reset')
-    //   this.$store.dispatch('resetReport') // calling my action in the store
-    // },
+    resetReport() {
+      console.log("test reset");
+      this.$store.dispatch("resetReport"); // calling my action in the store
+      this.$router.push("/");
+    },
   },
   computed: {
     spacereport() {
-      return this.$store.getters.spacereport
+      return this.$store.getters.spacereport;
     },
     missionname: {
       get() {
-        return this.$store.getters.spacereport.missionname
+        return this.$store.getters.spacereport.missionname;
       },
       set(newValue) {
-        console.log('set test', newValue)
-        return this.$store.commit('setSpacereport', {
-          key: 'missionname',
+        console.log("set test", newValue);
+        return this.$store.commit("setSpacereport", {
+          key: "missionname",
           value: newValue,
-        })
+        });
       },
     },
     missiondesc: {
       get() {
-        return this.$store.getters.spacereport.missiondesc
+        return this.$store.getters.spacereport.missiondesc;
       },
       set(newValue) {
-        return this.$store.commit('setSpacereport', {
-          key: 'missiondesc',
+        return this.$store.commit("setSpacereport", {
+          key: "missiondesc",
           value: newValue,
-        })
+        });
       },
     },
     missiondate: {
       get() {
-        return this.$store.getters.spacereport.missiondate
+        return this.$store.getters.spacereport.missiondate;
       },
       set(newValue) {
-        return this.$store.commit('setSpacereport', {
-          key: 'missiondate',
+        return this.$store.commit("setSpacereport", {
+          key: "missiondate",
           value: newValue,
-        })
+        });
       },
     },
   },
-}
+};
 </script>
