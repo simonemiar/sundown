@@ -2,46 +2,49 @@
   <div>
     <Header />
     <!-- container -->
-    <div class="w-full mx-auto my-5">
+    <section class="mx-auto my-5">
       <!-- progress bar -->
-      <div class="w-11/12 lg:w-4/6 mx-auto">
+      <div class="w-11/12 lg:w-4/6 mx-auto relative">
+        <div
+          id="progressbar"
+          ref="progressbar"
+          class="bg-blue-700 h-1 flex items-center absolute"
+          v-bind:class="{
+            progressbar1: $route.path === '/flow/details',
+            progressbar2: $route.path === '/flow/images',
+            progressbar3: $route.path === '/flow/map',
+            progressbar4: $route.path === '/flow/overview',
+          }"
+        ></div>
         <div class="bg-gray-400 h-1 flex items-center justify-between">
-          <div class="w-1/3 bg-blue-700 h-1 flex items-center absolute"></div>
           <router-link
             to="/flow/details"
             active-class="activecolor"
-            class="progressbar"
+            class="progressstep"
             ><div>1</div></router-link
           >
 
           <router-link
             to="/flow/images"
             active-class="activecolor"
-            class="progressbar"
+            class="progressstep"
             ><div>2</div></router-link
           >
           <router-link
             to="/flow/map"
             active-class="activecolor"
-            class="progressbar"
+            class="progressstep"
             ><div>3</div></router-link
           >
           <router-link
             to="/flow/overview"
             active-class="activecolor"
-            class="progressbar"
+            class="progressstep"
             ><div>4</div></router-link
           >
         </div>
       </div>
-
-      <!-- <ul class="focus:shadow-lg flex justify-center">
-        <li class="progressbar">1</li>
-        <li class="progressbar">2</li>
-        <li class="progressbar">3</li>
-        <li class="progressbar">4</li>
-      </ul> -->
-    </div>
+    </section>
     <br />
     <Nuxt />
   </div>
@@ -50,6 +53,17 @@
 <script>
 export default {
   name: "flow",
-  linkActiveClass: "activecolor",
+  mounted() {
+    console.log(this.$refs.progressbar);
+  },
+  methods: {
+    progress1() {},
+    progress2() {},
+    progress3() {
+      console.log("change width", this.$refs.progressbar);
+      this.$refs.progressbar = "@apply w-2/3";
+    },
+    progress4() {},
+  },
 };
 </script>

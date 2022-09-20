@@ -12,7 +12,7 @@
 <script>
 export default {
   data() {
-    return {}
+    return {};
   },
   props: {
     image: {
@@ -22,16 +22,16 @@ export default {
   },
   methods: {
     async updateMissionimage(image) {
-      console.log('test input remove')
-      this.$emit('push-image', image)
-      // this.newmissionimages.push(image.image)
-      // console.log(this.newmissionimages)
+      console.log("test input remove");
+      this.$emit("push-image", image);
+
+      console.log(image);
     },
   },
   computed: {
     spacereport() {
-      return this.$store.getters.spacereport
+      return this.$store.getters.spacereport;
     },
   },
-}
+};
 </script>

@@ -26,7 +26,7 @@ h1 {
   opacity: 0;
 }
 
-.progressbar {
+.progressstep {
   @apply z-10 bg-gray-400 text-white h-6 w-6 rounded-full flex items-center justify-center hover:bg-blue-700;
 }
 
@@ -36,4 +36,17 @@ h1 {
 
 section {
   @apply max-w-screen-xl;
+}
+
+.progressbar1 {
+  @apply w-0 transition-all duration-500 ease-in-out;
+}
+.progressbar2 {
+  @apply w-1/3 transition-all duration-500 ease-in-out;
+}
+.progressbar3 {
+  @apply w-2/3 transition-all duration-500 ease-in-out;
+}
+.progressbar4 {
+  @apply w-full transition-all duration-500 ease-in-out;
 }

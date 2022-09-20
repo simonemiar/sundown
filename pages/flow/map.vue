@@ -72,7 +72,7 @@ export default {
   async mounted() {
     await this.fetchData();
     this.createMap();
-    setInterval(this.updateMapAndMarker, 5000);
+    setInterval(this.updateMapAndMarker, 10000);
     // first we call the function updateFetch which call and sets the data and ends with creating the map
     // then we call the interval, without the () from the function because if we use them, then it will run the function twice
   },
