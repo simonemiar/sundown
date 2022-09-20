@@ -16,3 +16,16 @@
 h1 {
   @apply text-3xl;
 }
+
+.index-enter-active,
+.index-leave-active {
+  transition: opacity 0.2s;
+}
+.index-enter,
+.index-leave-active {
+  opacity: 0;
+}
+
+.progressbar {
+  @apply w-1/5;
+}

@@ -4,7 +4,7 @@
     <!-- container -->
     <div class="w-full absolute z-1">
       <!-- progress bar -->
-      <ul class="focus:shadow-lg">
+      <ul class="focus:shadow-lg flex justify-center">
         <li class="progressbar">1</li>
         <li class="progressbar">2</li>
         <li class="progressbar">3</li>

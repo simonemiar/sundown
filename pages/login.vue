@@ -1,6 +1,5 @@
 <template>
   <div class="grid justify-items-center">
-    <h1 class="text-fourth header-text font-bold text-center">MRT</h1>
     <form @submit.prevent="submitLogin" class="grid m-1">
       <div class="form-group">
         <label for="text">Email</label>
@@ -30,16 +29,17 @@
 </template>
 
 <script>
-import users from '@/assets/users.json'
+import users from "@/assets/users.json";
 
 export default {
-  name: 'Login',
+  name: "Login",
+  transition: "index",
   data() {
     return {
-      email: '',
-      password: '',
-      user: ['johnny'],
-    }
+      email: "",
+      password: "",
+      user: ["johnny"],
+    };
   },
   methods: {
     submitLogin() {
@@ -48,22 +48,22 @@ export default {
           user.email === this.email &&
           user.password === this.password.toString()
         ) {
-          return user
+          return user;
         } else {
-          return false
+          return false;
         }
-      })
+      });
 
       if (currentUser) {
-        localStorage.setItem('user', JSON.stringify(currentUser))
-        this.$router.push({ path: '/' })
+        localStorage.setItem("user", JSON.stringify(currentUser));
+        this.$router.push({ path: "/" });
 
-        const outputuser = localStorage.getItem('user')
-        console.log(outputuser)
+        const outputuser = localStorage.getItem("user");
+        console.log(outputuser);
       } else {
-        alert('We could not find the user')
+        alert("We could not find the user");
       }
     },
   },
-}
+};
 </script>
