@@ -21,9 +21,9 @@ export default {
     },
   },
   methods: {
-    async updateMissionimage(image) {
+    updateMissionimage(image) {
       console.log("test input remove");
-      this.$emit("push-image", image);
+      this.$emit("click-image", image);
 
       console.log(image);
     },

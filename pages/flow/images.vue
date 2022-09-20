@@ -19,7 +19,7 @@
         >
           <div v-if="!$fetchState.pending">
             <Missionimage
-              @push-image="pushImage"
+              @click-image="pushImage"
               v-for="missionimage in missionimages"
               :key="missionimage.img_src"
               :image="missionimage"
@@ -35,6 +35,7 @@
             v-for="newmissionimage in newmissionimages"
             :key="newmissionimage.img_src"
             :image="newmissionimage"
+            @click-image="removeImage"
             
           />
         </div>
@@ -59,7 +60,7 @@ export default {
   layout: "flow",
   data() {
     return {
-      missionimages: '',
+      // missionimages: '',
       error:[],
     }
   },
@@ -75,8 +76,8 @@ export default {
     clickHandle(e) {
       if (this.newmissionimages.length) {
         this.$emit('toggle-flow-map')
-        // } else if (this.newmissionimages.length < 7) {
-        //   this.$emit('toggle-flow-map')
+        } else if (this.newmissionimages.length < 7) {
+          this.$emit('toggle-flow-map')
       } else {
         this.error=[]; 
         if(this.newmissionimages.length < 1)
@@ -100,7 +101,14 @@ export default {
     pushImage(newimage) {
       console.log(newimage)
       this.newmissionimages = [...this.newmissionimages, newimage]
+      console.log("remove la images")
     },
+    removeImage(newimage){
+      console.log("test remove image 11", newimage)
+      this.$store.commit("deleteImage", newimage);
+      
+    }
+    
   },
   computed: {
     spacereport() {

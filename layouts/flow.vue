@@ -54,16 +54,7 @@
 export default {
   name: "flow",
   mounted() {
-    console.log(this.$refs.progressbar);
-  },
-  methods: {
-    progress1() {},
-    progress2() {},
-    progress3() {
-      console.log("change width", this.$refs.progressbar);
-      this.$refs.progressbar = "@apply w-2/3";
-    },
-    progress4() {},
+    // console.log(this.$refs.progressbar);
   },
 };
 </script>

@@ -12,6 +12,7 @@
           placeholder="Please enter your email"
         />
       </div>
+      <span v-if="msg.email">{{ msg.email }}</span>
       <div>
         <label for="password">Password:</label>
         <input
@@ -23,6 +24,7 @@
           placeholder="Please enter your password"
         />
       </div>
+      <span v-if="msg.password">{{ msg.password }}</span>
       <button type="submit" class="primary-button">login</button>
     </form>
   </div>
@@ -39,6 +41,7 @@ export default {
       email: "",
       password: "",
       user: ["johnny"],
+      msg: [],
     };
   },
   methods: {
@@ -63,6 +66,28 @@ export default {
       } else {
         alert("We could not find the user");
       }
+    },
+    validateEmail(value) {
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+        this.msg["email"] = "";
+      } else {
+        this.msg["email"] = "Invalid Email Address";
+      }
+    },
+    validatePassword(value) {
+      let difference = 8 - value.length;
+      if (value.length < 8) {
+        this.msg["password"] =
+          "Must be 8 characters! " + difference + " characters left";
+      } else {
+        this.msg["password"] = "";
+      }
+    },
+  },
+  watch: {
+    email(value) {
+      this.email = value;
+      this.validateEmail(value);
     },
   },
 };
