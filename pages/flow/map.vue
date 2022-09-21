@@ -1,9 +1,12 @@
 <template>
-  <div>
+  <div class="bg-blue-50 w-screen h-screen">
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2">
         <p class="font-bold">Current position over earth:</p>
-        <div id="map_container" class="border rounded border-gray-900 h-5/6">
+        <div
+          id="map_container"
+          class="border rounded border-gray-900 bg-white h-5/6"
+        >
           <div id="map" class="w-full h-60 sm:h-full sm:w-full"></div>
         </div>
       </div>
@@ -11,7 +14,7 @@
         <div>
           <p class="font-bold">Lat:</p>
           <div
-            class="border border-gray-900 w-full h-full rounded"
+            class="border border-gray-900 bg-white p-2 w-full h-full rounded"
             :missionlongitude="missionlongitude"
           >
             {{ missionlongitude }}
@@ -20,7 +23,7 @@
         <div class="h-full">
           <p class="font-bold">Long:</p>
           <div
-            class="border border-gray-900 w-full rounded"
+            class="border border-gray-900 bg-white p-2 w-full rounded"
             :missionlatitude="missionlatitude"
           >
             {{ missionlatitude }}

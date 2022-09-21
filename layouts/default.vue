@@ -1,7 +1,7 @@
 <template>
-  <div><Header /><Nuxt /></div>
+  <div class="bg-blue-50"><Header /><Nuxt /></div>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>

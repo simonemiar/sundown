@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-blue-50">
     <Header />
     <!-- container -->
     <section class="mx-auto my-5">

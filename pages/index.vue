@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen bg-graycolor">
+  <div class="w-screen h-screen bg-blue-50">
     <button class="bold absolute top-1 right-1" @click="clearUser">
       <img class="w-10 h-10" src="../assets/img/logout.png" alt="logout" />
     </button>
@@ -25,8 +25,10 @@
                 :key="report.missionname"
                 class="card grid mx-3 bg-blue-300 rounded sm:grid-cols-3"
               >
-                <div class="sm:col-span-2 sm:row-span-2">
-                  <p class="text-left font-bold text-lg uppercase">
+                <div class="p-3 sm:col-span-2 sm:row-span-2">
+                  <p
+                    class="text-left font-bold text-lg uppercase overflow-hidden whitespace-nowrap overflow-ellipsis"
+                  >
                     {{ report.missionname }}
                   </p>
                   <p class="text-left text-sm">
@@ -35,12 +37,15 @@
                   </p>
                 </div>
                 <button
-                  class="primary-button sm:m-0"
+                  class="primary-button text-sm sm:m-0"
                   @click="editReport(report)"
                 >
                   edit
                 </button>
-                <button class="secondary-button" @click="removeReport(index)">
+                <button
+                  class="secondary-button text-sm"
+                  @click="removeReport(index)"
+                >
                   delete
                 </button>
               </div>
@@ -76,10 +81,8 @@ export default {
     return {
       user: "",
       reports: [],
-      // missionuser: '',
     };
   },
-
   mounted() {
     if (localStorage.user) {
       this.user = JSON.parse(localStorage.user);

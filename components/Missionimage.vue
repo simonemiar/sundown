@@ -3,7 +3,7 @@
     <img
       class="w-40 h-40 m-2"
       :src="image.image"
-      @click="updateMissionimage(image)"
+      @click="clickImage(image)"
       alt="space image"
     />
   </div>
@@ -21,7 +21,7 @@ export default {
     },
   },
   methods: {
-    updateMissionimage(image) {
+    clickImage(image) {
       console.log("test input remove");
       this.$emit("click-image", image);
 

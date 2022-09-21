@@ -1,5 +1,15 @@
 <template>
-  <div>
+  <div class="bg-blue-50 w-screen h-screen">
+    <div class="max-w-screen-lg m-auto">
+      <p class="m-2 text-red-700" v-if="errors.length">
+        <b>please correct the following errors</b>
+        <ul>
+          <li v-for="(error, index) in errors" :key="index">
+            {{error}}
+          </li>
+        </ul>
+      </p>
+    </div>
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2 h-80">
         <div>
@@ -33,6 +43,11 @@
               v-model="missiondate"
               :max-date="new Date()"
               show-caps
+              :model-config="{
+              type: 'string',
+              mask: 'YYYY-MM-DD HH:mm:ss',
+              }"
+              :masks="{ L: 'YYYY-MM-DD-SS' }"
             />
           </div>
         </div>
@@ -40,10 +55,15 @@
     </section>
     <div class="flex place-content-between max-w-screen-lg m-2 sm:m-auto">
       <button class="secondary-button" @click="resetReport">back</button>
-      <NuxtLink to="/flow/images" class="primary-button">
-        <!-- <button @click="updateStore">forward</button> -->
-        <button @click="updateStore">forward</button>
-      </NuxtLink>
+      <button
+        class="primary-button"
+        @click="
+          updateStore();
+          validateInput();
+        "
+      >
+        forward
+      </button>
     </div>
   </div>
 </template>
@@ -55,6 +75,12 @@ export default {
   data() {
     return {
       missionid: this.$store.state.spacereport.missionid,
+      missiondate: this.$store.state.spacereport.missiondate || new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''), // first replace T with a space  // second replace delete the dot and everything after
+      errors: [],
+      modelConfig: {
+        type: "string",
+        mask: "YYYY-MM-DD", // Uses 'iso' if missing
+      },
     };
   },
   mounted() {
@@ -70,11 +96,30 @@ export default {
         key: "missionid",
         value: this.missionid,
       });
+      this.$store.commit("setSpacereport", {
+        key: "missiondate",
+        value: this.missiondate,
+      });
     },
     resetReport() {
       // console.log("test reset");
       this.$store.dispatch("resetReport"); // calling my action in the store
       this.$router.push("/");
+    },
+    validateInput() {
+      this.errors = []
+      if (
+        this.$store.state.spacereport.missionname &&
+        this.$store.state.spacereport.missiondesc
+      ) {
+        console.log("match");
+        this.$router.push({ path: "/flow/images" });
+      } else {
+        if (!this.$store.state.spacereport.missionname)
+          this.errors.push("Missionname required");
+        if (!this.$store.state.spacereport.missiondesc)
+          this.errors.push("Missiondesc required");
+      }
     },
   },
   computed: {
@@ -100,17 +145,6 @@ export default {
       set(newValue) {
         return this.$store.commit("setSpacereport", {
           key: "missiondesc",
-          value: newValue,
-        });
-      },
-    },
-    missiondate: {
-      get() {
-        return this.$store.getters.spacereport.missiondate;
-      },
-      set(newValue) {
-        return this.$store.commit("setSpacereport", {
-          key: "missiondate",
           value: newValue,
         });
       },

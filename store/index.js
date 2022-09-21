@@ -4,7 +4,7 @@ let defaultSpacereport = {
   missionid: null,
   missionname: "",
   missiondesc: "",
-  missiondate: new Date().toLocaleDateString("en-US"),
+  missiondate: null,
   missionimages: [],
   newmissionimages: [],
   coordinates: {

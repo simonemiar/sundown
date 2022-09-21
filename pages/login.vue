@@ -20,14 +20,14 @@
           placeholder="Please enter your email"
         />
       </div>
-      <span v-if="msg.email">{{ msg.email }}</span>
+      <span class="text-red-700" v-if="msg.email">{{ msg.email }}</span>
       <div class="grid">
         <label for="password">Password:</label>
         <input
           class="my-1 border-solid border p-1 border-black"
           id="password"
           name="password"
-          type="text"
+          type="password"
           v-model="password"
           placeholder="Please enter your password"
         />

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-blue-50 w-screen h-screen">
     <!-- creating a loading... with fetch hook -->
     <div class="max-w-screen-lg m-auto">
       <p class="m-2 text-red-700" v-if="error.length">
@@ -16,7 +16,7 @@
         <p class="font-bold">space mission images</p>
         <div
           id="report_container"
-          class="border border-gray-900 overflow-scroll h-full"
+          class="border border-gray-900 bg-white overflow-scroll h-full"
         >
           <div v-if="!$fetchState.pending">
             <Missionimage
@@ -31,7 +31,7 @@
       </div>
       <div class="m-2 my-10 sm:my-2">
         <p class="font-bold">Selected images to report</p>
-        <div id="select_container" class="border border-gray-900 overflow-scroll h-80">
+        <div id="select_container" class="border border-gray-900 bg-white overflow-scroll h-80">
           <Missionimage
             v-for="newmissionimage in newmissionimages"
             :key="newmissionimage.img_src"

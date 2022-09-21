@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="bg-blue-50 w-screen h-screen">
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
-      <div class="m-2">
+      <div class="m-2 p-2 bg-white rounded border border-gray-900 h-80">
         <p class="font-bold">Mission name:</p>
         <p>{{ spacereport.missionname }}</p>
         <div>
@@ -21,7 +21,9 @@
           <p>{{ coordinates.missionlongitude }}</p>
         </div>
       </div>
-      <div class="m-2 h-80">
+      <div
+        class="m-2 p-2 bg-white rounded border border-gray-900 overflow-scroll h-80"
+      >
         <div>
           <p class="font-bold">Images</p>
           <Missionimage
@@ -53,6 +55,7 @@ export default {
       reports: JSON.parse(localStorage.getItem("reports")),
     };
   },
+
   methods: {
     finaliseReport() {
       if (this.reports === null) {
@@ -63,11 +66,9 @@ export default {
       );
       console.log("find report", findReport);
       if (findReport) {
-        console.log("hahahahhah I got u");
         this.reports.splice(this.reports.indexOf(findReport), 1);
         this.reports.push(this.spacereport);
       } else {
-        console.log("not working dog shit");
         this.reports.push(this.spacereport);
       }
       this.updateLocalstorage();
