@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h3 class="text-center">space images</h3>
     <!-- creating a loading... with fetch hook -->
     <p v-if="error.length">
            <b>please correct the following errors</b>
@@ -10,7 +9,7 @@
              </li>
            </ul>
          </p>
-    <section id="section_layout" class="grid grid-cols-2">
+    <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2 h-80">
         <p class="font-bold">space mission images</p>
         <div
@@ -28,9 +27,9 @@
           <div v-else>Loading...</div>
         </div>
       </div>
-      <div class="m-2">
+      <div class="m-2 my-10 sm:my-2">
         <p class="font-bold">Selected images to report</p>
-        <div id="select_container" class="border border-gray-900 overflow-scroll h-full">
+        <div id="select_container" class="border border-gray-900 overflow-scroll h-80">
           <Missionimage
             v-for="newmissionimage in newmissionimages"
             :key="newmissionimage.img_src"
@@ -45,11 +44,10 @@
       
     
       <NuxtLink to="/flow/details" class="secondary-button"><button>back</button></NuxtLink>
-      <NuxtLink to="/flow/map" class="primary-button">
-        <button @click="
+        <button class="primary-button" @click="
           clickHandle()
         ">forward</button>
-      </NuxtLink>
+      
     </div>
   </div>
 </template>
@@ -74,39 +72,47 @@ export default {
   },
   methods: {
     clickHandle(e) {
-      if (this.newmissionimages.length) {
-        this.$emit('toggle-flow-map')
-        } else if (this.newmissionimages.length < 7) {
-          this.$emit('toggle-flow-map')
+      console.log(this.newmissionimages )
+      if(this.newmissionimages.length < 7 && this.newmissionimages.length > 0){
+        console.log("if images amounth match")
+        this.$router.push("/flow/map");
       } else {
-        this.error=[]; 
-        if(this.newmissionimages.length < 1)
-        {
-          this.error = ["Please select minimum one image to proceed"]
-        } else {
-        console.log("errors", this.error);
-        e.preventDefault
-        // alert('double wrong number to many')
-        }
-        if(this.newmissionimages.length > 7)
-        {
-          this.error = ["Please select maximum seven image to proceed"]
-        } else {
-        console.log("errors", this.error);
-        e.preventDefault
-        // alert('double wrong number to many')
-        }
+        console.log("if images not match")
+        this.error = ["Please select minimum one and maximum seven image to proceed"]
       }
+
+
+
+      // if (this.newmissionimages.length) {
+      //   this.$emit('toggle-flow-map')
+      //   } else if (this.newmissionimages.length < 7) {
+      //     this.$emit('toggle-flow-map')
+      // } else {
+      //   this.error=[]; 
+      //   if(this.newmissionimages.length < 1)
+      //   {
+      //     this.error = ["Please select minimum one image to proceed"]
+      //   } else {
+      //   console.log("errors", this.error);
+      //   e.preventDefault
+      //   // alert('double wrong number to many')
+      //   }
+      //   if(this.newmissionimages.length > 7)
+      //   {
+      //     this.error = ["Please select maximum seven image to proceed"]
+      //   } else {
+      //   console.log("errors", this.error);
+      //   e.preventDefault
+      //   // alert('double wrong number to many')
+      //   }
+      // }
     },
     pushImage(newimage) {
       console.log(newimage)
       this.newmissionimages = [...this.newmissionimages, newimage]
-      console.log("remove la images")
     },
     removeImage(newimage){
-      console.log("test remove image 11", newimage)
-      this.$store.commit("deleteImage", newimage);
-      
+      this.$store.commit("deleteImage", newimage);   
     }
     
   },

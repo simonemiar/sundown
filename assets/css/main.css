@@ -7,10 +7,14 @@
 }
 
 .primary-button {
-  @apply text-white bg-gray-800 rounded-lg mt-4 border p-2 text-center shadow transition duration-200 ease-in-out transform hover:-translate-y-px hover:shadow-md cursor-pointer;
+  @apply text-white bg-blue-800 uppercase rounded-lg mt-4 border p-2 text-center shadow transition duration-200 ease-in-out transform hover:-translate-y-px hover:shadow-md cursor-pointer;
 }
 .secondary-button {
-  @apply text-gray-600 mt-4 bg-white border p-2 border-gray-400 rounded-lg text-center transition duration-200 ease-in-out transform hover:-translate-y-px shadow hover:shadow-md cursor-pointer;
+  @apply text-gray-600 uppercase mt-4 bg-white border p-2 border-gray-400 rounded-lg text-center transition duration-200 ease-in-out transform hover:-translate-y-px shadow hover:shadow-md cursor-pointer;
+}
+
+.card {
+  @apply text-gray-600 uppercase mt-4 bg-white border p-2 border-gray-400 rounded-lg text-center transition duration-200 ease-in-out transform hover:-translate-y-px shadow hover:shadow-md cursor-pointer;
 }
 
 h1 {
@@ -35,7 +39,7 @@ h1 {
 }
 
 section {
-  @apply max-w-screen-xl;
+  @apply max-w-screen-xl sm:m-auto;
 }
 
 .progressbar1 {

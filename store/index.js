@@ -51,9 +51,6 @@ export const mutations = {
       1
     );
   },
-  // editReport2(state, payload) {
-  //   state.spacereport = Object.assign(this.spacereport, payload)
-  // },
 };
 
 //actions - is async they go out as third party api

@@ -1,7 +1,15 @@
 <template>
-  <div class="grid justify-items-center">
-    <form @submit.prevent="submitLogin" class="grid m-1">
-      <div class="form-group">
+  <div class="grid sm:flex justify-center">
+    <div>
+      <h1 class="font-bold">WELCOME TO MRT</h1>
+      <p class="w-[40ch] my-1.5">
+        The International Space Station private reporting tool. This tool was
+        created for engineers and likeminded nerds.
+      </p>
+      <p>Please insert your user information on the right</p>
+    </div>
+    <form @submit.prevent="submitLogin" class="grid m-1 w-full sm:w-1/3">
+      <div class="grid">
         <label for="text">Email</label>
         <input
           class="my-1 border-solid border p-1 border-black"
@@ -13,7 +21,7 @@
         />
       </div>
       <span v-if="msg.email">{{ msg.email }}</span>
-      <div>
+      <div class="grid">
         <label for="password">Password:</label>
         <input
           class="my-1 border-solid border p-1 border-black"

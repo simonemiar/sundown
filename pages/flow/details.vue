@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h3 class="text-center">space details</h3>
-    <section id="section_layout" class="grid grid-cols-2">
+    <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2 h-80">
         <div>
           <label class="font-bold">Mission name</label>
@@ -19,7 +18,7 @@
             v-model="missiondesc"
             id="missiondesc"
             name="missiondesc"
-            class="border border-gray-900 overflow-scroll h-5/6 w-full"
+            class="border border-gray-900 overflow-scroll h-2/3 w-full"
             required
           />
         </div>
@@ -29,6 +28,7 @@
         <div id="calender_container" class="h-full">
           <div>
             <v-date-picker
+              is-expanded
               mode="date"
               v-model="missiondate"
               :max-date="new Date()"
@@ -72,7 +72,7 @@ export default {
       });
     },
     resetReport() {
-      console.log("test reset");
+      // console.log("test reset");
       this.$store.dispatch("resetReport"); // calling my action in the store
       this.$router.push("/");
     },
@@ -86,7 +86,7 @@ export default {
         return this.$store.getters.spacereport.missionname;
       },
       set(newValue) {
-        console.log("set test", newValue);
+        // console.log("set test", newValue);
         return this.$store.commit("setSpacereport", {
           key: "missionname",
           value: newValue,

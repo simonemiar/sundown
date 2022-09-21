@@ -1,20 +1,15 @@
 <template>
   <div>
-    <h3 class="text-center">space map</h3>
-    <section id="section_layout" class="grid grid-cols-2">
+    <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2">
         <p class="font-bold">Current position over earth:</p>
         <div id="map_container" class="border border-gray-900 h-full">
-          <div id="map" class="h-full w-full"></div>
+          <div id="map" class="w-full h-60 sm:h-full sm:w-full"></div>
         </div>
       </div>
       <div class="m-2 h-80">
         <div>
           <p class="font-bold">Lat:</p>
-          <!-- <p
-          class="border border-gray-900 w-full h-full"
-          v-model="missionlongitude"
-        ></p> -->
           <div
             class="border border-gray-900 w-full h-full"
             :missionlongitude="missionlongitude"
@@ -24,7 +19,6 @@
         </div>
         <div class="h-full">
           <p class="font-bold">Long:</p>
-          <!-- <p class="border border-gray-900 w-full" v-model="missionlongitude"> -->
           <div
             class="border border-gray-900 w-full"
             :missionlatitude="missionlatitude"

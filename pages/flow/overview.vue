@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h3 class="text-center">space overview</h3>
-    <section id="section_layout" class="grid grid-cols-2">
+    <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2">
         <p class="font-bold">Mission name:</p>
         <p>{{ spacereport.missionname }}</p>
@@ -55,22 +54,6 @@ export default {
     };
   },
   methods: {
-    test() {
-      const findReport = this.reports.find(
-        (report) => report.missionid === this.spacereport.missionid
-      );
-      // console.log(findReport)
-      // if (findReport) {
-      //   console.log('working dog shit')
-      //   console.log("hahahahhah I got u")
-      // } else {
-      //   console.log('not working dog shit')
-      //   this.reports.push(this.spacereport)
-      // }
-      // const testReport = this.reports.find(
-      //   (report) => report.missionid == this.spacereport.missionid
-      // )
-    },
     finaliseReport() {
       if (this.reports === null) {
         this.reports = [];
