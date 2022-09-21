@@ -3,7 +3,7 @@
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2">
         <p class="font-bold">Current position over earth:</p>
-        <div id="map_container" class="border border-gray-900 h-full">
+        <div id="map_container" class="border rounded border-gray-900 h-5/6">
           <div id="map" class="w-full h-60 sm:h-full sm:w-full"></div>
         </div>
       </div>
@@ -11,7 +11,7 @@
         <div>
           <p class="font-bold">Lat:</p>
           <div
-            class="border border-gray-900 w-full h-full"
+            class="border border-gray-900 w-full h-full rounded"
             :missionlongitude="missionlongitude"
           >
             {{ missionlongitude }}
@@ -20,7 +20,7 @@
         <div class="h-full">
           <p class="font-bold">Long:</p>
           <div
-            class="border border-gray-900 w-full"
+            class="border border-gray-900 w-full rounded"
             :missionlatitude="missionlatitude"
           >
             {{ missionlatitude }}
@@ -28,7 +28,7 @@
         </div>
       </div>
     </section>
-    <div class="flex place-content-between">
+    <div class="flex place-content-between max-w-screen-lg m-2 sm:m-auto">
       <NuxtLink to="/flow/images" class="secondary-button"
         ><button>back</button></NuxtLink
       >

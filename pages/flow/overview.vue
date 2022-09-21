@@ -33,7 +33,7 @@
       </div>
     </section>
 
-    <div class="flex place-content-between">
+    <div class="flex place-content-between max-w-screen-lg m-2 sm:m-auto">
       <NuxtLink to="/flow/map" class="secondary-button"
         ><button>back</button></NuxtLink
       >

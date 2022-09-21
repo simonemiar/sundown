@@ -1,14 +1,16 @@
 <template>
   <div>
     <!-- creating a loading... with fetch hook -->
-    <p v-if="error.length">
-           <b>please correct the following errors</b>
-           <ul>
-             <li v-for="e in error" v-bind:key="e">
-               {{e}}
-             </li>
-           </ul>
-         </p>
+    <div class="max-w-screen-lg m-auto">
+      <p class="m-2 text-red-700" v-if="error.length">
+        <b>please correct the following errors</b>
+        <ul>
+          <li v-for="e in error" v-bind:key="e">
+            {{e}}
+          </li>
+        </ul>
+      </p>
+    </div>
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2 h-80">
         <p class="font-bold">space mission images</p>
@@ -40,9 +42,7 @@
         </div>
       </div>
     </section>
-    <div class="flex place-content-between">
-      
-    
+    <div class="flex place-content-between max-w-screen-lg m-2 sm:m-auto">
       <NuxtLink to="/flow/details" class="secondary-button"><button>back</button></NuxtLink>
         <button class="primary-button" @click="
           clickHandle()
@@ -74,38 +74,11 @@ export default {
     clickHandle(e) {
       console.log(this.newmissionimages )
       if(this.newmissionimages.length < 7 && this.newmissionimages.length > 0){
-        console.log("if images amounth match")
         this.$router.push("/flow/map");
       } else {
-        console.log("if images not match")
-        this.error = ["Please select minimum one and maximum seven image to proceed"]
+        this.error = ["Please select between one and maximum seven images to proceed"]
       }
-
-
-
-      // if (this.newmissionimages.length) {
-      //   this.$emit('toggle-flow-map')
-      //   } else if (this.newmissionimages.length < 7) {
-      //     this.$emit('toggle-flow-map')
-      // } else {
-      //   this.error=[]; 
-      //   if(this.newmissionimages.length < 1)
-      //   {
-      //     this.error = ["Please select minimum one image to proceed"]
-      //   } else {
-      //   console.log("errors", this.error);
-      //   e.preventDefault
-      //   // alert('double wrong number to many')
-      //   }
-      //   if(this.newmissionimages.length > 7)
-      //   {
-      //     this.error = ["Please select maximum seven image to proceed"]
-      //   } else {
-      //   console.log("errors", this.error);
-      //   e.preventDefault
-      //   // alert('double wrong number to many')
-      //   }
-      // }
+      // e.preventDefault
     },
     pushImage(newimage) {
       console.log(newimage)

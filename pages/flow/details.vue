@@ -38,7 +38,7 @@
         </div>
       </div>
     </section>
-    <div class="flex place-content-between">
+    <div class="flex place-content-between max-w-screen-lg m-2 sm:m-auto">
       <button class="secondary-button" @click="resetReport">back</button>
       <NuxtLink to="/flow/images" class="primary-button">
         <!-- <button @click="updateStore">forward</button> -->

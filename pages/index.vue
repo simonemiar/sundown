@@ -14,7 +14,7 @@
           <p>space reports created by {{ user.first_name }}</p>
           <div
             id="report_container"
-            class="border border-gray-900 overflow-scroll h-80"
+            class="border border-gray-900 overflow-scroll h-80 rounded"
           >
             <p v-if="!reports.length">no spacereports saved</p>
             <div v-if="reports.length">
@@ -29,7 +29,10 @@
                   <p class="text-left font-bold text-lg uppercase">
                     {{ report.missionname }}
                   </p>
-                  <p class="text-left">>{{ report.missiondate }}</p>
+                  <p class="text-left text-sm">
+                    <span class="font-bold">DATE:</span>
+                    {{ report.missiondate }}
+                  </p>
                 </div>
                 <button
                   class="primary-button sm:m-0"

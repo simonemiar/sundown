@@ -39,7 +39,7 @@ h1 {
 }
 
 section {
-  @apply max-w-screen-xl sm:m-auto;
+  @apply max-w-screen-lg sm:m-auto;
 }
 
 .progressbar1 {
