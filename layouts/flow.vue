@@ -16,32 +16,42 @@
             progressbar4: $route.path === '/flow/overview',
           }"
         ></div>
+
         <div class="bg-gray-400 h-1 flex items-center justify-between">
-          <router-link
-            to="/flow/details"
-            active-class="activecolor"
-            class="progressstep"
+          <router-link to="/flow/details" class="activecolor"
             ><div>1</div></router-link
           >
 
-          <router-link
-            to="/flow/images"
-            active-class="activecolor"
+          <button
+            @click.prevent="isDetailsCompleted"
             class="progressstep"
-            ><div>2</div></router-link
+            v-bind:class="{
+              activecolor:
+                this.$store.state.spacereport.iscompleted.isdetailscompleted,
+            }"
           >
-          <router-link
-            to="/flow/map"
-            active-class="activecolor"
+            <div>2</div>
+          </button>
+          <button
+            @click.prevent="isImagesCompleted"
             class="progressstep"
-            ><div>3</div></router-link
+            v-bind:class="{
+              activecolor:
+                this.$store.state.spacereport.iscompleted.isimagescompleted,
+            }"
           >
-          <router-link
-            to="/flow/overview"
-            active-class="activecolor"
+            <div>3</div>
+          </button>
+          <button
+            @click.prevent="isMapCompleted"
             class="progressstep"
-            ><div>4</div></router-link
+            v-bind:class="{
+              activecolor:
+                this.$store.state.spacereport.iscompleted.ismapcompleted,
+            }"
           >
+            <div>4</div>
+          </button>
         </div>
       </div>
     </section>
@@ -51,10 +61,35 @@
 </template>
 
 <script>
+import Button from "../components/Button.vue";
 export default {
+  components: { Button },
   name: "flow",
-  mounted() {
-    // console.log(this.$refs.progressbar);
+  methods: {
+    isDetailsCompleted(event) {
+      if (this.$store.state.spacereport.iscompleted.isdetailscompleted) {
+        // else continue to route
+        this.$router.push({ path: "/flow/images" });
+      } else {
+        event.preventDefault();
+      }
+    },
+    isImagesCompleted(event) {
+      if (this.$store.state.spacereport.iscompleted.isimagescompleted) {
+        // else continue to route
+        this.$router.push({ path: "/flow/map" });
+      } else {
+        event.preventDefault();
+      }
+    },
+    isMapCompleted(event) {
+      if (this.$store.state.spacereport.iscompleted.ismapcompleted) {
+        // else continue to route
+        this.$router.push({ path: "/flow/overview" });
+      } else {
+        event.preventDefault();
+      }
+    },
   },
 };
 </script>

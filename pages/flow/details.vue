@@ -17,7 +17,7 @@
           <input
             v-model="missionname"
             id="missionname"
-            class="border border-gray-900 overflow-scroll w-full p-1"
+            class="border border-gray-300 overflow-scroll w-full p-1"
             name="missionname"
             required
           />
@@ -28,7 +28,7 @@
             v-model="missiondesc"
             id="missiondesc"
             name="missiondesc"
-            class="border border-gray-900 overflow-scroll h-52 w-full"
+            class="border border-gray-300 overflow-scroll h-52 w-full p-1"
             required
           />
         </div>
@@ -73,6 +73,8 @@ export default {
       missionid: this.$store.state.spacereport.missionid,
       missiondate: new Date(this.$store.state.spacereport.missiondate),
       errors: [],
+      isdetailscompleted:
+        this.$store.state.spacereport.iscompleted.isdetailscompleted,
     };
   },
   mounted() {
@@ -91,6 +93,10 @@ export default {
       this.$store.commit("setSpacereport", {
         key: "missiondate",
         value: this.missiondate,
+      });
+      this.$store.commit("setCompleted", {
+        key: "isdetailscompleted",
+        value: true,
       });
     },
     resetReport() {
@@ -117,6 +123,9 @@ export default {
   computed: {
     spacereport() {
       return this.$store.getters.spacereport;
+    },
+    iscompleted() {
+      return this.$store.getters.spacereport.iscompleted;
     },
     missionname: {
       get() {

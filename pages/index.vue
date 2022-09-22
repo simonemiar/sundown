@@ -14,7 +14,7 @@
           <p class="my-2">space reports created by {{ user.first_name }}</p>
           <div
             id="report_container"
-            class="border border-gray-900 overflow-scroll h-4/5 rounded"
+            class="border border-gray-300 overflow-scroll h-4/5 rounded"
           >
             <p
               class="h-full flex items-center justify-center"

@@ -16,7 +16,7 @@
         <p class="font-bold">space mission images</p>
         <div
           id="report_container"
-          class="border border-gray-900 bg-white overflow-scroll h-full"
+          class="border border-gray-300 bg-white overflow-scroll h-full"
         >
           <div v-if="!$fetchState.pending">
             <Missionimage
@@ -31,7 +31,7 @@
       </div>
       <div class="m-2">
         <p class="font-bold">Selected images to report</p>
-        <div id="select_container" class="border border-gray-900 bg-white overflow-scroll h-80">
+        <div id="select_container" class="border border-gray-300 bg-white overflow-scroll h-80">
           <Missionimage
             v-for="newmissionimage in newmissionimages"
             :key="newmissionimage.img_src"
@@ -60,6 +60,8 @@ export default {
     return {
       // missionimages: '',
       error:[],
+      isimagescompleted:
+        this.$store.state.spacereport.iscompleted.isimagescompleted,
     }
   },
   //     'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15'
@@ -74,6 +76,10 @@ export default {
     clickHandle(e) {
       console.log(this.newmissionimages )
       if(this.newmissionimages.length < 7 && this.newmissionimages.length > 0){
+        this.$store.commit("setCompleted", {
+        key: "isimagescompleted",
+        value: true,
+      });
         this.$router.push("/flow/map");
       } else {
         this.error = ["Please select between one and maximum seven images to proceed"]
@@ -92,6 +98,9 @@ export default {
   computed: {
     spacereport() {
       return this.$store.getters.spacereport
+    },
+    iscompleted() {
+      return this.$store.getters.spacereport.iscompleted;
     },
     newmissionimages: {
       get() {

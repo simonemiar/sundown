@@ -1,7 +1,7 @@
 <template>
   <div class="bg-blue-50 w-screen h-screen">
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
-      <div class="m-2 p-2 bg-white rounded border border-gray-900 h-80">
+      <div class="m-2 p-2 bg-white rounded border border-gray-300 h-80">
         <p class="font-bold">Mission name:</p>
         <p>{{ spacereport.missionname }}</p>
         <div>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div
-        class="m-2 p-2 bg-white rounded border border-gray-900 overflow-scroll h-80"
+        class="m-2 p-2 bg-white rounded border border-gray-300 overflow-scroll h-80"
       >
         <div>
           <p class="font-bold">Images</p>
@@ -53,21 +53,22 @@ export default {
   data() {
     return {
       reports: JSON.parse(localStorage.getItem("reports")),
-      // missiondate: this.$store.state.spacereport.missiondate,
-      // displaydate: new Intl.DateTimeFormat("en-GB").format(missiondate),
-      // displaydate: new Intl.DateTimeFormat("en-GB").format(
-      //   this.$store.state.spacereport.missiondate
-      // ),
-      // };
-      // displaydate: this.$store.state.spacereport.missiondate
-      //   .toISOString()
-      //   .replace(/T/, " ")
-      //   .replace(/\..+/, ""), // first replace T with a space  // second replace delete the dot and everything after,,
+      isoverviewcompleted:
+        this.$store.state.spacereport.iscompleted.isoverviewcompleted,
     };
   },
-
+  mounted() {
+    this.$store.commit("setCompleted", {
+      key: "isoverviewcompleted",
+      value: true,
+    });
+  },
   methods: {
     finaliseReport() {
+      this.$store.commit("setCompleted", {
+        key: "isoverviewcompleted",
+        value: true,
+      });
       if (this.reports === null) {
         this.reports = [];
       }
@@ -101,6 +102,9 @@ export default {
     },
     coordinates() {
       return this.$store.getters.spacereport.coordinates;
+    },
+    iscompleted() {
+      return this.$store.getters.spacereport.iscompleted;
     },
   },
 };

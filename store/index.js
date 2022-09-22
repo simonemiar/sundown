@@ -11,6 +11,12 @@ let defaultSpacereport = {
     missionlongitude: "",
     missionlatitude: "",
   },
+  iscompleted: {
+    isdetailscompleted: false,
+    isimagescompleted: false,
+    ismapcompleted: false,
+    isoverviewcompleted: false,
+  },
 };
 
 export const state = () => {
@@ -18,7 +24,6 @@ export const state = () => {
     test: 1,
     spacereport: defaultSpacereport,
     spacereports: [],
-    // resetSpacereport: [...spacereport],
   };
 };
 
@@ -32,6 +37,9 @@ export const mutations = {
   },
   setCoordinates(state, { key, value }) {
     state.spacereport.coordinates[key] = value;
+  },
+  setCompleted(state, { key, value }) {
+    state.spacereport.iscompleted[key] = value;
   },
   setSpacereports(state, newState) {
     state.spacereports = newState;
@@ -67,5 +75,8 @@ export const getters = {
   },
   spacereports(state) {
     return state.spacereports;
+  },
+  iscompleted(state) {
+    return state.iscompleted;
   },
 };

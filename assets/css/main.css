@@ -44,7 +44,7 @@ h1 {
 }
 
 .activecolor {
-  @apply z-10 bg-blue-700 text-white flex items-center justify-center hover:bg-blue-700;
+  @apply z-10 bg-blue-700 text-white h-6 w-6 rounded-full flex items-center justify-center hover:bg-blue-700;
 }
 
 section {

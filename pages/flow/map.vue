@@ -5,7 +5,7 @@
         <p class="font-bold">Current position over earth:</p>
         <div
           id="map_container"
-          class="border rounded border-gray-900 bg-white h-5/6"
+          class="border rounded border-gray-300 bg-white h-5/6"
         >
           <div id="map" class="w-full h-60 sm:h-full sm:w-full"></div>
         </div>
@@ -14,7 +14,7 @@
         <div>
           <p class="font-bold">Lat:</p>
           <div
-            class="border border-gray-900 bg-white p-2 w-full h-full rounded"
+            class="border border-gray-300 bg-white p-2 w-full h-full rounded"
             :missionlongitude="missionlongitude"
           >
             {{ missionlongitude }}
@@ -23,7 +23,7 @@
         <div class="h-full">
           <p class="font-bold">Long:</p>
           <div
-            class="border border-gray-900 bg-white p-2 w-full rounded"
+            class="border border-gray-300 bg-white p-2 w-full rounded"
             :missionlatitude="missionlatitude"
           >
             {{ missionlatitude }}
@@ -56,6 +56,7 @@ export default {
       marker: null,
       missionlongitude: "",
       missionlatitude: "",
+      ismapcompleted: this.$store.state.spacereport.iscompleted.ismapcompleted,
     };
   },
   head: {
@@ -119,11 +120,18 @@ export default {
         key: "missionlatitude",
         value: this.missionlatitude,
       });
+      this.$store.commit("setCompleted", {
+        key: "ismapcompleted",
+        value: true,
+      });
     },
   },
   computed: {
     coordinates() {
       return this.$store.getters.spacereport.coordinates;
+    },
+    iscompleted() {
+      return this.$store.getters.spacereport.iscompleted;
     },
   },
 };
