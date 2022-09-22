@@ -16,7 +16,12 @@
             id="report_container"
             class="border border-gray-900 overflow-scroll h-4/5 rounded"
           >
-            <p v-if="!reports.length">no spacereports saved</p>
+            <p
+              class="h-full flex items-center justify-center"
+              v-if="!reports.length"
+            >
+              no spacereports saved
+            </p>
             <div v-if="reports.length">
               <div
                 v-for="(report, index) in reports.filter(
@@ -33,18 +38,19 @@
                   </p>
                   <p class="text-left text-sm">
                     <span class="font-bold">DATE:</span>
-                    {{ report.missiondate }}
+                    {{ formatDate(report.missiondate) }}
+                    <!-- {{ displaydate }} -->
                   </p>
                 </div>
                 <div class="grid sm:col-span-1 sm:row-span-2">
                   <button
-                    class="primary-button text-sm sm:m-0"
+                    class="edit-button text-sm sm:m-0"
                     @click="editReport(report)"
                   >
                     edit
                   </button>
                   <button
-                    class="secondary-button text-sm"
+                    class="delete-button text-sm"
                     @click="removeReport(index)"
                   >
                     delete
@@ -89,10 +95,12 @@ export default {
     return {
       user: "",
       reports: [],
-      displaydate: new Intl.DateTimeFormat("en-GB").format(
-        this.$store.state.spacereport.missiondate
-      ),
     };
+    //   displaydate: this.$store.state.spacereport.missiondate
+    //     .toISOString()
+    //     .replace(/T/, " ")
+    //     .replace(/\..+/, ""), // first replace T with a space  // second replace delete the dot and everything after,,
+    // };
   },
   mounted() {
     if (localStorage.user) {
@@ -125,8 +133,16 @@ export default {
     editReport(report) {
       console.log("edit test");
       this.$router.push({ path: "/flow/details" });
-      // console.log(report)
+      console.log(report);
       this.$store.commit("editReport", { report: report });
+    },
+    formatDate(missiondate) {
+      return new Date(missiondate).toLocaleString("en-GB", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
     },
   },
   computed: {

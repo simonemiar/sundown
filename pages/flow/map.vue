@@ -31,12 +31,12 @@
         </div>
       </div>
     </section>
-    <div class="flex place-content-between max-w-screen-lg m-2 sm:m-auto">
+    <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto">
       <NuxtLink to="/flow/images" class="secondary-button"
-        ><button>back</button></NuxtLink
+        ><button>BACK</button></NuxtLink
       >
       <NuxtLink to="/flow/overview" class="primary-button">
-        <button @click="updateStore">forward</button>
+        <button @click="updateStore">FORWARD</button>
       </NuxtLink>
     </div>
   </div>

@@ -49,6 +49,7 @@
       </div>
     </section>
     <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto ">
+      
       <button class="secondary-button" @click="resetReport">back</button>
       <button
         class="primary-button"
@@ -70,8 +71,7 @@ export default {
   data() {
     return {
       missionid: this.$store.state.spacereport.missionid,
-      missiondate: this.$store.state.spacereport.missiondate,
-      // missiondate: this.$store.state.spacereport.missiondate || new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''), // first replace T with a space  // second replace delete the dot and everything after,
+      missiondate: new Date(this.$store.state.spacereport.missiondate),
       errors: [],
     };
   },

@@ -42,7 +42,7 @@
         </div>
       </div>
     </section>
-    <div class="flex place-content-between max-w-screen-lg m-2 sm:m-auto">
+    <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto">
       <NuxtLink to="/flow/details" class="secondary-button"><button>back</button></NuxtLink>
         <button class="primary-button" @click="
           clickHandle()

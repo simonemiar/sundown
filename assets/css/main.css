@@ -7,13 +7,19 @@
 }
 
 .primary-button {
-  @apply text-white bg-blue-800 uppercase rounded-lg mt-4 border p-2 text-center shadow transition duration-200 ease-in-out transform hover:-translate-y-px hover:shadow-md cursor-pointer;
+  @apply text-blue-50 bg-blue-800 uppercase rounded-lg mb-4 border p-2 text-center shadow transition duration-200 ease-in-out transform hover:-translate-y-px hover:shadow-md cursor-pointer;
 }
 .secondary-button {
-  @apply text-gray-600 uppercase mt-4 bg-white border p-2 border-gray-400 rounded-lg text-center transition duration-200 ease-in-out transform hover:-translate-y-px shadow hover:shadow-md cursor-pointer;
+  @apply text-gray-600 mb-4 bg-white uppercase border p-2 border-gray-400 rounded-lg text-center transition duration-200 ease-in-out transform hover:-translate-y-px shadow hover:shadow-md cursor-pointer;
+}
+.edit-button {
+  @apply bg-white text-gray-600 uppercase rounded-lg mt-4 border p-2 text-center shadow transition duration-200 ease-in-out transform hover:-translate-y-px hover:shadow-md cursor-pointer;
+}
+.delete-button {
+  @apply text-white bg-red-800 uppercase mt-2 border p-2 border-gray-400 rounded-lg text-center transition duration-200 ease-in-out transform hover:-translate-y-px shadow hover:shadow-md cursor-pointer;
 }
 .report-button {
-  @apply text-gray-600 uppercase bg-white border p-3 border-gray-400 rounded-lg text-center transition duration-200 ease-in-out transform hover:-translate-y-px shadow hover:shadow-md cursor-pointer;
+  @apply text-blue-50 uppercase bg-blue-800 border p-3 border-gray-400 rounded-lg text-center transition duration-200 ease-in-out transform hover:-translate-y-px shadow hover:shadow-md cursor-pointer;
 }
 
 .card {

@@ -10,8 +10,7 @@
         </div>
         <div>
           <p class="font-bold">Mission start date</p>
-          <p>{{ displaydate }}</p>
-          <!-- <p><Date /></p> -->
+          <p>{{ formatDate(spacereport.missiondate) }}</p>
         </div>
         <div>
           <p class="font-bold">Lat:</p>
@@ -36,12 +35,12 @@
       </div>
     </section>
 
-    <div class="flex place-content-between max-w-screen-lg m-2 sm:m-auto">
+    <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto">
       <NuxtLink to="/flow/map" class="secondary-button"
-        ><button>back</button></NuxtLink
+        ><button>BACK</button></NuxtLink
       >
       <NuxtLink to="/" class="primary-button">
-        <button @click="finaliseReport">Finalise report</button>
+        <button @click="finaliseReport">FINALISE REPORT</button>
       </NuxtLink>
     </div>
   </div>
@@ -54,15 +53,17 @@ export default {
   data() {
     return {
       reports: JSON.parse(localStorage.getItem("reports")),
-      displaydate: new Intl.DateTimeFormat("en-GB").format(
-        this.$store.state.spacereport.missiondate
-      ),
+      // missiondate: this.$store.state.spacereport.missiondate,
+      // displaydate: new Intl.DateTimeFormat("en-GB").format(missiondate),
+      // displaydate: new Intl.DateTimeFormat("en-GB").format(
+      //   this.$store.state.spacereport.missiondate
+      // ),
+      // };
+      // displaydate: this.$store.state.spacereport.missiondate
+      //   .toISOString()
+      //   .replace(/T/, " ")
+      //   .replace(/\..+/, ""), // first replace T with a space  // second replace delete the dot and everything after,,
     };
-    //  displaydate: this.$store.state.spacereport.missiondate
-    //     .toISOString()
-    //     .replace(/T/, " ")
-    //     .replace(/\..+/, ""), // first replace T with a space  // second replace delete the dot and everything after,,
-    // };
   },
 
   methods: {
@@ -89,6 +90,9 @@ export default {
     resetReport() {
       console.log("test reset");
       this.$store.dispatch("resetReport"); // calling my action in the store
+    },
+    formatDate(missiondate) {
+      return new Date(missiondate).toLocaleString("en-GB");
     },
   },
   computed: {
