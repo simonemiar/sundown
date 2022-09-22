@@ -10,7 +10,8 @@
         </div>
         <div>
           <p class="font-bold">Mission start date</p>
-          <p>{{ spacereport.missiondate }}</p>
+          <p>{{ displaydate }}</p>
+          <!-- <p><Date /></p> -->
         </div>
         <div>
           <p class="font-bold">Lat:</p>
@@ -53,7 +54,15 @@ export default {
   data() {
     return {
       reports: JSON.parse(localStorage.getItem("reports")),
+      displaydate: new Intl.DateTimeFormat("en-GB").format(
+        this.$store.state.spacereport.missiondate
+      ),
     };
+    //  displaydate: this.$store.state.spacereport.missiondate
+    //     .toISOString()
+    //     .replace(/T/, " ")
+    //     .replace(/\..+/, ""), // first replace T with a space  // second replace delete the dot and everything after,,
+    // };
   },
 
   methods: {

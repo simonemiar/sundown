@@ -1,7 +1,7 @@
 <template>
   <div class="bg-blue-50 w-screen h-screen">
     <!-- creating a loading... with fetch hook -->
-    <div class="max-w-screen-lg m-auto">
+    <div class="max-w-screen-lg m-auto px-6">
       <p class="m-2 text-red-700" v-if="error.length">
         <b>please correct the following errors</b>
         <ul>
@@ -29,7 +29,7 @@
           <div v-else>Loading...</div>
         </div>
       </div>
-      <div class="m-2 my-10 sm:my-2">
+      <div class="m-2">
         <p class="font-bold">Selected images to report</p>
         <div id="select_container" class="border border-gray-900 bg-white overflow-scroll h-80">
           <Missionimage

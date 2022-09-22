@@ -1,6 +1,6 @@
 <template>
   <div class="bg-blue-50 w-screen h-screen">
-    <div class="max-w-screen-lg m-auto">
+    <div class="max-w-screen-lg m-auto px-6">
       <p class="m-2 text-red-700" v-if="errors.length">
         <b>please correct the following errors</b>
         <ul>
@@ -11,24 +11,24 @@
       </p>
     </div>
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
-      <div class="m-2 h-80">
+      <div class="m-2 h-full">
         <div>
           <label class="font-bold">Mission name</label>
           <input
             v-model="missionname"
             id="missionname"
-            class="border border-gray-900 overflow-scroll w-full"
+            class="border border-gray-900 overflow-scroll w-full p-1"
             name="missionname"
             required
           />
         </div>
-        <div class="h-full">
+        <div class="h-full mt-1">
           <label class="font-bold">Mission description</label>
           <textarea
             v-model="missiondesc"
             id="missiondesc"
             name="missiondesc"
-            class="border border-gray-900 overflow-scroll h-2/3 w-full"
+            class="border border-gray-900 overflow-scroll h-52 w-full"
             required
           />
         </div>
@@ -43,17 +43,12 @@
               v-model="missiondate"
               :max-date="new Date()"
               show-caps
-              :model-config="{
-              type: 'string',
-              mask: 'YYYY-MM-DD HH:mm:ss',
-              }"
-              :masks="{ L: 'YYYY-MM-DD-SS' }"
             />
           </div>
         </div>
       </div>
     </section>
-    <div class="flex place-content-between max-w-screen-lg m-2 sm:m-auto">
+    <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto ">
       <button class="secondary-button" @click="resetReport">back</button>
       <button
         class="primary-button"
@@ -75,12 +70,9 @@ export default {
   data() {
     return {
       missionid: this.$store.state.spacereport.missionid,
-      missiondate: this.$store.state.spacereport.missiondate || new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''), // first replace T with a space  // second replace delete the dot and everything after
+      missiondate: this.$store.state.spacereport.missiondate,
+      // missiondate: this.$store.state.spacereport.missiondate || new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''), // first replace T with a space  // second replace delete the dot and everything after,
       errors: [],
-      modelConfig: {
-        type: "string",
-        mask: "YYYY-MM-DD", // Uses 'iso' if missing
-      },
     };
   },
   mounted() {

@@ -1,40 +1,42 @@
 <template>
-  <div class="grid sm:flex justify-center">
-    <div>
-      <h1 class="font-bold">WELCOME TO MRT</h1>
-      <p class="w-[40ch] my-1.5">
-        The International Space Station private reporting tool. This tool was
-        created for engineers and likeminded nerds.
-      </p>
-      <p>Please insert your user information on the right</p>
+  <div class="w-screen h-screen bg-blue-50">
+    <div class="grid sm:flex justify-center">
+      <div>
+        <h1 class="font-bold">WELCOME TO MRT</h1>
+        <p class="w-[40ch] my-1.5">
+          The International Space Station private reporting tool. This tool was
+          created for engineers and likeminded nerds.
+        </p>
+        <p>Please insert your user information on the right</p>
+      </div>
+      <form @submit.prevent="submitLogin" class="grid m-1 w-full sm:w-1/3">
+        <div class="grid">
+          <label for="text">Email</label>
+          <input
+            class="my-1 border-solid border p-1 border-black"
+            id="email"
+            name="email"
+            type="email"
+            v-model="email"
+            placeholder="Please enter your email"
+          />
+        </div>
+        <span class="text-red-700" v-if="msg.email">{{ msg.email }}</span>
+        <div class="grid">
+          <label for="password">Password:</label>
+          <input
+            class="my-1 border-solid border p-1 border-black"
+            id="password"
+            name="password"
+            type="password"
+            v-model="password"
+            placeholder="Please enter your password"
+          />
+        </div>
+        <span v-if="msg.password">{{ msg.password }}</span>
+        <button type="submit" class="primary-button">login</button>
+      </form>
     </div>
-    <form @submit.prevent="submitLogin" class="grid m-1 w-full sm:w-1/3">
-      <div class="grid">
-        <label for="text">Email</label>
-        <input
-          class="my-1 border-solid border p-1 border-black"
-          id="email"
-          name="email"
-          type="email"
-          v-model="email"
-          placeholder="Please enter your email"
-        />
-      </div>
-      <span class="text-red-700" v-if="msg.email">{{ msg.email }}</span>
-      <div class="grid">
-        <label for="password">Password:</label>
-        <input
-          class="my-1 border-solid border p-1 border-black"
-          id="password"
-          name="password"
-          type="password"
-          v-model="password"
-          placeholder="Please enter your password"
-        />
-      </div>
-      <span v-if="msg.password">{{ msg.password }}</span>
-      <button type="submit" class="primary-button">login</button>
-    </form>
   </div>
 </template>
 

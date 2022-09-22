@@ -10,11 +10,11 @@
     </div>
     <div class="grid sm:flex justify-items-center">
       <section id="section_layout" class="grid mb-12 sm:grid sm:grid-cols-2">
-        <div class="m-2 row-start-2 row-end-2 sm:col-start-1 sm:col-end-2">
-          <p>space reports created by {{ user.first_name }}</p>
+        <div class="row-start-2 row-end-2 sm:col-start-1 sm:col-end-2">
+          <p class="my-2">space reports created by {{ user.first_name }}</p>
           <div
             id="report_container"
-            class="border border-gray-900 overflow-scroll h-80 rounded"
+            class="border border-gray-900 overflow-scroll h-4/5 rounded"
           >
             <p v-if="!reports.length">no spacereports saved</p>
             <div v-if="reports.length">
@@ -25,7 +25,7 @@
                 :key="report.missionname"
                 class="card grid mx-3 bg-blue-300 rounded sm:grid-cols-3"
               >
-                <div class="p-3 sm:col-span-2 sm:row-span-2">
+                <div class="p-3 sm:col-span-2">
                   <p
                     class="text-left font-bold text-lg uppercase overflow-hidden whitespace-nowrap overflow-ellipsis"
                   >
@@ -36,36 +36,44 @@
                     {{ report.missiondate }}
                   </p>
                 </div>
-                <button
-                  class="primary-button text-sm sm:m-0"
-                  @click="editReport(report)"
-                >
-                  edit
-                </button>
-                <button
-                  class="secondary-button text-sm"
-                  @click="removeReport(index)"
-                >
-                  delete
-                </button>
+                <div class="grid sm:col-span-1 sm:row-span-2">
+                  <button
+                    class="primary-button text-sm sm:m-0"
+                    @click="editReport(report)"
+                  >
+                    edit
+                  </button>
+                  <button
+                    class="secondary-button text-sm"
+                    @click="removeReport(index)"
+                  >
+                    delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <div
-          class="m-2 sm:m-10 row-start-1 row-end-2 sm:row-start-2 sm:row-end-3"
+          class="sm:m-10 sm:p-4 row-start-1 row-end-2 sm:row-start-2 sm:row-end-3"
         >
-          <NuxtLink to="/flow/details" class="secondary-button w-full"
+          <NuxtLink to="/flow/details" class="report-button grid"
             >+ create new space report</NuxtLink
           >
-          <p class="font-bold my-4 uppercase">fun space facts</p>
+          <p class="font-bold sm:text-xl mt-4 uppercase">fun space facts</p>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-            beatae provident nisi, et facilis, architecto libero, eum officia
-            alias repellat necessitatibus. Minus ab laudantium in nam quo
-            eveniet cum sunt exercitationem aliquid quam, libero perspiciatis
-            nisi animi quae voluptates, eius architecto reprehenderit porro ex
-            voluptatum est ratione, dolore et consequatur.
+            From Siberia to the Sahara, Earth experiences an extensive range of
+            temperatures. Records exist as high as 57°C and all the way down to
+            -89°C. But what we consider extreme on Earth is average in space. On
+            planets without an insulating atmosphere, temperatures wildly
+            fluctuate between day and night.
+          </p>
+          <p class="my-4">
+            Mercury regularly sees days around 449°C and and frigid nights as
+            low as -171°C. And in space itself, some spacecraft experience
+            temperature differences of 33°C just between their sunlit and shady
+            sides. That would be like having a glass of water in the shade
+            freeze on a hot summer day!
           </p>
         </div>
       </section>
@@ -81,6 +89,9 @@ export default {
     return {
       user: "",
       reports: [],
+      displaydate: new Intl.DateTimeFormat("en-GB").format(
+        this.$store.state.spacereport.missiondate
+      ),
     };
   },
   mounted() {

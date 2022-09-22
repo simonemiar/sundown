@@ -4,7 +4,7 @@ let defaultSpacereport = {
   missionid: null,
   missionname: "",
   missiondesc: "",
-  missiondate: null,
+  missiondate: new Date(),
   missionimages: [],
   newmissionimages: [],
   coordinates: {
