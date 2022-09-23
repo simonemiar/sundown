@@ -2,7 +2,7 @@
   <div class="w-screen h-screen bg-blue-50">
     <div class="grid sm:flex justify-center">
       <div>
-        <h1 class="font-bold">WELCOME TO MRT</h1>
+        <h1 class="font-bold text-blue-800">WELCOME TO MRT</h1>
         <p class="w-[40ch] my-1.5">
           The International Space Station private reporting tool. This tool was
           created for engineers and likeminded nerds.
@@ -34,7 +34,7 @@
           />
         </div>
         <span v-if="msg.password">{{ msg.password }}</span>
-        <button type="submit" class="primary-button">login</button>
+        <button type="submit" class="primary-button my-4">login</button>
       </form>
     </div>
   </div>
@@ -45,7 +45,7 @@ import users from "@/assets/users.json";
 
 export default {
   name: "Login",
-  transition: "index",
+  transition: "login",
   data() {
     return {
       email: "",

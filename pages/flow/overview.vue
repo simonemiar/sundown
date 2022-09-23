@@ -50,6 +50,12 @@
 export default {
   name: "Overview",
   layout: "flow",
+  middleware({ store, redirect }) {
+    // If the user is not authenticated
+    if (store.state.spacereport.missionname == "") {
+      return redirect("/flow/details");
+    }
+  },
   data() {
     return {
       reports: JSON.parse(localStorage.getItem("reports")),

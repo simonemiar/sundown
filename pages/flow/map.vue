@@ -49,6 +49,12 @@ import "mapbox-gl/dist/mapbox-gl.css";
 export default {
   name: "Map",
   layout: "flow",
+  middleware({ store, redirect }) {
+    // If the user is not authenticated
+    if (store.state.spacereport.missionname == "") {
+      return redirect("/flow/details");
+    }
+  },
   data() {
     return {
       test: "Test",

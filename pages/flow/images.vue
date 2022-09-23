@@ -13,7 +13,7 @@
     </div>
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2 h-80">
-        <p class="font-bold">space mission images</p>
+        <p class="font-bold">Space mission images</p>
         <div
           id="report_container"
           class="border border-gray-300 bg-white overflow-scroll h-full"
@@ -29,7 +29,7 @@
           <div v-else>Loading...</div>
         </div>
       </div>
-      <div class="m-2">
+      <div class="m-2 mt-10 sm:mt-2">
         <p class="font-bold">Selected images to report</p>
         <div id="select_container" class="border border-gray-300 bg-white overflow-scroll h-80">
           <Missionimage
@@ -56,6 +56,12 @@
 export default {
   name: "Images",
   layout: "flow",
+  middleware({ store, redirect }) {
+    // If the user is not authenticated
+    if (store.state.spacereport.missionname == "") {
+      return redirect('/flow/details')
+    }
+  },
   data() {
     return {
       // missionimages: '',

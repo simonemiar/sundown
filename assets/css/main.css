@@ -30,6 +30,15 @@ h1 {
   @apply text-3xl;
 }
 
+.login-enter-active,
+.login-leave-active {
+  transition: opacity 0.2s;
+}
+.login-enter,
+.login-leave-active {
+  opacity: 0;
+}
+
 .index-enter-active,
 .index-leave-active {
   transition: opacity 0.2s;

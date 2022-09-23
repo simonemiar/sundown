@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1
-      class="text-fourth text-5xl font-bold text-center text-blue-800"
+      class="text-fourth py-5 text-6xl font-bold text-center text-blue-800"
       @click="resetReport"
     >
       MRT

@@ -72,6 +72,7 @@ export default {
         this.$router.push({ path: "/flow/images" });
       } else {
         event.preventDefault();
+        alert("Please fill out all the required information to proceed");
       }
     },
     isImagesCompleted(event) {
@@ -80,6 +81,7 @@ export default {
         this.$router.push({ path: "/flow/map" });
       } else {
         event.preventDefault();
+        alert("Please fill out all the required information to proceed");
       }
     },
     isMapCompleted(event) {
@@ -88,6 +90,7 @@ export default {
         this.$router.push({ path: "/flow/overview" });
       } else {
         event.preventDefault();
+        alert("Please fill out all the required information to proceed");
       }
     },
   },
