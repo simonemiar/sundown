@@ -22,10 +22,7 @@ export default {
   },
   methods: {
     clickImage(image) {
-      console.log("test input remove");
       this.$emit("click-image", image);
-
-      console.log(image);
     },
   },
   computed: {

@@ -93,24 +93,6 @@ export default {
       }
     },
     submitLogin() {
-      // let checkUsernameAndEmail = user.email || user.username;
-      // let checkUsernameAndEmail = users.some((object) => {
-      //   return object.email || object.username === this.usernameoremail;
-      // });
-      // let checkEmail = users.find(
-      //   (element) => element.email == this.usernameoremail
-      // );
-      //if ((firstday == 5 || firstday == 6) && totalDays == 31){
-      //Do something
-      //}
-      // let checkUsername = users.find(
-      //   (element) => element.username == this.usernameoremail
-      // );
-
-      // let checkUsernameAndEmail = users.find(
-      //   (element) => element.email || element.username == this.usernameoremail
-      // );
-
       const currentUser = users.find((user) => {
         if (
           (user.email === this.usernameoremail ||

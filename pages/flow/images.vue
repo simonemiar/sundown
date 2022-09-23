@@ -33,11 +33,10 @@
         <p class="font-bold">Selected images to report</p>
         <div id="select_container" class="border border-gray-300 bg-white overflow-scroll h-80">
           <Missionimage
-            v-for="newmissionimage in newmissionimages"
-            :key="newmissionimage.img_src"
-            :image="newmissionimage"
-            @click-image="removeImage"
-            
+          @click-image="removeNewImage"
+          v-for="newmissionimage in newmissionimages"
+          :key="newmissionimage.img_src"
+          :image="newmissionimage"
           />
         </div>
       </div>
@@ -64,7 +63,6 @@ export default {
   },
   data() {
     return {
-      // missionimages: '',
       error:[],
       isimagescompleted:
         this.$store.state.spacereport.iscompleted.isimagescompleted,
@@ -93,13 +91,16 @@ export default {
       // e.preventDefault
     },
     pushImage(newimage) {
-      console.log(newimage)
+      console.log("test push", newimage)
       this.newmissionimages = [...this.newmissionimages, newimage]
+      // console.log(this.spacereport.missionimages)
+      this.$store.dispatch("removeOriginalImage", newimage);
     },
-    removeImage(newimage){
-      this.$store.commit("deleteImage", newimage);   
-    }
-    
+    removeNewImage(newimage){
+      console.log("test remove", newimage)
+      this.$store.commit("removeNewImage", newimage);
+      this.missionimages = [...this.missionimages, newimage]
+    }   
   },
   computed: {
     spacereport() {

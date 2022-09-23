@@ -50,14 +50,22 @@ export const mutations = {
   editReport(state, payload) {
     // setting the empty object = to the full report
     state.spacereport = payload.report;
-    // Object.assign((state.spacereport, payload.report))
     console.log("spacereport test", state.spacereport);
   },
-  deleteImage(state, payload) {
+  removeNewImage(state, payload) {
     state.spacereport.newmissionimages.splice(
       state.spacereport.newmissionimages.indexOf(payload),
       1
     );
+  },
+  removeOriginalImage(state, payload) {
+    console.log("remove OG", payload);
+    // below is not working.... but is needs to be in the store
+    state.spacereport.missionimages.splice(
+      state.spacereport.missionimages.indexOf(payload),
+      1
+    );
+    // state.missionimages = [...state.missionimages, payload];
   },
 };
 
@@ -65,6 +73,9 @@ export const mutations = {
 export const actions = {
   resetReport: ({ commit }) => {
     commit("resetReport"); // calling the mutation here
+  },
+  removeOriginalImage: ({ commit }, payload) => {
+    commit("removeOriginalImage", payload);
   },
 };
 
