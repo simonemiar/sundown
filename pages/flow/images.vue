@@ -92,9 +92,12 @@ export default {
     },
     pushImage(newimage) {
       console.log("test push", newimage)
-      this.newmissionimages = [...this.newmissionimages, newimage]
+      console.log("test img", this.missionimages)
+      this.$store.commit("removeOriginalImage", newimage);
+      // this.$store.dispatch("removeOriginalImage", newimage);
+      // this.newmissionimages = [...this.newmissionimages, newimage]
       // console.log(this.spacereport.missionimages)
-      this.$store.dispatch("removeOriginalImage", newimage);
+      
     },
     removeNewImage(newimage){
       console.log("test remove", newimage)
@@ -108,6 +111,18 @@ export default {
     },
     iscompleted() {
       return this.$store.getters.spacereport.iscompleted;
+    },
+    missionimages: {
+      get() {
+        return this.$store.getters.spacereport.missionimages
+      },
+      set(newValue) {
+        console.log('set test', newValue)
+        return this.$store.commit('setSpacereport', {
+          key: 'missionimages',
+          value: newValue,
+        })
+      },
     },
     newmissionimages: {
       get() {

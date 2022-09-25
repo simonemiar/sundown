@@ -65,6 +65,11 @@ export const mutations = {
       state.spacereport.missionimages.indexOf(payload),
       1
     );
+    console.log("misimg ", state.spacereport.missionimages);
+    state.spacereport.newmissionimages = [
+      ...state.spacereport.newmissionimages,
+      payload,
+    ];
     // state.missionimages = [...state.missionimages, payload];
   },
 };
@@ -74,9 +79,9 @@ export const actions = {
   resetReport: ({ commit }) => {
     commit("resetReport"); // calling the mutation here
   },
-  removeOriginalImage: ({ commit }, payload) => {
-    commit("removeOriginalImage", payload);
-  },
+  // removeOriginalImage: ({ commit }, payload) => {
+  //   commit("removeOriginalImage", payload);
+  // },
 };
 
 //getters
