@@ -22,11 +22,10 @@
             >
               no spacereports saved
             </p>
+            <!-- reports.filter( (word) => word.missionuser == this.spacereport.missionuser ) -->
             <div v-if="reports.length">
               <div
-                v-for="(report, index) in reports.filter(
-                  (word) => word.missionuser == this.spacereport.missionuser
-                )"
+                v-for="(report, index) in reportsFilterAndSort()"
                 :key="report.missionname"
                 class="card grid mx-3 bg-blue-300 rounded sm:grid-cols-3"
               >
@@ -51,7 +50,7 @@
                   </button>
                   <button
                     class="delete-button text-sm"
-                    @click="removeReport(index)"
+                    @click="removeReport(index, report)"
                   >
                     delete
                   </button>
@@ -63,9 +62,10 @@
         <div
           class="sm:m-10 sm:p-4 row-start-1 row-end-2 sm:row-start-2 sm:row-end-3"
         >
-          <NuxtLink to="/flow/details" class="report-button grid"
-            >+ create new space report</NuxtLink
-          >
+          <button class="report-button grid" @click="resetReport">
+            + create new space report
+          </button>
+
           <p class="font-bold sm:text-xl mt-4 uppercase">fun space facts</p>
           <p>
             From Siberia to the Sahara, Earth experiences an extensive range of
@@ -90,7 +90,7 @@
 <script>
 export default {
   name: "App",
-  transition: "index",
+  transition: "indexpage",
   data() {
     return {
       user: "",
@@ -119,12 +119,19 @@ export default {
     }
   },
   methods: {
+    reportsFilterAndSort() {
+      return this.reports
+        .filter((word) => word.missionuser == this.spacereport.missionuser)
+        .sort((a, b) => new Date(b.missiondate) - new Date(a.missiondate));
+    },
     clearUser() {
       localStorage.removeItem("user");
       this.$router.push({ path: "/login" });
     },
-    removeReport(index) {
-      let response = confirm(`Are you sure you want to delete ${this.report}`);
+    removeReport(index, report) {
+      let response = confirm(
+        `Are you sure you want to delete ${report.missionname}`
+      );
       if (response) {
         this.reports.splice(index, 1);
         localStorage.setItem("reports", JSON.stringify(this.reports));
@@ -143,6 +150,11 @@ export default {
         month: "long",
         day: "numeric",
       });
+    },
+    resetReport() {
+      console.log("test 2 reset");
+      this.$store.commit("resetReport"); // calling my action in the store
+      this.$router.push("/flow/details");
     },
   },
   computed: {

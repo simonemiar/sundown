@@ -55,12 +55,12 @@
 export default {
   name: "Images",
   layout: "flow",
-  middleware({ store, redirect }) {
-    // If the user is not authenticated
-    if (store.state.spacereport.missionname == "") {
-      return redirect('/flow/details')
-    }
-  },
+  // middleware({ store, redirect }) {
+  //   // If the user is not authenticated
+  //   if (store.state.spacereport.missionname == "") {
+  //     return redirect('/flow/details')
+  //   }
+  // },
   data() {
     return {
       error:[],
@@ -78,7 +78,6 @@ export default {
   },
   methods: {
     clickHandle(e) {
-      console.log(this.newmissionimages )
       if(this.newmissionimages.length < 7 && this.newmissionimages.length > 0){
         this.$store.commit("setCompleted", {
         key: "isimagescompleted",
@@ -92,12 +91,8 @@ export default {
     },
     pushImage(newimage) {
       console.log("test push", newimage)
-      console.log("test img", this.missionimages)
       this.$store.commit("removeOriginalImage", newimage);
-      // this.$store.dispatch("removeOriginalImage", newimage);
-      // this.newmissionimages = [...this.newmissionimages, newimage]
-      // console.log(this.spacereport.missionimages)
-      
+
     },
     removeNewImage(newimage){
       console.log("test remove", newimage)

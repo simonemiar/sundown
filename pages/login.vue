@@ -3,7 +3,7 @@
     <div class="grid sm:flex justify-center">
       <div>
         <h1 class="font-bold text-blue-800">WELCOME TO MRT</h1>
-        <p class="w-[40ch] my-1.5">
+        <p class="w-[40ch] mb-1.5">
           The International Space Station private reporting tool. This tool was
           created for engineers and likeminded nerds.
         </p>
@@ -19,7 +19,7 @@
             type="text"
             v-model="usernameoremail"
             placeholder="Please enter your email or username"
-            @keyup="handleUsernameOrEmailChange()"
+            @change="handleUsernameOrEmailChange()"
           />
         </div>
         <span class="text-red-700" v-if="msg.usernameoremail">{{
@@ -34,7 +34,7 @@
             type="password"
             v-model="password"
             placeholder="Please enter your password"
-            @keyup="handlePasswordChange()"
+            @change="handlePasswordChange()"
           />
         </div>
         <span class="text-red-700" v-if="msg.password">{{ msg.password }}</span>
@@ -49,7 +49,6 @@ import users from "@/assets/users.json";
 
 export default {
   name: "Login",
-  transition: "login",
   data() {
     return {
       usernameoremail: "",
@@ -60,10 +59,9 @@ export default {
   },
   methods: {
     handleUsernameOrEmailChange() {
-      let checkEmail =
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-          this.usernameoremail === this.user.email
-        );
+      let checkEmail = users.some((object) => {
+        return object.email === this.usernameoremail;
+      });
       let checkUsername = users.some((object) => {
         return object.username === this.usernameoremail;
       });
@@ -120,15 +118,6 @@ export default {
     //     this.msg["email"] = "";
     //   } else {
     //     this.msg["email"] = "Invalid Email Address";
-    //   }
-    // },
-    // validatePassword(value) {
-    //   let difference = 8 - value.length;
-    //   if (value.length < 8) {
-    //     this.msg["password"] =
-    //       "Must be 8 characters! " + difference + " characters left";
-    //   } else {
-    //     this.msg["password"] = "";
     //   }
     // },
   },

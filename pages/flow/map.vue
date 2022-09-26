@@ -15,18 +15,18 @@
           <p class="font-bold">Lat:</p>
           <div
             class="border border-gray-300 bg-white p-2 w-full h-full rounded"
-            :missionlongitude="missionlongitude"
+            :missionlongitude="missionlatitude"
           >
-            {{ missionlongitude }}
+            {{ missionlatitude }}
           </div>
         </div>
         <div class="h-full">
           <p class="font-bold">Long:</p>
           <div
             class="border border-gray-300 bg-white p-2 w-full rounded"
-            :missionlatitude="missionlatitude"
+            :missionlatitude="missionlongitude"
           >
-            {{ missionlatitude }}
+            {{ missionlongitude }}
           </div>
         </div>
       </div>
@@ -49,19 +49,19 @@ import "mapbox-gl/dist/mapbox-gl.css";
 export default {
   name: "Map",
   layout: "flow",
-  middleware({ store, redirect }) {
-    // If the user is not authenticated
-    if (store.state.spacereport.missionname == "") {
-      return redirect("/flow/details");
-    }
-  },
+  // middleware({ store, redirect }) {
+  //   // If the user is not authenticated
+  //   if (store.state.spacereport.missionname == "") {
+  //     return redirect("/flow/details");
+  //   }
+  // },
   data() {
     return {
       test: "Test",
       map: null,
       marker: null,
-      missionlongitude: "",
-      missionlatitude: "",
+      // missionlongitude: "",
+      // missionlatitude: "",
       ismapcompleted: this.$store.state.spacereport.iscompleted.ismapcompleted,
     };
   },
@@ -76,7 +76,8 @@ export default {
   async mounted() {
     await this.fetchData();
     this.createMap();
-    setInterval(this.updateMapAndMarker, 10000);
+    setInterval(this.updateMapAndMarker, 20000);
+
     // first we call the function updateFetch which call and sets the data and ends with creating the map
     // then we call the interval, without the () from the function because if we use them, then it will run the function twice
   },
@@ -98,34 +99,44 @@ export default {
         container: "map", // <div id="map"></div>
         style: "mapbox://styles/mapbox/streets-v11", // default style
         center: [this.missionlongitude, this.missionlatitude], // starting position as [lng, lat]
-        zoom: 2,
+        zoom: 3,
       });
+
       // Create a default Marker and add it to the map.
       this.marker = new mapboxgl.Marker()
         .setLngLat([this.missionlongitude, this.missionlatitude])
         .addTo(this.map);
+      this.$store.commit("oldCoordinates", this.coordinates);
     },
     updateMarker() {
       this.marker.setLngLat([this.missionlongitude, this.missionlatitude]);
+      this.$store.commit("oldCoordinates", this.coordinates);
     },
     updateMap() {
       this.map.setCenter([this.missionlongitude, this.missionlatitude]);
+    },
+    updateOldMarker() {
+      const mapboxgl = require("mapbox-gl");
+      console.log("old markers");
+      const oldcoordinates = this.$store.state.spacereport.oldcoordinates;
+      const oldcoordinatesLength =
+        this.$store.state.spacereport.oldcoordinates.length;
+      for (let i = 0; i < oldcoordinatesLength; i++) {
+        this.marker = new mapboxgl.Marker()
+          .setLngLat([
+            oldcoordinates[i].missionlongitude,
+            oldcoordinates[i].missionlatitude,
+          ])
+          .addTo(this.map);
+      }
     },
     updateMapAndMarker() {
       this.fetchData();
       this.updateMap();
       this.updateMarker();
+      this.updateOldMarker();
     },
     updateStore() {
-      console.log("test input");
-      this.$store.commit("setCoordinates", {
-        key: "missionlongitude",
-        value: this.missionlongitude,
-      });
-      this.$store.commit("setCoordinates", {
-        key: "missionlatitude",
-        value: this.missionlatitude,
-      });
       this.$store.commit("setCompleted", {
         key: "ismapcompleted",
         value: true,
@@ -133,11 +144,36 @@ export default {
     },
   },
   computed: {
+    spacereport() {
+      return this.$store.getters.spacereport.spacereport;
+    },
     coordinates() {
       return this.$store.getters.spacereport.coordinates;
     },
     iscompleted() {
       return this.$store.getters.spacereport.iscompleted;
+    },
+    missionlongitude: {
+      get() {
+        return this.$store.getters.spacereport.coordinates.missionlongitude;
+      },
+      set(newValue) {
+        return this.$store.commit("setCoordinates", {
+          key: "missionlongitude",
+          value: newValue,
+        });
+      },
+    },
+    missionlatitude: {
+      get() {
+        return this.$store.getters.spacereport.coordinates.missionlatitude;
+      },
+      set(newValue) {
+        return this.$store.commit("setCoordinates", {
+          key: "missionlatitude",
+          value: newValue,
+        });
+      },
     },
   },
 };

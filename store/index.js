@@ -7,10 +7,12 @@ let defaultSpacereport = {
   missiondate: new Date(),
   missionimages: [],
   newmissionimages: [],
+  oldcoordinates: [],
   coordinates: {
     missionlongitude: "",
     missionlatitude: "",
   },
+
   iscompleted: {
     isdetailscompleted: false,
     isimagescompleted: false,
@@ -45,7 +47,7 @@ export const mutations = {
     state.spacereports = newState;
   },
   resetReport: (state) => {
-    state.spacereport = defaultSpacereport;
+    state.spacereport = { ...defaultSpacereport };
   },
   editReport(state, payload) {
     // setting the empty object = to the full report
@@ -59,7 +61,6 @@ export const mutations = {
     );
   },
   removeOriginalImage(state, payload) {
-    console.log("remove OG", payload);
     // below is not working.... but is needs to be in the store
     state.spacereport.missionimages.splice(
       state.spacereport.missionimages.indexOf(payload),
@@ -72,17 +73,15 @@ export const mutations = {
     ];
     // state.missionimages = [...state.missionimages, payload];
   },
+  oldCoordinates(state, payload) {
+    // console.log(payload);
+    state.spacereport.oldcoordinates.push(payload);
+    console.log(state.spacereport.oldcoordinates);
+  },
 };
 
 //actions - is async they go out as third party api
-export const actions = {
-  resetReport: ({ commit }) => {
-    commit("resetReport"); // calling the mutation here
-  },
-  // removeOriginalImage: ({ commit }, payload) => {
-  //   commit("removeOriginalImage", payload);
-  // },
-};
+export const actions = {};
 
 //getters
 export const getters = {

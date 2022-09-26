@@ -83,6 +83,17 @@ export default {
       this.missionid = Math.random().toString(36).substr(2, 9);
     }
     console.log(this.missionid);
+    if (localStorage.user) {
+      this.user = JSON.parse(localStorage.user);
+      this.$store.commit("setSpacereport", {
+        key: "missionuser",
+        value: this.user.id,
+      });
+      // test of the user in the vuex
+      console.log(this.spacereport.missionuser);
+    } else {
+      this.$router.push({ path: "/login" });
+    }
   },
   methods: {
     updateStore() {
@@ -100,8 +111,7 @@ export default {
       });
     },
     resetReport() {
-      // console.log("test reset");
-      this.$store.dispatch("resetReport"); // calling my action in the store
+      console.log("reset details");
       this.$router.push("/");
     },
     validateInput() {

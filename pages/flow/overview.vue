@@ -50,12 +50,12 @@
 export default {
   name: "Overview",
   layout: "flow",
-  middleware({ store, redirect }) {
-    // If the user is not authenticated
-    if (store.state.spacereport.missionname == "") {
-      return redirect("/flow/details");
-    }
-  },
+  // middleware({ store, redirect }) {
+  //   // If the user is not authenticated
+  //   if (store.state.spacereport.missionname == "") {
+  //     return redirect("/flow/details");
+  //   }
+  // },
   data() {
     return {
       reports: JSON.parse(localStorage.getItem("reports")),
@@ -89,15 +89,15 @@ export default {
         this.reports.push(this.spacereport);
       }
       this.updateLocalstorage();
-      this.resetReport();
+      // this.resetReport();
     },
     updateLocalstorage() {
       localStorage.setItem("reports", JSON.stringify(this.reports));
     },
-    resetReport() {
-      console.log("test reset");
-      this.$store.dispatch("resetReport"); // calling my action in the store
-    },
+    // resetReport() {
+    //   console.log("test reset");
+    //   this.$store.commit("resetReport"); // calling my action in the store
+    // },
     formatDate(missiondate) {
       return new Date(missiondate).toLocaleString("en-GB");
     },
