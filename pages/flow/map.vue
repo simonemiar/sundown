@@ -103,10 +103,35 @@ export default {
       });
 
       // Create a default Marker and add it to the map.
-      this.marker = new mapboxgl.Marker()
-        .setLngLat([this.missionlongitude, this.missionlatitude])
-        .addTo(this.map);
-      this.$store.commit("oldCoordinates", this.coordinates);
+      // this.marker = new mapboxgl.Marker()
+      //   .setLngLat([this.missionlongitude, this.missionlatitude])
+      //   .addTo(this.map);
+      // this.$store.commit("oldCoordinates", this.coordinates);
+
+      const oldcoordinates = this.$store.state.spacereport.oldcoordinates;
+      const oldcoordinatesLength =
+        this.$store.state.spacereport.oldcoordinates.length;
+      if (!oldcoordinates) {
+        this.marker = new mapboxgl.Marker()
+          .setLngLat([this.missionlongitude, this.missionlatitude])
+          .addTo(this.map);
+        this.$store.commit("oldCoordinates", this.coordinates);
+      } else {
+        for (let i = 0; i < oldcoordinatesLength; i++) {
+          this.marker = new mapboxgl.Marker()
+            .setLngLat([
+              oldcoordinates[i].missionlongitude,
+              oldcoordinates[i].missionlatitude,
+            ])
+            .addTo(this.map);
+        }
+        this.marker = new mapboxgl.Marker()
+          .setLngLat([this.missionlongitude, this.missionlatitude])
+          .addTo(this.map);
+        this.$store.commit("oldCoordinates", this.coordinates);
+      }
+
+      // maybe create a if statement for old markers ???
     },
     updateMarker() {
       this.marker.setLngLat([this.missionlongitude, this.missionlatitude]);
@@ -141,6 +166,10 @@ export default {
         key: "ismapcompleted",
         value: true,
       });
+      // this.$store.commit("setSpacereport", {
+      //   key: "oldcoordinates",
+      //   value: this.$store.state.spacereport.oldcoordinates,
+      // });
     },
   },
   computed: {
