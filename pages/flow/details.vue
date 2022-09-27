@@ -77,16 +77,16 @@ export default {
   data() {
     return {
       missionid: this.$store.state.spacereport.missionid,
-      // missionname: this.$store.state.spacereport.missionname,
-      // missiondesc: this.$store.state.spacereport.missiondesc,
       missiondate: new Date(this.$store.state.spacereport.missiondate),
       // errors: [],
       msg: [],
+      currentreport: {},
       isdetailscompleted:
         this.$store.state.spacereport.iscompleted.isdetailscompleted,
     };
   },
   mounted() {
+    console.log("date", new Date(this.currentreport.missiondate));
     // generate random ID up to 10 thousand unique
     if (this.missionid == null) {
       this.missionid = Math.random().toString(36).substr(2, 9);
@@ -102,6 +102,12 @@ export default {
       console.log(this.spacereport.missionuser);
     } else {
       this.$router.push({ path: "/login" });
+    }
+    if (localStorage.currentReport) {
+      this.currentreport = JSON.parse(localStorage.currentReport);
+      // test of the user in the vuex
+      this.missiondate = new Date(this.currentreport.missiondate);
+      console.log("local works", new Date(this.currentreport.missiondate));
     }
   },
   methods: {
@@ -130,6 +136,7 @@ export default {
           key: "isdetailscompleted",
           value: true,
         });
+        this.updateLocalstorage();
         this.$router.push({ path: "/flow/images" });
       }
       // this.errors = []
@@ -156,6 +163,21 @@ export default {
         value: this.missiondate,
       });
     },
+    updateLocalstorage() {
+      let currentReport = {
+        missionuser: this.$store.state.spacereport.missionuser,
+        missionid: this.missionid,
+        missionname: this.missionname,
+        missiondesc: this.missiondesc,
+        missiondate: this.missiondate,
+        iscompleted: {
+          isdetailscompleted:
+            this.$store.state.spacereport.iscompleted.isdetailscompleted,
+        },
+      };
+      console.log("local test");
+      localStorage.setItem("currentReport", JSON.stringify(currentReport));
+    },
   },
   computed: {
     spacereport() {
@@ -166,7 +188,10 @@ export default {
     },
     missionname: {
       get() {
-        return this.$store.getters.spacereport.missionname;
+        return (
+          this.$store.getters.spacereport.missionname ||
+          this.currentreport.missionname
+        );
       },
       set(newValue) {
         // console.log("set test", newValue);
@@ -178,7 +203,10 @@ export default {
     },
     missiondesc: {
       get() {
-        return this.$store.getters.spacereport.missiondesc;
+        return (
+          this.$store.getters.spacereport.missiondesc ||
+          this.currentreport.missiondesc
+        );
       },
       set(newValue) {
         return this.$store.commit("setSpacereport", {

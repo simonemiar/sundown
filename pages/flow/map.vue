@@ -36,7 +36,7 @@
         ><button>BACK</button></NuxtLink
       >
 
-      <button class="primary-button" @click="updateStore">FORWARD</button>
+      <button class="primary-button" @click="updateStore()">FORWARD</button>
     </div>
   </div>
 </template>
@@ -48,12 +48,6 @@ import "mapbox-gl/dist/mapbox-gl.css";
 export default {
   name: "Map",
   layout: "flow",
-  // middleware({ store, redirect }) {
-  //   // If the user is not authenticated
-  //   if (store.state.spacereport.missionname == "") {
-  //     return redirect("/flow/details");
-  //   }
-  // },
   data() {
     return {
       test: "Test",
@@ -62,6 +56,7 @@ export default {
       missionlongitude: "",
       missionlatitude: "",
       ismapcompleted: this.$store.state.spacereport.iscompleted.ismapcompleted,
+      currentreport: {},
     };
   },
   head: {
@@ -76,10 +71,6 @@ export default {
     await this.fetchData();
     this.createMap();
     setInterval(this.updateMapAndMarker, 20000);
-    console.log(
-      "is there something",
-      this.$store.state.spacereport.oldcoordinates
-    );
 
     // first we call the function updateFetch which call and sets the data and ends with creating the map
     // then we call the interval, without the () from the function because if we use them, then it will run the function twice
@@ -106,41 +97,31 @@ export default {
       });
 
       // Create a default Marker and add it to the map.
-      // this.marker = new mapboxgl.Marker()
-      //   .setLngLat([this.missionlongitude, this.missionlatitude])
-      //   .addTo(this.map);
-      // this.$store.commit("oldCoordinates", this.coordinates);
+      this.marker = new mapboxgl.Marker()
+        .setLngLat([this.missionlongitude, this.missionlatitude])
+        .addTo(this.map);
+      this.$store.commit("oldCoordinates", this.coordinates);
 
-      const oldcoordinates = this.$store.state.spacereport.oldcoordinates;
-      const oldcoordinatesLength =
-        this.$store.state.spacereport.oldcoordinates.length;
-      if (!oldcoordinates) {
-        console.log("no previous marker");
-        this.marker = new mapboxgl.Marker()
-          .setLngLat([this.missionlongitude, this.missionlatitude])
-          .addTo(this.map);
-        this.$store.commit("oldCoordinates", this.coordinates);
-      } else {
-        console.log("load in old coordinates");
-        for (let i = 0; i < oldcoordinatesLength; i++) {
-          this.marker = new mapboxgl.Marker()
-            .setLngLat([
-              oldcoordinates[i].missionlongitude,
-              oldcoordinates[i].missionlatitude,
-            ])
-            .addTo(this.map);
-        }
-        this.marker = new mapboxgl.Marker()
-          .setLngLat([this.missionlongitude, this.missionlatitude])
-          .addTo(this.map);
-        this.$store.commit("oldCoordinates", this.coordinates);
-      }
+      // const oldcoordinates = this.$store.state.spacereport.oldcoordinates;
+      // const oldcoordinatesLength =
+      //   this.$store.state.spacereport.oldcoordinates.length;
+
+      // console.log("load in old coordinates");
+      // for (let i = 0; i < oldcoordinatesLength; i++) {
+      //   this.marker = new mapboxgl.Marker()
+      //     .setLngLat([
+      //       oldcoordinates[i].missionlongitude,
+      //       oldcoordinates[i].missionlatitude,
+      //     ])
+      //     .addTo(this.map);
+      // }
 
       // maybe create a if statement for old markers ???
     },
     updateMarker() {
       this.marker.setLngLat([this.missionlongitude, this.missionlatitude]);
       this.$store.commit("oldCoordinates", this.coordinates);
+      console.log("the coordi", this.coordinates);
     },
     updateMap() {
       this.map.setCenter([this.missionlongitude, this.missionlatitude]);
@@ -152,6 +133,7 @@ export default {
       const oldcoordinatesLength =
         this.$store.state.spacereport.oldcoordinates.length;
       for (let i = 0; i < oldcoordinatesLength; i++) {
+        console.log("test marker", oldcoordinates);
         this.marker = new mapboxgl.Marker()
           .setLngLat([
             oldcoordinates[i].missionlongitude,
@@ -179,11 +161,33 @@ export default {
         key: "missionlongitude",
         value: this.missionlongitude,
       });
+      this.$store.commit("setSpacereport", {
+        key: "oldcoordinates",
+        value: this.$store.state.spacereport.oldcoordinates,
+      });
+      this.updateLocalstorage();
       this.$router.push("/flow/overview");
-      // this.$store.commit("setSpacereport", {
-      //   key: "oldcoordinates",
-      //   value: this.$store.state.spacereport.oldcoordinates,
-      // });
+    },
+    updateLocalstorage() {
+      let getCurrentReport = localStorage.getItem("currentReport");
+      let parseCurrentReport = JSON.parse(getCurrentReport);
+      console.log("actual current", parseCurrentReport);
+      let currentReport = {
+        ...parseCurrentReport,
+        ...{
+          coordinates: {
+            missionlongitude: this.missionlongitude,
+            missionlatitude: this.missionlatitude,
+          },
+          oldcoordinates: this.$store.state.spacereport.oldcoordinates,
+          iscompleted: {
+            ...parseCurrentReport.iscompleted,
+            ismapcompleted:
+              this.$store.state.spacereport.iscompleted.ismapcompleted,
+          },
+        },
+      };
+      localStorage.setItem("currentReport", JSON.stringify(currentReport));
     },
   },
   computed: {

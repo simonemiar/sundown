@@ -44,7 +44,7 @@
     <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto">
       <NuxtLink to="/flow/details" class="secondary-button"><button>back</button></NuxtLink>
         <button class="primary-button" @click="
-          clickHandle()
+          clickHandle(); 
         ">forward</button>
       
     </div>
@@ -55,17 +55,12 @@
 export default {
   name: "Images",
   layout: "flow",
-  // middleware({ store, redirect }) {
-  //   // If the user is not authenticated
-  //   if (store.state.spacereport.missionname == "") {
-  //     return redirect('/flow/details')
-  //   }
-  // },
   data() {
     return {
       error:[],
       isimagescompleted:
         this.$store.state.spacereport.iscompleted.isimagescompleted,
+      currentreport: {},
     }
   },
   //     'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15'
@@ -76,6 +71,12 @@ export default {
     // console.log(data)
     this.missionimages = data
   },
+  mounted(){
+    if (localStorage.currentReport) {
+      this.currentreport = JSON.parse(localStorage.currentReport);
+      // test of the user in the vuex
+    }
+  },
   methods: {
     clickHandle(e) {
       if(this.newmissionimages.length < 7 && this.newmissionimages.length > 0){
@@ -84,10 +85,12 @@ export default {
         value: true,
       });
         this.$router.push("/flow/map");
+        this.updateLocalstorage()
       } else {
         this.error = ["Please select between one and maximum seven images to proceed"]
       }
       // e.preventDefault
+      
     },
     pushImage(newimage) {
       console.log("test push", newimage)
@@ -98,7 +101,15 @@ export default {
       console.log("test remove", newimage)
       this.$store.commit("removeNewImage", newimage);
       this.missionimages = [...this.missionimages, newimage]
-    }   
+    },
+    updateLocalstorage() {
+      let getCurrentReport = localStorage.getItem("currentReport");
+      let parseCurrentReport = JSON.parse(getCurrentReport)
+      let currentReport = {...parseCurrentReport, ...{missionimages: this.missionimages, newmissionimages: this.newmissionimages, iscompleted: {...parseCurrentReport.iscompleted, isimagescompleted: this.$store.state.spacereport.iscompleted.isimagescompleted}}}
+      this.currentreport = currentReport
+      console.log("ddd",this.currentreport.newmissionimages)
+      localStorage.setItem("currentReport", JSON.stringify(currentReport));
+    },  
   },
   computed: {
     spacereport() {
@@ -109,10 +120,10 @@ export default {
     },
     missionimages: {
       get() {
-        return this.$store.getters.spacereport.missionimages
+        return this.currentreport.missionimages || this.$store.getters.spacereport.missionimages
       },
       set(newValue) {
-        console.log('set test', newValue)
+        console.log('set test old', newValue)
         return this.$store.commit('setSpacereport', {
           key: 'missionimages',
           value: newValue,
@@ -121,10 +132,10 @@ export default {
     },
     newmissionimages: {
       get() {
-        return this.$store.getters.spacereport.newmissionimages
+        return this.currentreport.newmissionimages || this.$store.getters.spacereport.newmissionimages 
       },
       set(newValue) {
-        console.log('set test', newValue)
+        console.log('set test new', newValue)
         return this.$store.commit('setSpacereport', {
           key: 'newmissionimages',
           value: newValue,

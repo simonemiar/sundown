@@ -48,6 +48,16 @@ export const mutations = {
   },
   resetReport: (state) => {
     state.spacereport = { ...defaultSpacereport };
+    state.spacereport.coordinates = {
+      missionlongitude: "",
+      missionlatitude: "",
+    };
+    state.spacereport.iscompleted = {
+      isdetailscompleted: false,
+      isimagescompleted: false,
+      ismapcompleted: false,
+      isoverviewcompleted: false,
+    };
   },
   editReport(state, payload) {
     // setting the empty object = to the full report

@@ -39,9 +39,10 @@
       <NuxtLink to="/flow/map" class="secondary-button"
         ><button>BACK</button></NuxtLink
       >
-      <NuxtLink to="/" class="primary-button">
-        <button @click="finaliseReport">FINALISE REPORT</button>
-      </NuxtLink>
+
+      <button class="primary-button" @click="finaliseReport">
+        FINALISE REPORT
+      </button>
     </div>
   </div>
 </template>
@@ -61,6 +62,7 @@ export default {
       reports: JSON.parse(localStorage.getItem("reports")),
       isoverviewcompleted:
         this.$store.state.spacereport.iscompleted.isoverviewcompleted,
+      currentreport: {},
     };
   },
   mounted() {
@@ -89,15 +91,18 @@ export default {
         this.reports.push(this.spacereport);
       }
       this.updateLocalstorage();
+      localStorage.removeItem("currentReport");
+      this.resetReport();
+      this.$router.push({ path: "/" });
       // this.resetReport();
     },
     updateLocalstorage() {
       localStorage.setItem("reports", JSON.stringify(this.reports));
     },
-    // resetReport() {
-    //   console.log("test reset");
-    //   this.$store.commit("resetReport"); // calling my action in the store
-    // },
+    resetReport() {
+      console.log("test reset");
+      this.$store.commit("resetReport"); // calling my action in the store
+    },
     formatDate(missiondate) {
       return new Date(missiondate).toLocaleString("en-GB");
     },

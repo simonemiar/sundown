@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen bg-blue-50">
+  <div class="w-screen h-screen">
     <button class="bold absolute top-1 right-1" @click="clearUser">
       <img class="w-10 h-10" src="../assets/img/logout.png" alt="logout" />
     </button>
@@ -8,7 +8,7 @@
         Hi, {{ user.first_name }} {{ user.last_name }}
       </h1>
     </div>
-    <div class="grid sm:flex justify-items-center">
+    <div class="grid sm:flex justify-items-center bg-blue-50">
       <section id="section_layout" class="grid mb-12 sm:grid sm:grid-cols-2">
         <div class="row-start-2 row-end-2 sm:col-start-1 sm:col-end-2">
           <p class="my-2">space reports created by {{ user.first_name }}</p>
