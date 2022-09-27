@@ -1,6 +1,6 @@
 <template>
   <div class="bg-blue-50 w-screen h-screen">
-    <div class="max-w-screen-lg m-auto px-6">
+    <!-- <div class="max-w-screen-lg m-auto px-6">
       <p class="m-2 text-red-700" v-if="errors.length">
         <b>please correct the following errors</b>
         <ul>
@@ -9,11 +9,14 @@
           </li>
         </ul>
       </p>
-    </div>
+    </div> -->
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2 h-full">
         <div>
           <label class="font-bold">Mission name</label>
+          <span class="text-red-700 text-sm" v-if="msg.missionname">{{
+            msg.missionname
+          }}</span>
           <input
             v-model="missionname"
             id="missionname"
@@ -22,8 +25,12 @@
             required
           />
         </div>
+
         <div class="h-full mt-1">
           <label class="font-bold">Mission description</label>
+          <span class="text-red-700 text-sm" v-if="msg.missiondesc">{{
+            msg.missiondesc
+          }}</span>
           <textarea
             v-model="missiondesc"
             id="missiondesc"
@@ -48,8 +55,7 @@
         </div>
       </div>
     </section>
-    <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto ">
-      
+    <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto">
       <button class="secondary-button" @click="resetReport">back</button>
       <button
         class="primary-button"
@@ -71,8 +77,11 @@ export default {
   data() {
     return {
       missionid: this.$store.state.spacereport.missionid,
+      // missionname: this.$store.state.spacereport.missionname,
+      // missiondesc: this.$store.state.spacereport.missiondesc,
       missiondate: new Date(this.$store.state.spacereport.missiondate),
-      errors: [],
+      // errors: [],
+      msg: [],
       isdetailscompleted:
         this.$store.state.spacereport.iscompleted.isdetailscompleted,
     };
@@ -96,6 +105,47 @@ export default {
     }
   },
   methods: {
+    resetReport() {
+      console.log("reset details");
+      this.$router.push("/");
+    },
+    validateInput() {
+      if (!this.missionname.length && !this.missiondesc.length) {
+        console.log("there is no missionname or mission description");
+        this.msg["missionname"] = "(Missionname required)";
+        this.msg["missiondesc"] = "(Mission description required)";
+      } else if (this.missionname === "") {
+        console.log("there is no missionname");
+        this.msg["missionname"] = "(Missionname required)";
+        this.msg["missiondesc"] = "";
+      } else if (this.missiondesc === "") {
+        console.log("there is no missiondesc");
+        this.msg["missiondesc"] = "(Mission description required)";
+        this.msg["missionname"] = "";
+      } else {
+        console.log("match");
+        this.msg["missionname"] = "";
+        this.msg["missiondesc"] = "";
+        this.$store.commit("setCompleted", {
+          key: "isdetailscompleted",
+          value: true,
+        });
+        this.$router.push({ path: "/flow/images" });
+      }
+      // this.errors = []
+      // if (
+      //   this.$store.state.spacereport.missionname &&
+      //   this.$store.state.spacereport.missiondesc
+      // ) {
+      //   console.log("match");
+      //   this.$router.push({ path: "/flow/images" });
+      // } else {
+      //   if (!this.$store.state.spacereport.missionname)
+      //     this.errors.push("Missionname required");
+      //   if (!this.$store.state.spacereport.missiondesc)
+      //     this.errors.push("Missiondesc required");
+      // }
+    },
     updateStore() {
       this.$store.commit("setSpacereport", {
         key: "missionid",
@@ -105,29 +155,6 @@ export default {
         key: "missiondate",
         value: this.missiondate,
       });
-      this.$store.commit("setCompleted", {
-        key: "isdetailscompleted",
-        value: true,
-      });
-    },
-    resetReport() {
-      console.log("reset details");
-      this.$router.push("/");
-    },
-    validateInput() {
-      this.errors = []
-      if (
-        this.$store.state.spacereport.missionname &&
-        this.$store.state.spacereport.missiondesc
-      ) {
-        console.log("match");
-        this.$router.push({ path: "/flow/images" });
-      } else {
-        if (!this.$store.state.spacereport.missionname)
-          this.errors.push("Missionname required");
-        if (!this.$store.state.spacereport.missiondesc)
-          this.errors.push("Missiondesc required");
-      }
     },
   },
   computed: {
