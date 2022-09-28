@@ -52,6 +52,7 @@ export const mutations = {
       missionlongitude: "",
       missionlatitude: "",
     };
+    state.spacereport.oldcoordinates = [];
     state.spacereport.iscompleted = {
       isdetailscompleted: false,
       isimagescompleted: false,
@@ -76,7 +77,7 @@ export const mutations = {
       state.spacereport.missionimages.indexOf(payload),
       1
     );
-    console.log("misimg ", state.spacereport.missionimages);
+    // console.log("misimg ", state.spacereport.missionimages);
     state.spacereport.newmissionimages = [
       ...state.spacereport.newmissionimages,
       payload,
@@ -84,9 +85,8 @@ export const mutations = {
     // state.missionimages = [...state.missionimages, payload];
   },
   oldCoordinates(state, payload) {
-    // console.log(payload);
+    console.log("payload", payload);
     state.spacereport.oldcoordinates.push(payload);
-    console.log(state.spacereport.oldcoordinates);
   },
 };
 

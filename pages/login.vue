@@ -1,6 +1,28 @@
 <template>
-  <div class="w-screen h-screen bg-blue-50">
+  <div class="w-screen h-screen bg-blue-100">
     <div class="grid sm:flex justify-center">
+      <div class="log-bg">
+        <img
+          class="log-cloud cloud1"
+          src="../assets/img/spaceship.svg"
+          alt="cloud"
+        />
+        <img
+          class="log-cloud cloud2"
+          src="../assets/img/spaceship.svg"
+          alt="cloud"
+        />
+        <img
+          class="log-cloud cloud3 opacity-40"
+          src="../assets/img/spaceship.svg"
+          alt="cloud"
+        />
+        <img
+          class="log-cloud cloud4"
+          src="../assets/img/spaceship.svg"
+          alt="cloud"
+        />
+      </div>
       <div>
         <h1 class="font-bold text-blue-800">WELCOME TO MRT</h1>
         <p class="w-[40ch] mb-1.5">
@@ -49,6 +71,7 @@ import users from "@/assets/users.json";
 
 export default {
   name: "Login",
+  layout: "empty",
   data() {
     return {
       usernameoremail: "",

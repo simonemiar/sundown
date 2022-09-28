@@ -72,3 +72,37 @@ section {
 .progressbar4 {
   @apply w-full transition-all duration-500 ease-in-out;
 }
+
+/* .log-cloud {
+  @apply bg-[url('assets/img/login-cloud.png')] w-16 h-10 absolute z-10;
+} */
+.log-cloud {
+  @apply w-16 h-10 absolute z-20;
+}
+.cloud1 {
+  @apply scale-50 animate-spin3;
+}
+.cloud2 {
+  @apply animate-spin3;
+}
+.cloud3 {
+  @apply scale-50 animate-spin;
+}
+.cloud4 {
+  @apply scale-75 animate-spin1;
+}
+.log-bg {
+  @apply w-full h-80 overflow-hidden relative;
+}
+
+@keyframes spin {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: 0;
+  }
+}

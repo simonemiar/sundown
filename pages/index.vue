@@ -26,7 +26,7 @@
             <div v-if="reports.length">
               <div
                 v-for="(report, index) in reportsFilterAndSort()"
-                :key="report.missionname"
+                :key="report.missionid"
                 class="card grid mx-3 bg-blue-300 rounded sm:grid-cols-3"
               >
                 <div class="p-3 sm:col-span-2">
@@ -96,11 +96,6 @@ export default {
       user: "",
       reports: [],
     };
-    //   displaydate: this.$store.state.spacereport.missiondate
-    //     .toISOString()
-    //     .replace(/T/, " ")
-    //     .replace(/\..+/, ""), // first replace T with a space  // second replace delete the dot and everything after,,
-    // };
   },
   mounted() {
     if (localStorage.user) {
@@ -129,18 +124,20 @@ export default {
       this.$router.push({ path: "/login" });
     },
     removeReport(index, report) {
+      console.log("name", report.missionid);
+      // index = report.missionid;
+      // console.log("index what", index);
       let response = confirm(
         `Are you sure you want to delete ${report.missionname}`
       );
       if (response) {
-        this.reports.splice(index, 1);
+        this.reports.splice(this.reports.indexOf(report), 1);
         localStorage.setItem("reports", JSON.stringify(this.reports));
       }
     },
     editReport(report) {
       console.log("edit test");
       this.$router.push({ path: "/flow/details" });
-      console.log(report);
       this.$store.commit("editReport", { report: report });
     },
     formatDate(missiondate) {

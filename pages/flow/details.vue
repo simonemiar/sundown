@@ -86,7 +86,6 @@ export default {
     };
   },
   mounted() {
-    console.log("date", new Date(this.currentreport.missiondate));
     // generate random ID up to 10 thousand unique
     if (this.missionid == null) {
       this.missionid = Math.random().toString(36).substr(2, 9);
@@ -104,10 +103,19 @@ export default {
       this.$router.push({ path: "/login" });
     }
     if (localStorage.currentReport) {
-      this.currentreport = JSON.parse(localStorage.currentReport);
+      let getCurrentReport = localStorage.getItem("currentReport");
+      let parseCurrentReport = JSON.parse(getCurrentReport);
+      let realCurrentReport = Object.assign(
+        this.currentreport,
+        parseCurrentReport
+      );
+      realCurrentReport = this.$store.state.spacereport;
       // test of the user in the vuex
+
       this.missiondate = new Date(this.currentreport.missiondate);
-      console.log("local works", new Date(this.currentreport.missiondate));
+      console.log("date", this.currentreport);
+    } else {
+      this.currentreport = this.$store.state.spacereport;
     }
   },
   methods: {
@@ -189,8 +197,8 @@ export default {
     missionname: {
       get() {
         return (
-          this.$store.getters.spacereport.missionname ||
-          this.currentreport.missionname
+          this.currentreport.missionname ||
+          this.$store.getters.spacereport.missionname
         );
       },
       set(newValue) {
@@ -204,8 +212,8 @@ export default {
     missiondesc: {
       get() {
         return (
-          this.$store.getters.spacereport.missiondesc ||
-          this.currentreport.missiondesc
+          this.currentreport.missiondesc ||
+          this.$store.getters.spacereport.missiondesc
         );
       },
       set(newValue) {
@@ -215,6 +223,11 @@ export default {
         });
       },
     },
+    // watch: {
+    //   currentreport(newReport) {
+    //     localStorage.currentReport = newReport;
+    //   },
+    // },
   },
 };
 </script>

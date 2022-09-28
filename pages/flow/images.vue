@@ -107,7 +107,6 @@ export default {
       let parseCurrentReport = JSON.parse(getCurrentReport)
       let currentReport = {...parseCurrentReport, ...{missionimages: this.missionimages, newmissionimages: this.newmissionimages, iscompleted: {...parseCurrentReport.iscompleted, isimagescompleted: this.$store.state.spacereport.iscompleted.isimagescompleted}}}
       this.currentreport = currentReport
-      console.log("ddd",this.currentreport.newmissionimages)
       localStorage.setItem("currentReport", JSON.stringify(currentReport));
     },  
   },
