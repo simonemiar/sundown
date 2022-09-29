@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-blue-50 w-screen h-screen">
+  <div class="bg-blue-50 w-screen h-screen page-enter-active">
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2 h-full">
         <div>
@@ -46,7 +46,7 @@
       </div>
     </section>
     <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto">
-      <button class="secondary-button back-enter-active" @click="resetReport">
+      <button class="secondary-button back-enter-active" @click="backBtn">
         back
       </button>
       <button
@@ -117,8 +117,7 @@ export default {
     }
   },
   methods: {
-    resetReport() {
-      console.log("reset details");
+    backBtn() {
       this.$router.push("/");
     },
     validateInput() {

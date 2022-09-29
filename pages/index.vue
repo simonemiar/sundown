@@ -9,10 +9,7 @@
       </h1>
     </div>
     <div class="grid sm:flex justify-items-center bg-blue-50">
-      <section
-        id="section_layout"
-        class="grid mb-12 sm:grid sm:grid-cols-2 page-enter-active"
-      >
+      <section id="section_layout" class="grid mb-12 sm:grid sm:grid-cols-2">
         <div class="row-start-2 row-end-2 sm:col-start-1 sm:col-end-2">
           <p class="my-2">space reports created by {{ user.first_name }}</p>
           <div
@@ -27,38 +24,46 @@
             </p>
             <!-- reports.filter( (word) => word.missionuser == this.spacereport.missionuser ) -->
             <div v-if="reports.length">
-              <div
-                v-for="(report, index) in reportsFilterAndSort()"
-                :key="report.missionid"
-                class="card grid mx-3 bg-blue-300 rounded sm:grid-cols-3"
+              <transition-group
+                appear
+                tag="ul"
+                @before-enter="beforeEnter"
+                @enter="enter"
               >
-                <div class="p-3 sm:col-span-2">
-                  <p
-                    class="text-left font-bold text-lg uppercase overflow-hidden whitespace-nowrap overflow-ellipsis"
-                  >
-                    {{ report.missionname }}
-                  </p>
-                  <p class="text-left text-sm">
-                    <span class="font-bold">DATE:</span>
-                    {{ formatDate(report.missiondate) }}
-                    <!-- {{ displaydate }} -->
-                  </p>
+                <div
+                  v-for="(report, index) in reportsFilterAndSort()"
+                  :key="report.missionid"
+                  :data-index="index"
+                  class="card grid mx-3 bg-blue-300 rounded sm:grid-cols-3"
+                >
+                  <div class="p-3 sm:col-span-2">
+                    <p
+                      class="text-left font-bold text-lg uppercase overflow-hidden whitespace-nowrap overflow-ellipsis"
+                    >
+                      {{ report.missionname }}
+                    </p>
+                    <p class="text-left text-sm">
+                      <span class="font-bold">DATE:</span>
+                      {{ formatDate(report.missiondate) }}
+                      <!-- {{ displaydate }} -->
+                    </p>
+                  </div>
+                  <div class="grid sm:col-span-1 sm:row-span-2">
+                    <button
+                      class="edit-button text-sm sm:m-0"
+                      @click="editReport(report)"
+                    >
+                      edit
+                    </button>
+                    <button
+                      class="delete-button text-sm"
+                      @click="removeReport(index, report)"
+                    >
+                      delete
+                    </button>
+                  </div>
                 </div>
-                <div class="grid sm:col-span-1 sm:row-span-2">
-                  <button
-                    class="edit-button text-sm sm:m-0"
-                    @click="editReport(report)"
-                  >
-                    edit
-                  </button>
-                  <button
-                    class="delete-button text-sm"
-                    @click="removeReport(index, report)"
-                  >
-                    delete
-                  </button>
-                </div>
-              </div>
+              </transition-group>
             </div>
           </div>
         </div>
@@ -91,7 +96,24 @@
 </template>
 
 <script>
+import gsap from "gsap";
 export default {
+  setup() {
+    const beforeEnter = (el) => {
+      el.style.opacity = 0;
+      el.style.transform = "translateY(100px)";
+    };
+    const enter = (el, done) => {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 0.2,
+        onComplete: done,
+        delay: el.dataset.index * 0.1,
+      });
+    };
+    return { beforeEnter, enter };
+  },
   name: "App",
   transition: "indexpage",
   data() {
@@ -112,6 +134,9 @@ export default {
     } else {
       this.$router.push({ path: "/login" });
     }
+    let currentReport = {};
+    this.$store.commit("setSpacereportToCurrentreport", currentReport);
+
     if (localStorage.reports) {
       this.reports = JSON.parse(localStorage.reports);
     }
@@ -150,6 +175,7 @@ export default {
     },
     resetReport() {
       console.log("test 2 reset");
+      localStorage.removeItem("currentReport");
       this.$store.commit("resetReport"); // calling my action in the store
       this.$router.push("/flow/details");
     },

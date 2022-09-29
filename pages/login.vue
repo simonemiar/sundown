@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen bg-blue-100 page-enter-active">
+  <div class="w-screen h-screen bg-blue-50 page-enter-active">
     <div class="log-bg w-4/5 m-auto sm:py-5">
       <!-- <img
         class="log-spaceship spaceship1"
@@ -84,6 +84,19 @@ export default {
       msg: [],
     };
   },
+  mounted() {
+    if (localStorage.user) {
+      this.user = JSON.parse(localStorage.user);
+      this.$store.commit("setSpacereport", {
+        key: "missionuser",
+        value: this.user.id,
+      });
+      // test of the user in the vuex
+      this.$router.push({ path: "/" });
+    } else {
+      this.$router.push({ path: "/login" });
+    }
+  },
   methods: {
     handleUsernameOrEmailChange() {
       let checkEmail = users.some((object) => {
@@ -140,19 +153,6 @@ export default {
         alert("We could not find the user\nPlease checkout below errors");
       }
     },
-    // validateEmail(value) {
-    //   if (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)) {
-    //     this.msg["email"] = "";
-    //   } else {
-    //     this.msg["email"] = "Invalid Email Address";
-    //   }
-    // },
   },
-  // watch: {
-  //   email(value) {
-  //     this.email = value;
-  //     this.validateEmail(value);
-  //   },
-  // },
 };
 </script>

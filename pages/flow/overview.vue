@@ -108,9 +108,6 @@ export default {
       localStorage.setItem("currentReport", JSON.stringify(currentReport));
     },
     finaliseReport() {
-      // const parsedReports = JSON.parse(localStorage.getItem("reports"));
-      // console.log("parsed", parsedReports);
-      // parsedReports = this.reports;
       console.log(this.reports);
 
       if (this.reports === null) {
