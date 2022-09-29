@@ -126,7 +126,7 @@ export default {
     },
     resetReport() {
       console.log("test reset");
-      this.$store.commit("resetReport"); // calling my action in the store
+      this.$store.commit("resetReport");
     },
     formatDate(missiondate) {
       return new Date(missiondate).toLocaleString("en-GB");

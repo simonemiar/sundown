@@ -63,13 +63,14 @@ export default {
       currentreport: {},
     }
   },
+  // https://api.nuxtjs.dev/mountains
   //     'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15'
   async fetch() {
-    const data = await fetch('https://api.nuxtjs.dev/mountains').then((res) =>
+    const data = await fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=33FwE0MvWwZSp4zdEjnccK2wfLGQ6CaMwZtL6P8f').then((res) =>
       res.json()
     )
-    // console.log(data)
-    this.missionimages = data
+    console.log(data)
+    this.missionimages = data.photos
   },
   mounted(){
     if (localStorage.currentReport) {

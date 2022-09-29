@@ -22,7 +22,6 @@
             >
               no spacereports saved
             </p>
-            <!-- reports.filter( (word) => word.missionuser == this.spacereport.missionuser ) -->
             <div v-if="reports.length">
               <transition-group
                 appear
@@ -176,7 +175,7 @@ export default {
     resetReport() {
       console.log("test 2 reset");
       localStorage.removeItem("currentReport");
-      this.$store.commit("resetReport"); // calling my action in the store
+      this.$store.commit("resetReport");
       this.$router.push("/flow/details");
     },
   },
