@@ -1,39 +1,42 @@
 <template>
-  <div class="w-screen h-screen bg-blue-100">
+  <div class="w-screen h-screen bg-blue-100 page-enter-active">
+    <div class="log-bg w-4/5 m-auto sm:py-5">
+      <!-- <img
+        class="log-spaceship spaceship1"
+        src="../assets/img/spaceship.svg"
+        alt="spaceship"
+      />
+      <img
+        class="log-spaceship spaceship2"
+        src="../assets/img/spaceship.svg"
+        alt="spaceship"
+      />
+      <img
+        class="log-spaceship spaceship3 opacity-40"
+        src="../assets/img/spaceship.svg"
+        alt="spaceship"
+      />
+      <img
+        class="log-spaceship spaceship4"
+        src="../assets/img/spaceship.svg"
+        alt="spaceship"
+      /> -->
+      <h1 class="font-bold text-blue-800 text-center text-5xl lg:text-7xl">
+        WELCOME TO MRT
+      </h1>
+    </div>
     <div class="grid sm:flex justify-center">
-      <div class="log-bg">
-        <img
-          class="log-cloud cloud1"
-          src="../assets/img/spaceship.svg"
-          alt="cloud"
-        />
-        <img
-          class="log-cloud cloud2"
-          src="../assets/img/spaceship.svg"
-          alt="cloud"
-        />
-        <img
-          class="log-cloud cloud3 opacity-40"
-          src="../assets/img/spaceship.svg"
-          alt="cloud"
-        />
-        <img
-          class="log-cloud cloud4"
-          src="../assets/img/spaceship.svg"
-          alt="cloud"
-        />
-      </div>
-      <div>
-        <h1 class="font-bold text-blue-800">WELCOME TO MRT</h1>
-        <p class="w-[40ch] mb-1.5">
+      <div class="m-1">
+        <p class="font-semibold">What is MRT</p>
+        <p class="sm:w-[37ch] mb-1.5">
           The International Space Station private reporting tool. This tool was
           created for engineers and likeminded nerds.
         </p>
         <p>Please insert your user information on the right</p>
       </div>
-      <form @submit.prevent="submitLogin" class="grid m-1 w-full sm:w-1/3">
+      <form @submit.prevent="submitLogin" class="grid m-1 sm:w-full sm:w-1/3">
         <div class="grid">
-          <label for="text">Username or Email</label>
+          <label class="font-semibold" for="text">Username or Email</label>
           <input
             class="my-1 border-solid border p-1 border-black"
             id="usernameoremail"
@@ -48,7 +51,7 @@
           msg.usernameoremail
         }}</span>
         <div class="grid">
-          <label for="password">Password:</label>
+          <label class="font-semibold" for="password">Password:</label>
           <input
             class="my-1 border-solid border p-1 border-black"
             id="password"
@@ -70,8 +73,9 @@
 import users from "@/assets/users.json";
 
 export default {
-  name: "Login",
+  name: "login",
   layout: "empty",
+  transition: "login",
   data() {
     return {
       usernameoremail: "",

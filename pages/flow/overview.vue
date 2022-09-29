@@ -60,6 +60,7 @@ export default {
   data() {
     return {
       reports: JSON.parse(localStorage.getItem("reports")),
+      // reports: [],
       isoverviewcompleted:
         this.$store.state.spacereport.iscompleted.isoverviewcompleted,
       currentreport: {},
@@ -70,13 +71,48 @@ export default {
       key: "isoverviewcompleted",
       value: true,
     });
+    if (localStorage.currentReport) {
+      let getCurrentReport = localStorage.getItem("currentReport");
+      let parseCurrentReport = JSON.parse(getCurrentReport);
+      let realCurrentReport = Object.assign(
+        this.currentreport,
+        parseCurrentReport
+      );
+
+      // set currentreport to spacereport
+      this.$store.commit("setCurrentReport", this.currentreport);
+
+      this.missiondate = new Date(this.currentreport.missiondate);
+      console.log("date", this.currentreport);
+      this.updateLocalstorage;
+    } else {
+      this.currentreport = this.$store.state.spacereport;
+      this.updateLocalstorage;
+    }
   },
   methods: {
+    updateLocalstorage() {
+      let getCurrentReport = localStorage.getItem("currentReport");
+      let parseCurrentReport = JSON.parse(getCurrentReport);
+      console.log("parse report", parseCurrentReport);
+      let currentReport = {
+        ...parseCurrentReport,
+        ...{
+          iscompleted: {
+            ...parseCurrentReport.iscompleted,
+            isoverviewcompleted:
+              this.$store.state.spacereport.iscompleted.isoverviewcompleted,
+          },
+        },
+      };
+      localStorage.setItem("currentReport", JSON.stringify(currentReport));
+    },
     finaliseReport() {
-      this.$store.commit("setCompleted", {
-        key: "isoverviewcompleted",
-        value: true,
-      });
+      // const parsedReports = JSON.parse(localStorage.getItem("reports"));
+      // console.log("parsed", parsedReports);
+      // parsedReports = this.reports;
+      console.log(this.reports);
+
       if (this.reports === null) {
         this.reports = [];
       }
@@ -94,7 +130,6 @@ export default {
       localStorage.removeItem("currentReport");
       this.resetReport();
       this.$router.push({ path: "/" });
-      // this.resetReport();
     },
     updateLocalstorage() {
       localStorage.setItem("reports", JSON.stringify(this.reports));

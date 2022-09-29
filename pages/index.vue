@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen">
+  <div class="w-screen h-screen fade">
     <button class="bold absolute top-1 right-1" @click="clearUser">
       <img class="w-10 h-10" src="../assets/img/logout.png" alt="logout" />
     </button>
@@ -9,7 +9,10 @@
       </h1>
     </div>
     <div class="grid sm:flex justify-items-center bg-blue-50">
-      <section id="section_layout" class="grid mb-12 sm:grid sm:grid-cols-2">
+      <section
+        id="section_layout"
+        class="grid mb-12 sm:grid sm:grid-cols-2 page-enter-active"
+      >
         <div class="row-start-2 row-end-2 sm:col-start-1 sm:col-end-2">
           <p class="my-2">space reports created by {{ user.first_name }}</p>
           <div
@@ -124,9 +127,6 @@ export default {
       this.$router.push({ path: "/login" });
     },
     removeReport(index, report) {
-      console.log("name", report.missionid);
-      // index = report.missionid;
-      // console.log("index what", index);
       let response = confirm(
         `Are you sure you want to delete ${report.missionname}`
       );

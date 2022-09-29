@@ -11,7 +11,7 @@
         </ul>
       </p>
     </div>
-    <section id="section_layout" class="sm:grid sm:grid-cols-2">
+    <section id="section_layout" class="sm:grid sm:grid-cols-2 back-enter-active">
       <div class="m-2 h-80">
         <p class="font-bold">Space mission images</p>
         <div
@@ -73,8 +73,17 @@ export default {
   },
   mounted(){
     if (localStorage.currentReport) {
-      this.currentreport = JSON.parse(localStorage.currentReport);
-      // test of the user in the vuex
+      let getCurrentReport = localStorage.getItem("currentReport");
+      let parseCurrentReport = JSON.parse(getCurrentReport);
+      let realCurrentReport = Object.assign(
+        this.currentreport,
+        parseCurrentReport
+      );
+      
+      // set currentreport to spacereport
+      this.$store.commit("setCurrentReport", this.currentreport);
+    } else {
+      this.currentreport = this.$store.state.spacereport;
     }
   },
   methods: {

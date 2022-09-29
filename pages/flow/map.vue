@@ -29,6 +29,7 @@
             {{ missionlongitude }}
           </div>
         </div>
+        <!-- <pre>{{ this.allCoordinates }}</pre> -->
       </div>
     </section>
     <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto">
@@ -44,6 +45,7 @@
 <script>
 // implementing the CSS from the mapbox marker !!!! very important
 import "mapbox-gl/dist/mapbox-gl.css";
+import mapboxgl from "mapbox-gl";
 
 export default {
   name: "Map",
@@ -53,11 +55,12 @@ export default {
       test: "Test",
       map: null,
       marker: null,
-      // missionlongitude: "",
-      // missionlatitude: "",
+      missionlongitude: "",
+      missionlatitude: "",
       // coordinates: this.$store.state.spacereport.coordinates,
-      ismapcompleted: this.$store.state.spacereport.iscompleted.ismapcompleted,
+      // ismapcompleted: this.$store.state.spacereport.iscompleted.ismapcompleted,
       currentreport: {},
+      allCoordinates: [],
     };
   },
   head: {
@@ -69,131 +72,110 @@ export default {
     ],
   },
   async mounted() {
-    await this.fetchData();
     this.createMap();
-    setInterval(this.updateMapAndMarker, 60000);
+    this.populateMapWithOldCoordinates();
+    await this.fetchData();
+    console.log("fetch baby");
+    setInterval(this.fetchData, 60000);
+    this.setLocalStorage();
 
     // first we call the function updateFetch which call and sets the data and ends with creating the map
     // then we call the interval, without the () from the function because if we use them, then it will run the function twice
   },
   methods: {
+    setLocalStorage() {
+      if (localStorage.currentReport) {
+        let getCurrentReport = localStorage.getItem("currentReport");
+        let parseCurrentReport = JSON.parse(getCurrentReport);
+        let realCurrentReport = Object.assign(
+          this.currentreport,
+          parseCurrentReport
+        );
+
+        // set currentreport to spacereport
+        this.$store.commit("setCurrentReport", this.currentreport);
+      } else {
+        this.currentreport = this.$store.state.spacereport;
+      }
+    },
     async fetchData() {
       let currentTimestamp = Math.floor(Date.now() / 1000);
       const response = await fetch(
         `https://api.wheretheiss.at/v1/satellites/25544/positions?timestamps=${currentTimestamp}`
       );
       const data = await response.json();
-      this.missionlongitude = data[0].longitude;
-      this.missionlatitude = data[0].latitude;
+      let missionlongitude = data[0].longitude;
+      let missionlatitude = data[0].latitude;
+
+      this.missionlongitude = missionlongitude;
+      this.missionlatitude = missionlatitude;
+
+      this.allCoordinates.push({
+        missionlongitude: missionlongitude,
+        missionlatitude: missionlatitude,
+      });
+      this.marker = new mapboxgl.Marker()
+        .setLngLat([missionlongitude, missionlatitude])
+        .addTo(this.map);
+
+      this.map.setCenter([missionlongitude, missionlatitude]);
+    },
+    populateMapWithOldCoordinates() {
+      const oldCoordinates = this.$store.state.spacereport.allCoordinates;
+      if (oldCoordinates.length) {
+        oldCoordinates.forEach((coordinateSet) => {
+          new mapboxgl.Marker()
+            .setLngLat([
+              coordinateSet.missionlongitude,
+              coordinateSet.missionlatitude,
+            ])
+            .addTo(this.map);
+        });
+      }
     },
     createMap() {
-      const mapboxgl = require("mapbox-gl");
       this.map = new mapboxgl.Map({
         accessToken:
           "pk.eyJ1Ijoic2ltb25lbWlhciIsImEiOiJjbDdybG5ndWowNWFoM3dxcmQwM2Fkd2p6In0.Sz0xWuvcc431FpZdXOwBsQ",
         container: "map", // <div id="map"></div>
         style: "mapbox://styles/mapbox/streets-v11", // default style
-        center: [this.missionlongitude, this.missionlatitude], // starting position as [lng, lat]
+        // center: [this.missionlongitude, this.missionlatitude], // starting position as [lng, lat]
         zoom: 3,
       });
-
-      const oldcoordinates = this.$store.state.spacereport.oldcoordinates;
-      const oldcoordinatesLength =
-        this.$store.state.spacereport.oldcoordinates.length;
-
-      // Create a default Marker and add it to the map.
-      if (!oldcoordinatesLength) {
-        console.log("first marker");
-        this.marker = new mapboxgl.Marker()
-          .setLngLat([this.missionlongitude, this.missionlatitude])
-          .addTo(this.map);
-        this.$store.commit("oldCoordinates", this.coordinates);
-      } else {
-        console.log("load in old coordinates");
-        for (let i = 0; i < oldcoordinatesLength; i++) {
-          new mapboxgl.Marker()
-            .setLngLat([
-              oldcoordinates[i].missionlongitude,
-              oldcoordinates[i].missionlatitude,
-            ])
-            .addTo(this.map);
-          console.log("first new marker");
-          this.marker = new mapboxgl.Marker()
-            .setLngLat([this.missionlongitude, this.missionlatitude])
-            .addTo(this.map);
-        }
-        //oldcoordinates.forEach((location) => {
-        //const el = document.createElement("div");
-        // add marker to map
-        //console.log("location", location);
-        // new mapboxgl.Marker()
-        //   .setLngLat([location.missionlongitude, location.lamissionlatitudet])
-        //   .addTo(this.map);
-
-        // this.oldcoordinates.push(this.marker);
-        //});
-      }
     },
-    updateMarker() {
-      this.marker.setLngLat([this.missionlongitude, this.missionlatitude]);
-      this.$store.commit("oldCoordinates", this.coordinates);
-      console.log("the coordi", this.coordinates);
 
-      const mapboxgl = require("mapbox-gl");
-      const oldcoordinates = this.$store.state.spacereport.oldcoordinates;
-      const oldcoordinatesLength =
-        this.$store.state.spacereport.oldcoordinates.length;
-      for (let i = 0; i < oldcoordinatesLength; i++) {
-        // console.log("test marker", oldcoordinates);
-        new mapboxgl.Marker()
-          .setLngLat([
-            oldcoordinates[i].missionlongitude,
-            oldcoordinates[i].missionlatitude,
-          ])
-          .addTo(this.map);
-      }
-    },
-    updateMap() {
-      this.map.setCenter([this.missionlongitude, this.missionlatitude]);
-    },
-    updateOldMarker() {},
-    updateMapAndMarker() {
-      this.fetchData();
-      this.updateMap();
-      this.updateMarker();
-    },
     updateStore() {
       this.$store.commit("setCompleted", {
         key: "ismapcompleted",
         value: true,
       });
-      // this.$store.commit("setCoordinates", {
-      //   key: "missionlatitude",
-      //   value: this.missionlatitude,
-      // });
-      // this.$store.commit("setCoordinates", {
-      //   key: "missionlongitude",
-      //   value: this.missionlongitude,
-      // });
-      this.$store.commit("setSpacereport", {
-        key: "oldcoordinates",
-        value: this.$store.state.spacereport.oldcoordinates,
+      this.$store.commit("setCoordinates", {
+        key: "missionlongitude",
+        value: this.missionlongitude,
       });
+      this.$store.commit("setCoordinates", {
+        key: "missionlatitude",
+        value: this.missionlatitude,
+      });
+
+      this.$store.commit("setAllCoordinates", this.allCoordinates);
+
       this.updateLocalstorage();
       this.$router.push("/flow/overview");
     },
     updateLocalstorage() {
       let getCurrentReport = localStorage.getItem("currentReport");
       let parseCurrentReport = JSON.parse(getCurrentReport);
-      console.log("actual current", parseCurrentReport);
+      console.log("parse report", parseCurrentReport);
       let currentReport = {
         ...parseCurrentReport,
+        allCoordinates: this.allCoordinates,
         ...{
           coordinates: {
             missionlongitude: this.missionlongitude,
             missionlatitude: this.missionlatitude,
           },
-          oldcoordinates: this.$store.state.spacereport.oldcoordinates,
+          allCoordinates: this.allCoordinates,
           iscompleted: {
             ...parseCurrentReport.iscompleted,
             ismapcompleted:
@@ -208,33 +190,9 @@ export default {
     spacereport() {
       return this.$store.getters.spacereport.spacereport;
     },
-    coordinates() {
-      return this.$store.getters.spacereport.coordinates;
-    },
+
     iscompleted() {
       return this.$store.getters.spacereport.iscompleted;
-    },
-    missionlongitude: {
-      get() {
-        return this.$store.getters.spacereport.coordinates.missionlongitude;
-      },
-      set(newValue) {
-        return this.$store.commit("setCoordinates", {
-          key: "missionlongitude",
-          value: newValue,
-        });
-      },
-    },
-    missionlatitude: {
-      get() {
-        return this.$store.getters.spacereport.coordinates.missionlatitude;
-      },
-      set(newValue) {
-        return this.$store.commit("setCoordinates", {
-          key: "missionlatitude",
-          value: newValue,
-        });
-      },
     },
   },
 };

@@ -8,6 +8,7 @@ let defaultSpacereport = {
   missionimages: [],
   newmissionimages: [],
   oldcoordinates: [],
+  allCoordinates: [],
   coordinates: {
     missionlongitude: "",
     missionlatitude: "",
@@ -43,6 +44,10 @@ export const mutations = {
   setCompleted(state, { key, value }) {
     state.spacereport.iscompleted[key] = value;
   },
+  setAllCoordinates(state, payload) {
+    console.log("payload", payload);
+    state.spacereport.allCoordinates = [...payload];
+  },
   setSpacereports(state, newState) {
     state.spacereports = newState;
   },
@@ -77,7 +82,6 @@ export const mutations = {
       state.spacereport.missionimages.indexOf(payload),
       1
     );
-    // console.log("misimg ", state.spacereport.missionimages);
     state.spacereport.newmissionimages = [
       ...state.spacereport.newmissionimages,
       payload,
@@ -87,6 +91,13 @@ export const mutations = {
   oldCoordinates(state, payload) {
     console.log("payload", payload);
     state.spacereport.oldcoordinates.push(payload);
+  },
+  setCurrentReport(state, payload) {
+    Object.assign(state.spacereport, payload);
+  },
+  setSpacereportToCurrentreport(state, payload) {
+    Object.assign(payload, state.spacereport);
+    localStorage.setItem("currentReport", JSON.stringify(payload));
   },
 };
 

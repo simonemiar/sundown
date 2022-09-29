@@ -30,22 +30,50 @@ h1 {
   @apply text-3xl;
 }
 
-.login-enter-active,
-.login-leave-active {
-  transition: opacity 0.2s;
-}
-.login-enter,
-.login-leave-active {
-  opacity: 0;
+.page-enter-active {
+  animation: bounce-in 0.5s;
 }
 
-.page-enter-active,
 .page-leave-active {
-  transition: opacity 0.2s;
+  animation: bounce-out 0.5s;
 }
-.page-enter,
+
+.fade {
+  animation: fade 0.5s;
+}
+
+.page-enter-active {
+  animation: bounce-in 0.3s;
+}
+
 .page-leave-active {
-  opacity: 0;
+  animation: bounce-out 0.3s;
+}
+
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes bounce-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .progressstep {
@@ -76,23 +104,23 @@ section {
 /* .log-cloud {
   @apply bg-[url('assets/img/login-cloud.png')] w-16 h-10 absolute z-10;
 } */
-.log-cloud {
-  @apply w-16 h-10 absolute z-20;
+.log-spaceship {
+  @apply w-16 h-10 absolute z-10;
 }
-.cloud1 {
+.spaceship1 {
   @apply scale-50 animate-spin3;
 }
-.cloud2 {
+.spaceship2 {
   @apply animate-spin3;
 }
-.cloud3 {
+.spaceship3 {
   @apply scale-50 animate-spin;
 }
-.cloud4 {
+.spaceship4 {
   @apply scale-75 animate-spin1;
 }
 .log-bg {
-  @apply w-full h-80 overflow-hidden relative;
+  @apply overflow-hidden relative;
 }
 
 @keyframes spin {

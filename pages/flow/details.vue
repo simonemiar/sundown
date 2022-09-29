@@ -1,21 +1,11 @@
 <template>
   <div class="bg-blue-50 w-screen h-screen">
-    <!-- <div class="max-w-screen-lg m-auto px-6">
-      <p class="m-2 text-red-700" v-if="errors.length">
-        <b>please correct the following errors</b>
-        <ul>
-          <li v-for="(error, index) in errors" :key="index">
-            {{error}}
-          </li>
-        </ul>
-      </p>
-    </div> -->
     <section id="section_layout" class="sm:grid sm:grid-cols-2">
       <div class="m-2 h-full">
         <div>
           <label class="font-bold">Mission name</label>
-          <span class="text-red-700 text-sm" v-if="msg.missionname">{{
-            msg.missionname
+          <span class="text-red-700 text-sm" v-if="errormissionname.length">{{
+            errormissionname
           }}</span>
           <input
             v-model="missionname"
@@ -28,8 +18,8 @@
 
         <div class="h-full mt-1">
           <label class="font-bold">Mission description</label>
-          <span class="text-red-700 text-sm" v-if="msg.missiondesc">{{
-            msg.missiondesc
+          <span class="text-red-700 text-sm" v-if="errormissiondesc.length">{{
+            errormissiondesc
           }}</span>
           <textarea
             v-model="missiondesc"
@@ -56,9 +46,11 @@
       </div>
     </section>
     <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto">
-      <button class="secondary-button" @click="resetReport">back</button>
+      <button class="secondary-button back-enter-active" @click="resetReport">
+        back
+      </button>
       <button
-        class="primary-button"
+        class="primary-button back-enter-active"
         @click="
           updateStore();
           validateInput();
@@ -78,8 +70,8 @@ export default {
     return {
       missionid: this.$store.state.spacereport.missionid,
       missiondate: new Date(this.$store.state.spacereport.missiondate),
-      // errors: [],
-      msg: [],
+      errormissiondesc: [],
+      errormissionname: [],
       currentreport: {},
       isdetailscompleted:
         this.$store.state.spacereport.iscompleted.isdetailscompleted,
@@ -102,6 +94,11 @@ export default {
     } else {
       this.$router.push({ path: "/login" });
     }
+    if (this.isdetailscompleted === true) {
+      console.log(this.spacereport);
+      let currentReport = {};
+      this.$store.commit("setSpacereportToCurrentreport", currentReport);
+    }
     if (localStorage.currentReport) {
       let getCurrentReport = localStorage.getItem("currentReport");
       let parseCurrentReport = JSON.parse(getCurrentReport);
@@ -109,8 +106,9 @@ export default {
         this.currentreport,
         parseCurrentReport
       );
-      realCurrentReport = this.$store.state.spacereport;
-      // test of the user in the vuex
+
+      // set currentreport to spacereport
+      this.$store.commit("setCurrentReport", this.currentreport);
 
       this.missiondate = new Date(this.currentreport.missiondate);
       console.log("date", this.currentreport);
@@ -124,42 +122,25 @@ export default {
       this.$router.push("/");
     },
     validateInput() {
-      if (!this.missionname.length && !this.missiondesc.length) {
-        console.log("there is no missionname or mission description");
-        this.msg["missionname"] = "(Missionname required)";
-        this.msg["missiondesc"] = "(Mission description required)";
-      } else if (this.missionname === "") {
-        console.log("there is no missionname");
-        this.msg["missionname"] = "(Missionname required)";
-        this.msg["missiondesc"] = "";
-      } else if (this.missiondesc === "") {
-        console.log("there is no missiondesc");
-        this.msg["missiondesc"] = "(Mission description required)";
-        this.msg["missionname"] = "";
-      } else {
+      this.errormissionname = [];
+      this.errormissiondesc = [];
+      if (
+        this.$store.state.spacereport.missionname &&
+        this.$store.state.spacereport.missiondesc
+      ) {
         console.log("match");
-        this.msg["missionname"] = "";
-        this.msg["missiondesc"] = "";
         this.$store.commit("setCompleted", {
           key: "isdetailscompleted",
           value: true,
         });
         this.updateLocalstorage();
         this.$router.push({ path: "/flow/images" });
+      } else {
+        if (!this.$store.state.spacereport.missionname)
+          this.errormissionname = "(Missionname required)";
+        if (!this.$store.state.spacereport.missiondesc)
+          this.errormissiondesc = "(Missiondesc required)";
       }
-      // this.errors = []
-      // if (
-      //   this.$store.state.spacereport.missionname &&
-      //   this.$store.state.spacereport.missiondesc
-      // ) {
-      //   console.log("match");
-      //   this.$router.push({ path: "/flow/images" });
-      // } else {
-      //   if (!this.$store.state.spacereport.missionname)
-      //     this.errors.push("Missionname required");
-      //   if (!this.$store.state.spacereport.missiondesc)
-      //     this.errors.push("Missiondesc required");
-      // }
     },
     updateStore() {
       this.$store.commit("setSpacereport", {
@@ -183,7 +164,6 @@ export default {
             this.$store.state.spacereport.iscompleted.isdetailscompleted,
         },
       };
-      console.log("local test");
       localStorage.setItem("currentReport", JSON.stringify(currentReport));
     },
   },
@@ -223,11 +203,6 @@ export default {
         });
       },
     },
-    // watch: {
-    //   currentreport(newReport) {
-    //     localStorage.currentReport = newReport;
-    //   },
-    // },
   },
 };
 </script>
