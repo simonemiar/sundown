@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen fade">
+  <div class="w-screen h-screen page-enter-active">
     <button class="bold absolute top-1 right-1" @click="clearUser">
       <img class="w-10 h-10" src="../assets/img/logout.png" alt="logout" />
     </button>

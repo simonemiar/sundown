@@ -31,40 +31,7 @@ h1 {
 }
 
 .page-enter-active {
-  animation: bounce-in 0.8s;
-}
-
-.page-leave-active {
-  animation: bounce-out 0.5s;
-}
-
-.fade {
   animation: fade 0.5s;
-}
-
-.page-enter-active {
-  animation: bounce-in 0.3s;
-}
-
-.page-leave-active {
-  animation: bounce-out 0.3s;
-}
-
-@keyframes bounce-in {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes bounce-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
 }
 
 @keyframes fade {
@@ -101,36 +68,43 @@ section {
   @apply w-full transition-all duration-500 ease-in-out;
 }
 
-/* .log-cloud {
-  @apply bg-[url('assets/img/login-cloud.png')] w-16 h-10 absolute z-10;
-} */
-.log-spaceship {
-  @apply w-16 h-10 absolute z-10;
-}
-.spaceship1 {
-  @apply scale-50 animate-spin3;
-}
-.spaceship2 {
-  @apply animate-spin3;
-}
-.spaceship3 {
-  @apply scale-50 animate-spin;
-}
-.spaceship4 {
-  @apply scale-75 animate-spin1;
-}
-.log-bg {
-  @apply overflow-hidden relative;
+.focus-in-contract-bck {
+  -webkit-animation: focus-in-contract-bck 1s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: focus-in-contract-bck 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-@keyframes spin {
+@-webkit-keyframes focus-in-contract-bck {
   0% {
-    left: 0;
-  }
-  50% {
-    left: 100%;
+    letter-spacing: 1em;
+    -webkit-transform: translateZ(300px);
+    transform: translateZ(300px);
+    -webkit-filter: blur(12px);
+    filter: blur(12px);
+    opacity: 0;
   }
   100% {
-    left: 0;
+    -webkit-transform: translateZ(12px);
+    transform: translateZ(12px);
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+@keyframes focus-in-contract-bck {
+  0% {
+    letter-spacing: 1em;
+    -webkit-transform: translateZ(300px);
+    transform: translateZ(300px);
+    -webkit-filter: blur(12px);
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(12px);
+    transform: translateZ(12px);
+    -webkit-filter: blur(0);
+    filter: blur(0);
+    opacity: 1;
   }
 }

@@ -1,28 +1,10 @@
 <template>
   <div class="w-screen h-screen bg-blue-50 page-enter-active">
     <div class="log-bg w-4/5 m-auto sm:py-5">
-      <!-- <img
-        class="log-spaceship spaceship1"
-        src="../assets/img/spaceship.svg"
-        alt="spaceship"
-      />
-      <img
-        class="log-spaceship spaceship2"
-        src="../assets/img/spaceship.svg"
-        alt="spaceship"
-      />
-      <img
-        class="log-spaceship spaceship3 opacity-40"
-        src="../assets/img/spaceship.svg"
-        alt="spaceship"
-      />
-      <img
-        class="log-spaceship spaceship4"
-        src="../assets/img/spaceship.svg"
-        alt="spaceship"
-      /> -->
-      <h1 class="font-bold text-blue-800 text-center text-5xl lg:text-7xl">
-        WELCOME TO MRT
+      <h1
+        class="font-bold text-blue-800 text-center py-5 text-6xl focus-in-contract-bck"
+      >
+        MRT
       </h1>
     </div>
     <div class="grid sm:flex justify-center">

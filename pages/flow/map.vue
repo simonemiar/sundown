@@ -29,7 +29,6 @@
             {{ missionlongitude }}
           </div>
         </div>
-        <!-- <pre>{{ this.allCoordinates }}</pre> -->
       </div>
     </section>
     <div class="flex px-8 place-content-between max-w-screen-lg sm:m-auto">
@@ -57,8 +56,7 @@ export default {
       marker: null,
       missionlongitude: "",
       missionlatitude: "",
-      // coordinates: this.$store.state.spacereport.coordinates,
-      // ismapcompleted: this.$store.state.spacereport.iscompleted.ismapcompleted,
+      ismapcompleted: this.$store.state.spacereport.iscompleted.ismapcompleted,
       currentreport: {},
       allCoordinates: [],
     };
@@ -78,9 +76,6 @@ export default {
     console.log("fetch baby");
     setInterval(this.fetchData, 60000);
     this.setLocalStorage();
-
-    // first we call the function updateFetch which call and sets the data and ends with creating the map
-    // then we call the interval, without the () from the function because if we use them, then it will run the function twice
   },
   methods: {
     setLocalStorage() {
@@ -139,7 +134,6 @@ export default {
           "pk.eyJ1Ijoic2ltb25lbWlhciIsImEiOiJjbDdybG5ndWowNWFoM3dxcmQwM2Fkd2p6In0.Sz0xWuvcc431FpZdXOwBsQ",
         container: "map", // <div id="map"></div>
         style: "mapbox://styles/mapbox/streets-v11", // default style
-        // center: [this.missionlongitude, this.missionlatitude], // starting position as [lng, lat]
         zoom: 3,
       });
     },
