@@ -60,12 +60,13 @@ export default {
     };
   },
   mounted() {
-    //
-    let getReport = localStorage.getItem("reports");
-    let parseReport = JSON.parse(getReport);
+    if (localStorage.reports) {
+      let getReport = localStorage.getItem("reports");
+      let parseReport = JSON.parse(getReport);
 
-    if (parseReport !== undefined) {
-      this.reports = parseReport;
+      if (parseReport !== undefined) {
+        this.reports = parseReport;
+      }
     }
 
     this.$store.commit("setCompleted", {
