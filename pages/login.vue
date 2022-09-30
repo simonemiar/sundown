@@ -26,7 +26,7 @@
             type="text"
             v-model="usernameoremail"
             placeholder="Please enter your email or username"
-            @change="handleUsernameOrEmailChange()"
+            v-blur="handleUsernameOrEmailChange()"
           />
         </div>
         <span class="text-red-700" v-if="msg.usernameoremail">{{
@@ -41,7 +41,7 @@
             type="password"
             v-model="password"
             placeholder="Please enter your password"
-            @change="handlePasswordChange()"
+            v-blur="handlePasswordChange()"
           />
         </div>
         <span class="text-red-700" v-if="msg.password">{{ msg.password }}</span>

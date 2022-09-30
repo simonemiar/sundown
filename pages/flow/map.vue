@@ -75,24 +75,24 @@ export default {
     await this.fetchData();
     console.log("fetch baby");
     setInterval(this.fetchData, 60000);
-    this.setLocalStorage();
+    // this.setLocalStorage();
   },
   methods: {
-    setLocalStorage() {
-      if (localStorage.currentReport) {
-        let getCurrentReport = localStorage.getItem("currentReport");
-        let parseCurrentReport = JSON.parse(getCurrentReport);
-        let realCurrentReport = Object.assign(
-          this.currentreport,
-          parseCurrentReport
-        );
+    // setLocalStorage() {
+    //   if (localStorage.currentReport) {
+    //     let getCurrentReport = localStorage.getItem("currentReport");
+    //     let parseCurrentReport = JSON.parse(getCurrentReport);
+    //     let realCurrentReport = Object.assign(
+    //       this.currentreport,
+    //       parseCurrentReport
+    //     );
 
-        // set currentreport to spacereport
-        this.$store.commit("setCurrentReport", this.currentreport);
-      } else {
-        this.currentreport = this.$store.state.spacereport;
-      }
-    },
+    //     // set currentreport to spacereport
+    //     this.$store.commit("setCurrentReport", this.currentreport);
+    //   } else {
+    //     this.currentreport = this.$store.state.spacereport;
+    //   }
+    // },
     async fetchData() {
       let currentTimestamp = Math.floor(Date.now() / 1000);
       const response = await fetch(

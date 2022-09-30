@@ -53,13 +53,21 @@ export default {
   layout: "flow",
   data() {
     return {
-      reports: JSON.parse(localStorage.getItem("reports")),
+      reports: [],
       isoverviewcompleted:
         this.$store.state.spacereport.iscompleted.isoverviewcompleted,
       currentreport: {},
     };
   },
   mounted() {
+    //
+    let getReport = localStorage.getItem("reports");
+    let parseReport = JSON.parse(getReport);
+
+    if (parseReport !== undefined) {
+      this.reports = parseReport;
+    }
+
     this.$store.commit("setCompleted", {
       key: "isoverviewcompleted",
       value: true,
@@ -77,14 +85,14 @@ export default {
 
       this.missiondate = new Date(this.currentreport.missiondate);
       console.log("date", this.currentreport);
-      this.updateLocalstorage;
+      this.updateCurrentStorage();
     } else {
       this.currentreport = this.$store.state.spacereport;
-      this.updateLocalstorage;
+      this.updateCurrentStorage();
     }
   },
   methods: {
-    updateLocalstorage() {
+    updateCurrentStorage() {
       let getCurrentReport = localStorage.getItem("currentReport");
       let parseCurrentReport = JSON.parse(getCurrentReport);
       console.log("parse report", parseCurrentReport);

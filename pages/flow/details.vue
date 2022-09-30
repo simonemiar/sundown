@@ -154,7 +154,7 @@ export default {
     updateLocalstorage() {
       let currentReport = {
         missionuser: this.$store.state.spacereport.missionuser,
-        missionid: this.missionid,
+        missionid: this.$store.state.spacereport.missionid,
         missionname: this.missionname,
         missiondesc: this.missiondesc,
         missiondate: this.missiondate,
@@ -176,8 +176,8 @@ export default {
     missionname: {
       get() {
         return (
-          this.currentreport.missionname ||
-          this.$store.getters.spacereport.missionname
+          this.$store.getters.spacereport.missionname ||
+          this.currentreport.missionname
         );
       },
       set(newValue) {
@@ -191,8 +191,8 @@ export default {
     missiondesc: {
       get() {
         return (
-          this.currentreport.missiondesc ||
-          this.$store.getters.spacereport.missiondesc
+          this.$store.getters.spacereport.missiondesc ||
+          this.currentreport.missiondesc
         );
       },
       set(newValue) {
