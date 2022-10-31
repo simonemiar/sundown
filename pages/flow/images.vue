@@ -65,8 +65,9 @@ export default {
   },
   // https://api.nuxtjs.dev/mountains
   //     'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15'
+  // 33FwE0MvWwZSp4zdEjnccK2wfLGQ6CaMwZtL6P8f
   async fetch() {
-    const data = await fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=15').then((res) =>
+    const data = await fetch('https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?api_key=DEMO_KEY&sol=33FwE0MvWwZSp4zdEjnccK2wfLGQ6CaMwZtL6P8f').then((res) =>
       res.json()
     )
     console.log(data)
@@ -84,7 +85,8 @@ export default {
       // set currentreport to spacereport
       this.$store.commit("setCurrentReport", this.currentreport);
     } else {
-      this.currentreport = this.$store.state.spacereport;
+      //this.currentreport = this.$store.state.spacereport;
+      this.$store.commit("setCurrentReport", this.currentreport)
     }
   },
   methods: {

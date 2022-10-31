@@ -94,11 +94,11 @@ export default {
     } else {
       this.$router.push({ path: "/login" });
     }
-    if (this.isdetailscompleted === true) {
-      console.log(this.spacereport);
-      let currentReport = {};
-      this.$store.commit("setSpacereportToCurrentreport", currentReport);
-    }
+    // if (this.isdetailscompleted === true) {
+    //   console.log(this.spacereport);
+    //   let currentReport = {};
+    //   this.$store.commit("setSpacereportToCurrentreport", currentReport);
+    // }
     if (localStorage.currentReport) {
       let getCurrentReport = localStorage.getItem("currentReport");
       let parseCurrentReport = JSON.parse(getCurrentReport);
@@ -113,7 +113,8 @@ export default {
       this.missiondate = new Date(this.currentreport.missiondate);
       console.log("date", this.currentreport);
     } else {
-      this.currentreport = this.$store.state.spacereport;
+      this.$store.commit("setCurrentReport", this.currentreport);
+      // this.currentreport = this.$store.state.spacereport;
     }
   },
   methods: {
@@ -152,18 +153,23 @@ export default {
       });
     },
     updateLocalstorage() {
-      let currentReport = {
-        missionuser: this.$store.state.spacereport.missionuser,
-        missionid: this.$store.state.spacereport.missionid,
-        missionname: this.missionname,
-        missiondesc: this.missiondesc,
-        missiondate: this.missiondate,
-        iscompleted: {
-          isdetailscompleted:
-            this.$store.state.spacereport.iscompleted.isdetailscompleted,
-        },
-      };
-      localStorage.setItem("currentReport", JSON.stringify(currentReport));
+      if (localStorage.currentReport) {
+        const currentReport = this.currentreport;
+        localStorage.setItem("currentReport", JSON.stringify(currentReport));
+      } else {
+        let currentReport = {
+          missionuser: this.$store.state.spacereport.missionuser,
+          missionid: this.$store.state.spacereport.missionid,
+          missionname: this.missionname,
+          missiondesc: this.missiondesc,
+          missiondate: this.missiondate,
+          iscompleted: {
+            isdetailscompleted:
+              this.$store.state.spacereport.iscompleted.isdetailscompleted,
+          },
+        };
+        localStorage.setItem("currentReport", JSON.stringify(currentReport));
+      }
     },
   },
   computed: {

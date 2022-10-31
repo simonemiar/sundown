@@ -1,6 +1,6 @@
 <template>
   <div class="w-screen h-screen page-enter-active">
-    <button class="bold absolute top-1 right-1" @click="clearUser">
+    <button class="absolute bold top-1 right-1" @click="clearUser">
       <img class="w-10 h-10" src="../assets/img/logout.png" alt="logout" />
     </button>
     <div>
@@ -14,10 +14,10 @@
           <p class="my-2">space reports created by {{ user.first_name }}</p>
           <div
             id="report_container"
-            class="border border-gray-300 overflow-scroll h-4/5 rounded"
+            class="overflow-scroll border border-gray-300 rounded h-4/5"
           >
             <p
-              class="h-full flex items-center justify-center"
+              class="flex items-center justify-center h-full"
               v-if="!reports.length"
             >
               no spacereports saved
@@ -33,15 +33,15 @@
                   v-for="(report, index) in reportsFilterAndSort()"
                   :key="report.missionid"
                   :data-index="index"
-                  class="card grid mx-3 bg-blue-300 rounded sm:grid-cols-3"
+                  class="grid mx-3 bg-blue-300 rounded card sm:grid-cols-3"
                 >
                   <div class="p-3 sm:col-span-2">
                     <p
-                      class="text-left font-bold text-lg uppercase overflow-hidden whitespace-nowrap overflow-ellipsis"
+                      class="overflow-hidden text-lg font-bold text-left uppercase whitespace-nowrap overflow-ellipsis"
                     >
                       {{ report.missionname }}
                     </p>
-                    <p class="text-left text-sm">
+                    <p class="text-sm text-left">
                       <span class="font-bold">DATE:</span>
                       {{ formatDate(report.missiondate) }}
                       <!-- {{ displaydate }} -->
@@ -49,13 +49,13 @@
                   </div>
                   <div class="grid sm:col-span-1 sm:row-span-2">
                     <button
-                      class="edit-button text-sm sm:m-0"
+                      class="text-sm edit-button sm:m-0"
                       @click="editReport(report)"
                     >
                       edit
                     </button>
                     <button
-                      class="delete-button text-sm"
+                      class="text-sm delete-button"
                       @click="removeReport(index, report)"
                     >
                       delete
@@ -67,13 +67,13 @@
           </div>
         </div>
         <div
-          class="sm:m-10 sm:p-4 row-start-1 row-end-2 sm:row-start-2 sm:row-end-3"
+          class="row-start-1 row-end-2 sm:m-10 sm:p-4 sm:row-start-2 sm:row-end-3"
         >
-          <button class="report-button grid" @click="resetReport">
+          <button class="grid report-button" @click="resetReport">
             + create new space report
           </button>
 
-          <p class="font-bold sm:text-xl mt-4 uppercase">fun space facts</p>
+          <p class="mt-4 font-bold uppercase sm:text-xl">fun space facts</p>
           <p>
             From Siberia to the Sahara, Earth experiences an extensive range of
             temperatures. Records exist as high as 57°C and all the way down to
@@ -97,22 +97,6 @@
 <script>
 import gsap from "gsap";
 export default {
-  setup() {
-    const beforeEnter = (el) => {
-      el.style.opacity = 0;
-      el.style.transform = "translateY(100px)";
-    };
-    const enter = (el, done) => {
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 0.2,
-        onComplete: done,
-        delay: el.dataset.index * 0.1,
-      });
-    };
-    return { beforeEnter, enter };
-  },
   name: "App",
   transition: "indexpage",
   data() {
@@ -133,14 +117,28 @@ export default {
     } else {
       this.$router.push({ path: "/login" });
     }
-    let currentReport = {};
-    this.$store.commit("setSpacereportToCurrentreport", currentReport);
+    // let currentReport = {};
+    // this.$store.commit("setSpacereportToCurrentreport", currentReport);
 
     if (localStorage.reports) {
       this.reports = JSON.parse(localStorage.reports);
     }
   },
   methods: {
+    beforeEnter(el) {
+      el.style.opacity = 0;
+      el.style.transform = "translateY(100px)";
+    },
+    enter(el, done) {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 0.2,
+        onComplete: done,
+        delay: el.dataset.index * 0.5,
+      });
+    },
+
     reportsFilterAndSort() {
       return this.reports
         .filter((word) => word.missionuser == this.spacereport.missionuser)

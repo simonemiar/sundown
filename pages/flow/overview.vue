@@ -84,11 +84,12 @@ export default {
       // set currentreport to spacereport
       this.$store.commit("setCurrentReport", this.currentreport);
 
-      this.missiondate = new Date(this.currentreport.missiondate);
       console.log("date", this.currentreport);
       this.updateCurrentStorage();
     } else {
-      this.currentreport = this.$store.state.spacereport;
+      this.$store.commit("setCurrentReport", this.currentreport);
+      // this.$store.state.spacereport = this.currentreport;
+      console.log("iscompleted", this.spacereport.iscompleted);
       this.updateCurrentStorage();
     }
   },
@@ -105,6 +106,10 @@ export default {
             isoverviewcompleted:
               this.$store.state.spacereport.iscompleted.isoverviewcompleted,
           },
+          // iscompleted: {
+          //   ...parseCurrentReport.iscompleted,
+          //   isoverviewcompleted: this.isoverviewcompleted,
+          // },
         },
       };
       localStorage.setItem("currentReport", JSON.stringify(currentReport));
@@ -120,8 +125,12 @@ export default {
       );
       console.log("find report", findReport);
       if (findReport) {
-        this.reports.splice(this.reports.indexOf(findReport), 1);
-        this.reports.push(this.spacereport);
+        // Add to a specified location
+        this.reports.splice(
+          this.reports.indexOf(findReport),
+          1,
+          this.spacereport
+        );
       } else {
         this.reports.push(this.spacereport);
       }

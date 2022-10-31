@@ -26,11 +26,11 @@
             type="text"
             v-model="usernameoremail"
             placeholder="Please enter your email or username"
-            v-blur="handleUsernameOrEmailChange()"
+            @blur="handleUsernameOrEmailChange"
           />
         </div>
-        <span class="text-red-700" v-if="msg.usernameoremail">{{
-          msg.usernameoremail
+        <span class="text-red-700" v-if="msgUsernameorPassword">{{
+          msgUsernameorPassword
         }}</span>
         <div class="grid">
           <label class="font-semibold" for="password">Password:</label>
@@ -41,10 +41,11 @@
             type="password"
             v-model="password"
             placeholder="Please enter your password"
-            v-blur="handlePasswordChange()"
+            @blur="handlePasswordChange"
           />
         </div>
-        <span class="text-red-700" v-if="msg.password">{{ msg.password }}</span>
+        <!-- <span class="text-red-700" v-if="msg.password">{{ msg.password }}</span> -->
+        <span class="text-red-700" v-if="msgPassword">{{ msgPassword }}</span>
         <button type="submit" class="primary-button my-4">login</button>
       </form>
     </div>
@@ -64,6 +65,8 @@ export default {
       password: "",
       user: [""],
       msg: [],
+      msgPassword: "",
+      msgUsernameorPassword: "",
     };
   },
   mounted() {
@@ -81,6 +84,7 @@ export default {
   },
   methods: {
     handleUsernameOrEmailChange() {
+      console.log("blur");
       let checkEmail = users.some((object) => {
         return object.email === this.usernameoremail;
       });
@@ -90,13 +94,13 @@ export default {
 
       if (checkEmail) {
         console.log("this is an email");
-        this.msg["usernameoremail"] = "";
+        this.msgUsernameorPassword = "";
       } else if (checkUsername) {
         console.log("this is an username");
-        this.msg["usernameoremail"] = "";
+        this.msgUsernameorPassword = "";
       } else {
         console.log("this is not an email");
-        this.msg["usernameoremail"] = "Invalid Username or Email";
+        this.msgUsernameorPassword = "Invalid Username or Email";
       }
     },
     handlePasswordChange() {
@@ -105,11 +109,13 @@ export default {
       });
 
       if (checkPassword) {
+        console.log("blur 2");
         console.log("this is an correct password");
-        this.msg["password"] = "";
+        this.msgPassword = "";
       } else {
+        console.log("blur 3");
         console.log("this is not an correct password");
-        this.msg["password"] = "Invalid password";
+        this.msgPassword = "Invalid password";
       }
     },
     submitLogin() {

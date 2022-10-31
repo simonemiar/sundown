@@ -94,6 +94,7 @@ export const mutations = {
   },
   setCurrentReport(state, payload) {
     Object.assign(state.spacereport, payload);
+    localStorage.setItem("currentReport", JSON.stringify(state.spacereport));
   },
   setSpacereportToCurrentreport(state, payload) {
     // Object.assign(payload, state.spacereport);

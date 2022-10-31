@@ -5,7 +5,7 @@
       :src="image.img_src"
       @click="clickImage(image)"
       alt="space image"
-      v-lazy-load
+      loading="lazy"
     />
   </div>
 </template>
