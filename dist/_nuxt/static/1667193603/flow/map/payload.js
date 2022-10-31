@@ -1,0 +1,1 @@
+__NUXT_JSONP__("/flow/map", {data:[{}],fetch:{},mutations:[]});
