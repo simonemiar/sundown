@@ -1,13 +1,13 @@
 <template>
   <div class="w-screen h-screen bg-blue-50 page-enter-active">
-    <div class="log-bg w-4/5 m-auto sm:py-5">
+    <div class="w-4/5 m-auto log-bg sm:py-5">
       <h1
-        class="font-bold text-blue-800 text-center py-5 text-6xl focus-in-contract-bck"
+        class="py-5 text-6xl font-bold text-center text-blue-800 focus-in-contract-bck"
       >
         MRT
       </h1>
     </div>
-    <div class="grid sm:flex justify-center">
+    <div class="grid justify-center sm:flex">
       <div class="m-1">
         <p class="font-semibold">What is MRT</p>
         <p class="sm:w-[37ch] mb-1.5">
@@ -20,7 +20,7 @@
         <div class="grid">
           <label class="font-semibold" for="text">Username or Email</label>
           <input
-            class="my-1 border-solid border p-1 border-black"
+            class="p-1 my-1 border border-black border-solid"
             id="usernameoremail"
             name="usernameoremail"
             type="text"
@@ -35,7 +35,7 @@
         <div class="grid">
           <label class="font-semibold" for="password">Password:</label>
           <input
-            class="my-1 border-solid border p-1 border-black"
+            class="p-1 my-1 border border-black border-solid"
             id="password"
             name="password"
             type="password"
@@ -46,9 +46,11 @@
         </div>
         <!-- <span class="text-red-700" v-if="msg.password">{{ msg.password }}</span> -->
         <span class="text-red-700" v-if="msgPassword">{{ msgPassword }}</span>
-        <button type="submit" class="primary-button my-4">login</button>
+        <button type="submit" class="my-4 primary-button">login</button>
       </form>
     </div>
+    <p>Data til login - Kun til praktik rapport bedømmere</p>
+    <pre class="text-xs">{{ users }}</pre>
   </div>
 </template>
 
@@ -140,6 +142,11 @@ export default {
       } else {
         alert("We could not find the user\nPlease checkout below errors");
       }
+    },
+  },
+  computed: {
+    users() {
+      return users;
     },
   },
 };
